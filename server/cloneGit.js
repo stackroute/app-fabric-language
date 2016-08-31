@@ -1,27 +1,25 @@
 const spawn = require('child_process').spawn;
 
-//var repoURL = 'https://github.com/Ashok-Kumar-Venaktesh/Assignments.git';
-var cloneGit = function(para1, callback){
-	const ls = spawn('git',['clone', para1]);
+var cloneGit = function(gitURL, dockerComposeCommand){
+	const gitCloneCommand = spawn('git',['clone', gitURL]);
 
-	var res = para1.split("/");
+	var res = gitURL.split("/");
 	var repoName = (res[res.length-1].split("."))[0];
   	var currentDirecotryPath = __dirname+"/"+repoName;
 
-	ls.stdout.on('data', (data) => {
+	gitCloneCommand.stdout.on('data', (data) => {
 	  console.log(`stdout: ${data}`);
 	});
 
-	ls.stderr.on('data', (data) => {
+	gitCloneCommand.stderr.on('data', (data) => {
 	  console.log(`stderr: ${data}`);
 	});
 
-	ls.on('close', (code) => {
+	gitCloneCommand.on('close', (code) => {
 	  console.log(`child process exited with code ${code}`);
-	  callback(repoName);
+	  dockerComposeCommand(repoName);
 	});
 
 }
 
-//cloneGit(repoURL, function(){console.log("Git clone successful");})
 module.exports = cloneGit; 
