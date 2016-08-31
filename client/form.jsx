@@ -5,6 +5,18 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
+
+const styles = {
+    paperstyle: {
+        width: "100%",
+        margin: '10px',
+        textAlign: 'center',
+        display: 'inline-block',
+        padding: '30px'
+    }
+};
 
 const muiTheme = getMuiTheme({
    palette: {
@@ -16,6 +28,9 @@ const style = {
    margin: 12,
 };
 
+ const btnstyle={
+    width:"80%"
+ }
 var Form = React.createClass({
 
    getInitialState: function() {
@@ -48,9 +63,10 @@ var Form = React.createClass({
    render: function() {
        return (
            <MuiThemeProvider muiTheme={muiTheme}>
-
+<Paper style={styles.paperstyle}>
            <form onSubmit = { this.cloneRepository } >
                <TextField
+                    fullWidth={true}
                    type = "text"
                    hintText="Enter GIT URL"
                    floatingLabelText="GIT URL"
@@ -58,9 +74,9 @@ var Form = React.createClass({
                    onChange = { this.handleGitUrlChange }
                    name = "gitURL"
                    />
-               {this.state.gitRepositoryURL.length==0?null:<FlatButton label="Deploy" secondary={true} style={style} type = "submit" />}
+            <RaisedButton label="Primary" primary={true} style={btnstyle} label="Deploy" secondary={true} style={style} type = "submit" disabled={!this.state.gitRepositoryURL} />
            </form >
-
+</Paper>
            </MuiThemeProvider>
        );
    }
