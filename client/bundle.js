@@ -68,7 +68,7 @@
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
-	var _FlatButton = __webpack_require__(342);
+	var _FlatButton = __webpack_require__(341);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
@@ -27006,6 +27006,7 @@
 	      , tizen = /tizen/i.test(ua)
 	      , webos = /(web|hpw)os/i.test(ua)
 	      , windowsphone = /windows phone/i.test(ua)
+	      , samsungBrowser = /SamsungBrowser/i.test(ua)
 	      , windows = !windowsphone && /windows/i.test(ua)
 	      , mac = !iosdevice && !silk && /macintosh/i.test(ua)
 	      , linux = !android && !sailfish && !tizen && !webos && /linux/i.test(ua)
@@ -27021,6 +27022,13 @@
 	        name: 'Opera'
 	      , opera: t
 	      , version: versionIdentifier || getFirstMatch(/(?:opera|opr|opios)[\s\/](\d+(\.\d+)?)/i)
+	      }
+	    }
+	    else if (/SamsungBrowser/i.test(ua)) {
+	      result = {
+	        name: 'Samsung Internet for Android'
+	        , samsungBrowser: t
+	        , version: versionIdentifier || getFirstMatch(/(?:SamsungBrowser)[\s\/](\d+(\.\d+)?)/i)
 	      }
 	    }
 	    else if (/coast/i.test(ua)) {
@@ -27340,6 +27348,7 @@
 	        (result.yandexbrowser && result.version >= 15) ||
 			    (result.vivaldi && result.version >= 1.0) ||
 	        (result.chrome && result.version >= 20) ||
+	        (result.samsungBrowser && result.version >= 4) ||
 	        (result.firefox && result.version >= 20.0) ||
 	        (result.safari && result.version >= 6) ||
 	        (result.opera && result.version >= 10.0) ||
@@ -27363,7 +27372,7 @@
 	    return result
 	  }
 
-	  var bowser = detect(typeof navigator !== 'undefined' ? navigator.userAgent : '')
+	  var bowser = detect(typeof navigator !== 'undefined' ? navigator.userAgent || '' : '')
 
 	  bowser.test = function (browserList) {
 	    for (var i = 0; i < browserList.length; ++i) {
@@ -28352,27 +28361,27 @@
 
 	var _colorManipulator = __webpack_require__(288);
 
-	var _transitions = __webpack_require__(335);
+	var _transitions = __webpack_require__(334);
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
-	var _deprecatedPropType = __webpack_require__(336);
+	var _deprecatedPropType = __webpack_require__(335);
 
 	var _deprecatedPropType2 = _interopRequireDefault(_deprecatedPropType);
 
-	var _EnhancedTextarea = __webpack_require__(337);
+	var _EnhancedTextarea = __webpack_require__(336);
 
 	var _EnhancedTextarea2 = _interopRequireDefault(_EnhancedTextarea);
 
-	var _TextFieldHint = __webpack_require__(339);
+	var _TextFieldHint = __webpack_require__(338);
 
 	var _TextFieldHint2 = _interopRequireDefault(_TextFieldHint);
 
-	var _TextFieldLabel = __webpack_require__(340);
+	var _TextFieldLabel = __webpack_require__(339);
 
 	var _TextFieldLabel2 = _interopRequireDefault(_TextFieldLabel);
 
-	var _TextFieldUnderline = __webpack_require__(341);
+	var _TextFieldUnderline = __webpack_require__(340);
 
 	var _TextFieldUnderline2 = _interopRequireDefault(_TextFieldUnderline);
 
@@ -29067,7 +29076,7 @@
 
 	exports.__esModule = true;
 
-	var _shallowEqual = __webpack_require__(334);
+	var _shallowEqual = __webpack_require__(124);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
@@ -29077,77 +29086,6 @@
 
 /***/ },
 /* 334 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright (c) 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @typechecks
-	 * 
-	 */
-
-	/*eslint-disable no-self-compare */
-
-	'use strict';
-
-	var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-	/**
-	 * inlined Object.is polyfill to avoid requiring consumers ship their own
-	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
-	 */
-	function is(x, y) {
-	  // SameValue algorithm
-	  if (x === y) {
-	    // Steps 1-5, 7-10
-	    // Steps 6.b-6.e: +0 != -0
-	    return x !== 0 || 1 / x === 1 / y;
-	  } else {
-	    // Step 6.a: NaN == NaN
-	    return x !== x && y !== y;
-	  }
-	}
-
-	/**
-	 * Performs equality by iterating through keys on an object and returning false
-	 * when any key has values which are not strictly equal between the arguments.
-	 * Returns true when the values of all keys are strictly equal.
-	 */
-	function shallowEqual(objA, objB) {
-	  if (is(objA, objB)) {
-	    return true;
-	  }
-
-	  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
-	    return false;
-	  }
-
-	  var keysA = Object.keys(objA);
-	  var keysB = Object.keys(objB);
-
-	  if (keysA.length !== keysB.length) {
-	    return false;
-	  }
-
-	  // Test for A's keys different from B.
-	  for (var i = 0; i < keysA.length; i++) {
-	    if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
-	      return false;
-	    }
-	  }
-
-	  return true;
-	}
-
-	module.exports = shallowEqual;
-
-/***/ },
-/* 335 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29186,7 +29124,7 @@
 	};
 
 /***/ },
-/* 336 */
+/* 335 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -29230,7 +29168,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 337 */
+/* 336 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29251,7 +29189,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactEventListener = __webpack_require__(338);
+	var _reactEventListener = __webpack_require__(337);
 
 	var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
 
@@ -29458,7 +29396,7 @@
 	exports.default = EnhancedTextarea;
 
 /***/ },
-/* 338 */
+/* 337 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29473,7 +29411,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _shallowEqual = __webpack_require__(334);
+	var _shallowEqual = __webpack_require__(124);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
@@ -29625,7 +29563,7 @@
 	exports.default = EventListener;
 
 /***/ },
-/* 339 */
+/* 338 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29642,7 +29580,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _transitions = __webpack_require__(335);
+	var _transitions = __webpack_require__(334);
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
@@ -29706,7 +29644,7 @@
 	exports.default = TextFieldHint;
 
 /***/ },
-/* 340 */
+/* 339 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29723,7 +29661,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _transitions = __webpack_require__(335);
+	var _transitions = __webpack_require__(334);
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
@@ -29823,7 +29761,7 @@
 	exports.default = TextFieldLabel;
 
 /***/ },
-/* 341 */
+/* 340 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29840,7 +29778,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _transitions = __webpack_require__(335);
+	var _transitions = __webpack_require__(334);
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
@@ -29959,7 +29897,7 @@
 	exports.default = TextFieldUnderline;
 
 /***/ },
-/* 342 */
+/* 341 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29969,7 +29907,7 @@
 	});
 	exports.default = undefined;
 
-	var _FlatButton = __webpack_require__(343);
+	var _FlatButton = __webpack_require__(342);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
@@ -29978,7 +29916,7 @@
 	exports.default = _FlatButton2.default;
 
 /***/ },
-/* 343 */
+/* 342 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -29999,19 +29937,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _transitions = __webpack_require__(335);
+	var _transitions = __webpack_require__(334);
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
-	var _childUtils = __webpack_require__(344);
+	var _childUtils = __webpack_require__(343);
 
 	var _colorManipulator = __webpack_require__(288);
 
-	var _EnhancedButton = __webpack_require__(347);
+	var _EnhancedButton = __webpack_require__(346);
 
 	var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
 
-	var _FlatButtonLabel = __webpack_require__(359);
+	var _FlatButtonLabel = __webpack_require__(358);
 
 	var _FlatButtonLabel2 = _interopRequireDefault(_FlatButtonLabel);
 
@@ -30296,7 +30234,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 344 */
+/* 343 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30311,7 +30249,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactAddonsCreateFragment = __webpack_require__(345);
+	var _reactAddonsCreateFragment = __webpack_require__(344);
 
 	var _reactAddonsCreateFragment2 = _interopRequireDefault(_reactAddonsCreateFragment);
 
@@ -30349,13 +30287,13 @@
 	}
 
 /***/ },
-/* 345 */
+/* 344 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(346).create;
+	module.exports = __webpack_require__(345).create;
 
 /***/ },
-/* 346 */
+/* 345 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -30430,7 +30368,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 347 */
+/* 346 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30451,9 +30389,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _childUtils = __webpack_require__(344);
+	var _childUtils = __webpack_require__(343);
 
-	var _events = __webpack_require__(348);
+	var _events = __webpack_require__(347);
 
 	var _events2 = _interopRequireDefault(_events);
 
@@ -30461,15 +30399,15 @@
 
 	var _keycode2 = _interopRequireDefault(_keycode);
 
-	var _FocusRipple = __webpack_require__(349);
+	var _FocusRipple = __webpack_require__(348);
 
 	var _FocusRipple2 = _interopRequireDefault(_FocusRipple);
 
-	var _TouchRipple = __webpack_require__(356);
+	var _TouchRipple = __webpack_require__(355);
 
 	var _TouchRipple2 = _interopRequireDefault(_TouchRipple);
 
-	var _deprecatedPropType = __webpack_require__(336);
+	var _deprecatedPropType = __webpack_require__(335);
 
 	var _deprecatedPropType2 = _interopRequireDefault(_deprecatedPropType);
 
@@ -30836,7 +30774,7 @@
 	exports.default = EnhancedButton;
 
 /***/ },
-/* 348 */
+/* 347 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30880,7 +30818,7 @@
 	};
 
 /***/ },
-/* 349 */
+/* 348 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30907,15 +30845,15 @@
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _autoPrefix = __webpack_require__(350);
+	var _autoPrefix = __webpack_require__(349);
 
 	var _autoPrefix2 = _interopRequireDefault(_autoPrefix);
 
-	var _transitions = __webpack_require__(335);
+	var _transitions = __webpack_require__(334);
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
-	var _ScaleIn = __webpack_require__(351);
+	var _ScaleIn = __webpack_require__(350);
 
 	var _ScaleIn2 = _interopRequireDefault(_ScaleIn);
 
@@ -31069,7 +31007,7 @@
 	exports.default = FocusRipple;
 
 /***/ },
-/* 350 */
+/* 349 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -31084,7 +31022,7 @@
 	};
 
 /***/ },
-/* 351 */
+/* 350 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31105,11 +31043,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactAddonsTransitionGroup = __webpack_require__(352);
+	var _reactAddonsTransitionGroup = __webpack_require__(351);
 
 	var _reactAddonsTransitionGroup2 = _interopRequireDefault(_reactAddonsTransitionGroup);
 
-	var _ScaleInChild = __webpack_require__(355);
+	var _ScaleInChild = __webpack_require__(354);
 
 	var _ScaleInChild2 = _interopRequireDefault(_ScaleInChild);
 
@@ -31202,13 +31140,13 @@
 	exports.default = ScaleIn;
 
 /***/ },
-/* 352 */
+/* 351 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(353);
+	module.exports = __webpack_require__(352);
 
 /***/ },
-/* 353 */
+/* 352 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -31228,7 +31166,7 @@
 
 	var React = __webpack_require__(2);
 	var ReactInstanceMap = __webpack_require__(119);
-	var ReactTransitionChildMapping = __webpack_require__(354);
+	var ReactTransitionChildMapping = __webpack_require__(353);
 
 	var emptyFunction = __webpack_require__(12);
 
@@ -31460,7 +31398,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 354 */
+/* 353 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -31569,7 +31507,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 355 */
+/* 354 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31594,11 +31532,11 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _autoPrefix = __webpack_require__(350);
+	var _autoPrefix = __webpack_require__(349);
 
 	var _autoPrefix2 = _interopRequireDefault(_autoPrefix);
 
-	var _transitions = __webpack_require__(335);
+	var _transitions = __webpack_require__(334);
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
@@ -31728,7 +31666,7 @@
 	exports.default = ScaleInChild;
 
 /***/ },
-/* 356 */
+/* 355 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31751,15 +31689,15 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _reactAddonsTransitionGroup = __webpack_require__(352);
+	var _reactAddonsTransitionGroup = __webpack_require__(351);
 
 	var _reactAddonsTransitionGroup2 = _interopRequireDefault(_reactAddonsTransitionGroup);
 
-	var _dom = __webpack_require__(357);
+	var _dom = __webpack_require__(356);
 
 	var _dom2 = _interopRequireDefault(_dom);
 
-	var _CircleRipple = __webpack_require__(358);
+	var _CircleRipple = __webpack_require__(357);
 
 	var _CircleRipple2 = _interopRequireDefault(_CircleRipple);
 
@@ -32024,7 +31962,7 @@
 	exports.default = TouchRipple;
 
 /***/ },
-/* 357 */
+/* 356 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -32053,7 +31991,7 @@
 	};
 
 /***/ },
-/* 358 */
+/* 357 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32082,11 +32020,11 @@
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _autoPrefix = __webpack_require__(350);
+	var _autoPrefix = __webpack_require__(349);
 
 	var _autoPrefix2 = _interopRequireDefault(_autoPrefix);
 
-	var _transitions = __webpack_require__(335);
+	var _transitions = __webpack_require__(334);
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
@@ -32214,7 +32152,7 @@
 	exports.default = CircleRipple;
 
 /***/ },
-/* 359 */
+/* 358 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
