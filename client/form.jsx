@@ -30,7 +30,7 @@ var Form = React.createClass({
    cloneRepository(e) {
        e.preventDefault();
        console.log(this.state.gitRepositoryURL);
-       
+       this.setState({gitRepositoryURL: ''});
        $.ajax({
        url: '/deploy',
        dataType: 'json',

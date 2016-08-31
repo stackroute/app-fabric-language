@@ -18,8 +18,7 @@ var deployProject = function(repoName) {
       dockerComposeCommand.on('close', (code) => {
         console.log(`child process exited with code ${code}`);
       });  
-    
-    
+        
   }
 
 module.exports = deployProject;
