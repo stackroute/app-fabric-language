@@ -1,12 +1,12 @@
 var path = require('path');
 
-var deployProject = function(repoName) {
+var deployProject = function(currentDirectoryPath) {
 
       const spawn = require('child_process').spawn;
-      var parentDir = path.resolve(__dirname, repoName);
-      console.log(parentDir);
+      
+      console.log("looking for docker file in ",currentDirectoryPath);
 
-      var dockerComposeCommand = spawn('docker-compose', ['up','-d'], {cwd : parentDir});
+      var dockerComposeCommand = spawn('docker-compose', ['up','-d'], {cwd : currentDirectoryPath});
         
       dockerComposeCommand.stdout.on('data', (data) => {
         console.log(`stdout: ${data}`);
