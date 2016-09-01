@@ -1,4 +1,3 @@
-var path = require('path');
 const spawn = require('child_process').spawn;
 
 var path = require('path');
@@ -15,12 +14,7 @@ var cloneGit = function(gitURL, dockerComposeCommand){
 
 	var res = gitURL.split("/");
 	var repoName = (res[res.length-1].split("."))[0];
-<<<<<<< HEAD
   	
-=======
-  	var currentDirecotryPath = path.resolve(process.env.REPOSITORY_PATH+"/"+repoName);
-
->>>>>>> 3d457fb8f984379c9564b02782ad502662d7cf2a
 	gitCloneCommand.stdout.on('data', (data) => {
 	  console.log(`stdout: ${data}`);
 	});
@@ -31,11 +25,7 @@ var cloneGit = function(gitURL, dockerComposeCommand){
 
 	gitCloneCommand.on('close', (code) => {
 	  console.log(`child process exited with code ${code}`);
-<<<<<<< HEAD
 	  dockerComposeCommand(path.resolve(cloneDirectoryPath,repoName));
-=======
-	  dockerComposeCommand(currentDirecotryPath);
->>>>>>> 3d457fb8f984379c9564b02782ad502662d7cf2a
 	});
 
 }
