@@ -88,4 +88,4 @@ var App = React.createClass({
    }
 });
 
-ReactDOM.render( <App /> , document.body);
+module.exports=Form;
