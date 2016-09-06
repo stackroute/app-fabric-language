@@ -26,7 +26,7 @@ var deployProject = function(currentDirectoryPath) {
 
       dockerComposeCommand.on('close', (code) => {  
         console.log(`child process exited with code ${code}`);
-         log.appendFile("./deployment_log.txt", data, function(error){
+         log.appendFile("./deployment_log.txt", "closer of docker compose", function(error){
          if (error) return console.log(error);
          console.log("error in closer of docker compose.");
        })        
