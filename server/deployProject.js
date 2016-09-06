@@ -1,5 +1,5 @@
 var path = require('path');
-
+var log = require('fs');
 
 var deployProject = function(currentDirectoryPath) {
 
@@ -11,13 +11,25 @@ var deployProject = function(currentDirectoryPath) {
         
       dockerComposeCommand.stdout.on('data', (data)=>{
         console.log(`stdout:${data}`);
+         log.appendFile("./deployment_log.txt", data, function(error){
+         if (error) return console.log(error);
+         console.log("error in appending logs.");
+       })
       }); 
       dockerComposeCommand.stderr.on('data', (data) => {
         console.log(`stderr: ${data}`);
+         log.appendFile("./deployment_log.txt", data, function(error){
+         if (error) return console.log(error);
+         console.log("error in appending logs.");
+       })       
       });
 
-      dockerComposeCommand.on('close', (code) => {
+      dockerComposeCommand.on('close', (code) => {  
         console.log(`child process exited with code ${code}`);
+         log.appendFile("./deployment_log.txt", data, function(error){
+         if (error) return console.log(error);
+         console.log("error in closer of docker compose.");
+       })        
       });
         
   }

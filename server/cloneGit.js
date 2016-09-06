@@ -1,9 +1,9 @@
 const spawn = require('child_process').spawn;
 
 var path = require('path');
+var log = require('fs');
 
 var cloneGit = function(gitURL, dockerComposeCommand){
-	
 	var cloneDirectoryPath = process.env.REPOSITORY_PATH;
 	console.log("REPOSITORY_PATH is", cloneDirectoryPath);
 
@@ -17,10 +17,18 @@ var cloneGit = function(gitURL, dockerComposeCommand){
   	
 	gitCloneCommand.stdout.on('data', (data) => {
 	  console.log(`stdout: ${data}`);
+	  log.appendFile("./deployment_log.txt", data, function(error){
+		   if (error) return console.log(error);
+		   console.log("Written deployment stdout log.");
+		});
 	});
 
 	gitCloneCommand.stderr.on('data', (data) => {
 	  console.log(`stderr: ${data}`);
+  	  log.appendFile("./deployment_log.txt", data, function(error){
+	   if (error) return console.log(error);
+	   console.log("Written deployment error log.");
+	  });
 	});
 
 	gitCloneCommand.on('close', (code) => {
