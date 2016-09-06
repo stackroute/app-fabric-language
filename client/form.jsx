@@ -7,6 +7,9 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
+import ActionFavorite from 'material-ui/svg-icons/action/favorite';
+import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
+import DeploymentCard from "./deploymentCard.jsx";
 
 const styles = {
     paperstyle: {
@@ -34,7 +37,7 @@ const style = {
 var Form = React.createClass({
 
    getInitialState: function() {
-       return { gitRepositoryURL: '' };
+       return { gitRepositoryURL: '',clicked:false };
    },
 
    handleGitUrlChange: function(event) {
@@ -45,7 +48,7 @@ var Form = React.createClass({
    cloneRepository(e) {
        e.preventDefault();
        console.log(this.state.gitRepositoryURL);
-       this.setState({gitRepositoryURL: ''});
+       this.setState({gitRepositoryURL: '',clicked:true});
        $.ajax({
        url: '/deploy',
        dataType: 'json',
@@ -63,6 +66,7 @@ var Form = React.createClass({
    render: function() {
        return (
            <MuiThemeProvider muiTheme={muiTheme}>
+           <div>
 <Paper style={styles.paperstyle}>
            <form onSubmit = { this.cloneRepository } >
                <TextField
@@ -77,6 +81,8 @@ var Form = React.createClass({
             <RaisedButton label="Primary" primary={true} style={btnstyle} label="Deploy" secondary={true} style={style} type = "submit" disabled={!this.state.gitRepositoryURL} />
            </form >
 </Paper>
+           {this.state.clicked?<DeploymentCard />:null}
+           </div>
            </MuiThemeProvider>
        );
    }
