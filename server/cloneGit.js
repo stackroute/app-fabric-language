@@ -2,6 +2,7 @@ const spawn = require('child_process').spawn;
 
 var path = require('path');
 var log = require('fs');
+var logfile = "./deployment_log.log";
 
 var cloneGit = function(gitURL, dockerComposeCommand){
 	var cloneDirectoryPath = process.env.REPOSITORY_PATH;
@@ -12,27 +13,30 @@ var cloneGit = function(gitURL, dockerComposeCommand){
 	
   	console.log("Current directory path is ", cloneDirectoryPath);
 
+
 	var res = gitURL.split("/");
 	var repoName = (res[res.length-1].split("."))[0];
   	
 	gitCloneCommand.stdout.on('data', (data) => {
-	  console.log(`stdout: ${data}`);
-	  log.appendFile("./deployment_log.txt", data, function(error){
+	  console.log('stdout:', data);
+	  log.appendFile(logfile, 'CloneGit:Git clone from stdout:: '+data, function(error){
 		   if (error) return console.log(error);
-		   console.log("Written deployment stdout log.");
 		});
 	});
 
 	gitCloneCommand.stderr.on('data', (data) => {
-	  console.log(`stderr: ${data}`);
-  	  log.appendFile("./deployment_log.txt", data, function(error){
+		console.log('stderr:', data);
+  	  log.appendFile(logfile, 'CloneGit:Git clone from stderr:: '+data, function(error){
 	   if (error) return console.log(error);
-	   console.log("Written deployment error log.");
 	  });
 	});
 
 	gitCloneCommand.on('close', (code) => {
 	  console.log(`child process exited with code ${code}`);
+  	  log.appendFile(logfile, "CloneGit:Done git clone\n", function(error){
+	   if (error) return console.log(error);
+	   console.log('CloneGit:Done git clone > logfile');
+	  });	  
 	  dockerComposeCommand(path.resolve(cloneDirectoryPath,repoName));
 	});
 
