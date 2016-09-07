@@ -1,5 +1,4 @@
 const spawn = require('child_process').spawn;
-
 var path = require('path');
 var log = require('fs');
 var logfile = "./deployment_log.log";
@@ -7,6 +6,9 @@ var logfile = "./deployment_log.log";
 var cloneGit = function(gitURL, dockerComposeCommand){
 	var cloneDirectoryPath = process.env.REPOSITORY_PATH;
 	console.log("REPOSITORY_PATH is", cloneDirectoryPath);
+	log.appendFile(logfile, 'CloneGit:REPOSITORY_PATH is:: ' +cloneDirectoryPath, function(error){
+		   if (error) return console.log(error);
+		});
 
 	const gitCloneCommand = spawn('git',['clone', gitURL], {cwd : cloneDirectoryPath});
 
