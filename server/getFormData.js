@@ -3,17 +3,28 @@ var path = require('path');
 var cloneGit = require('./cloneGit.js');
 var bodyParser = require('body-parser');
 var deployProject = require('./deployProject.js');
-// create our app
-var app = express();
 var log = require('fs');
 var logfile = "./deployment_log.log";
+var http = require("http").createServer(app);
+var io = require("socket.io")(http);
+io.sockets.on("8080", function(socket){
+	console.log("we are connected")
+});
+
+// create our app
+var app = express();
 
 // instruct the app to use the `bodyParser()` middleware for all routes
 app.use(bodyParser());
 
+
+app.get("/log/app-fabric", function(req, res){
+	res.set("Content-Type","application/log");
+    res.sendfile('deployment_log.log');
+});
+
 app.use(function(req,res,next) {
-  console.log('REQ BODY IS:',req.body);
-   log.appendFile(logfile, "getFormData:executing body-parser...", function(error){
+   log.appendFile(logfile, "getFormData:REQ BODY IS:", +req.body, function(error){
 	   if (error) return console.log(error);
 	}) 
   next();
@@ -35,6 +46,8 @@ var scope = {
 		isInProgress: false
 	}
 };
+
+
 
 // This route receives the posted form.
 app.post('/deploy', function(req, res){

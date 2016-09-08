@@ -5,7 +5,6 @@ var logfile = "./deployment_log.log";
 
 var cloneGit = function(gitURL, dockerComposeCommand){
 	var cloneDirectoryPath = process.env.REPOSITORY_PATH;
-	console.log("REPOSITORY_PATH is", cloneDirectoryPath);
 	log.appendFile(logfile, 'CloneGit:REPOSITORY_PATH is:: ' +cloneDirectoryPath, function(error){
 		   if (error) return console.log(error);
 		});
@@ -20,15 +19,13 @@ var cloneGit = function(gitURL, dockerComposeCommand){
 	var repoName = (res[res.length-1].split("."))[0];
   	
 	gitCloneCommand.stdout.on('data', (data) => {
-	  console.log('stdout:', data);
-	  log.appendFile(logfile, 'CloneGit:Git clone from stdout:: '+data, function(error){
+    log.appendFile(logfile, 'CloneGit:Git clone from stdout:: '+data, function(error){
 		   if (error) return console.log(error);
 		});
 	});
 
 	gitCloneCommand.stderr.on('data', (data) => {
-		console.log('stderr:', data);
-  	  log.appendFile(logfile, 'CloneGit:Git clone from stderr:: '+data, function(error){
+    log.appendFile(logfile, 'CloneGit:Git clone from stderr:: '+data, function(error){
 	   if (error) return console.log(error);
 	  });
 	});

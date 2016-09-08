@@ -79,9 +79,12 @@ var Form = React.createClass({
                    name = "gitURL"
                    />
             <RaisedButton label="Primary" primary={true} style={btnstyle} label="Deploy" secondary={true} style={style} type = "submit" disabled={!this.state.gitRepositoryURL} />
+            <RaisedButton label="Primary" primary={true} style={btnstyle} label="Service log" secondary={true} style={style} type = "button" href="/log/app-fabric"/>
            </form >
 </Paper>
            {this.state.clicked?<DeploymentCard />:null}
+           
+            <h3 align="left"><a href="/log/app-fabric" style={{bottom:'10px',textAlign:'left'}}>Click here to see service log</a></h3>
            </div>
            </MuiThemeProvider>
        );

@@ -10,22 +10,20 @@ var deployProject = function(currentDirectoryPath) {
 
       var dockerComposeCommand = spawn('docker-compose', ['up','-d'], {cwd : currentDirectoryPath});
         
-      dockerComposeCommand.stdout.on('data', (data)=>{
-        console.log("stdout: " +data);
-         log.appendFile(logfile, "deployProject:dockerComposeCommand.stdout::" +data, function(error){
+      dockerComposeCommand.stdout.on('data', (data)=>{ 
+      log.appendFile(logfile, "deployProject:dockerComposeCommand.stdout::" +data, function(error){
          if (error) return console.log(error);
        })
       }); 
       dockerComposeCommand.stderr.on('data', (data) => {
-        console.log("stderr: " +data);
-         log.appendFile(logfile, "deployProject:dockerComposeCommand.stderr::" +data, function(error){
+      log.appendFile(logfile, "deployProject:dockerComposeCommand.stderr::" +data, function(error){
          if (error) return console.log(error);
        })       
       });
 
       dockerComposeCommand.on('close', (code) => {  
-        console.log(`child process exited with code ${code}`);
-         log.appendFile(logfile, "Closer of docker compose.", function(error){
+      console.log(`child process exited with code ${code}`);
+      log.appendFile(logfile, "Closer of docker compose.", function(error){
          if (error) return console.log(error);
        })        
       });
