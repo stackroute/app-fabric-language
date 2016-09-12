@@ -1,4 +1,3 @@
-
 var jwt = require('jsonwebtoken');
 var jws = require('jws');
 var express = require('express');
@@ -28,12 +27,12 @@ app.use(cookieParser());
 
 app.get("/log/app-fabric", function(req, res){
 	res.set("Content-Type","application/log");
-    res.sendfile('deployment_log.log');
+    res.sendfile(logfile);
 });
 
 app.use(function(req,res,next) {
 
-	log.appendFile("./deployment_log.txt", "executing body-parser.", function(error){
+	log.appendFile(logfile, "executing body-parser.", function(error){
 		if (error) return console.log(error);
 	});
 	next();
@@ -83,7 +82,6 @@ app.use(function(req,res,next){
 		return res.status(403).send('You are not Authorized');
 	}
 	// Get cookies from client
-
 	var verify_Token = jwt.verify(req.cookies.JWT,'0170263fb5ff2830816c9731d0598426aa24064', function(err, data) {
 
 				if(err){
@@ -92,7 +90,6 @@ app.use(function(req,res,next){
 				}
 
 				next();
-
 	});
 })
 
