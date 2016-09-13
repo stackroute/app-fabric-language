@@ -49,7 +49,13 @@ var DashBoard = React.createClass({
       document.cookie = 'JWT' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
    },
    getInitialState: function() {
-       return { gitRepositoryURL: '',clicked:false, cookieStatus: false };
+       return { gitRepositoryURL: '',
+       clicked:false,
+       socket: window.io(),
+       clone : {isComplete: false,isInProgress: false },
+       deploy : {isComplete: false,isInProgress: false },
+       branchName: '',
+       cookieStatus: false };
    },
    componentWillMount: function(){
       if(document.cookie){
@@ -63,23 +69,22 @@ var DashBoard = React.createClass({
        this.setState({ gitRepositoryURL: event.target.value });
        console.log(event.target.value)
    },
+   handlebranchChange: function(event){
+      this.setState({branchName: event.target.value});
+
+   },
 
    cloneRepository: function(e) {
        e.preventDefault();
        console.log(this.state.gitRepositoryURL);
        this.setState({gitRepositoryURL: '',clicked:true});
-       $.ajax({
-       url: '/deploy',
-       dataType: 'json',
-       type: 'POST',
-       data: {
-               "gitURL":this.state.gitRepositoryURL
-           }
-       }).done(function(data) {
-           console.log("successful");
-       });
-   
-
+       this.state.socket.emit("deploy", {"gitURL":this.state.gitRepositoryURL} , {"gitBranch" : this.state.branchName});
+       this.state.socket.on("clone",function(data){
+         this.setState({clone: data});
+       }.bind(this));
+       this.state.socket.on("deploy",function(data){
+        this.setState({deploy : data});
+       }.bind(this));
    },
     contextTypes: {
         router: React.PropTypes.object.isRequired
@@ -95,45 +100,54 @@ var DashBoard = React.createClass({
              return (
                  <MuiThemeProvider muiTheme={muiTheme}>
                    <div>
-                      <AppBar
-                        title="App Fabric"
-                        iconElementLeft={<IconButton></IconButton>}
-                        iconElementRight={
-                          <IconMenu
-                            iconButtonElement={
-                              <IconButton><MoreVertIcon /></IconButton>
-                            }
-                            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                          >
+                                  <AppBar
+                                    title="App Fabric"
+                                    iconElementLeft={<IconButton></IconButton>}
+                                    iconElementRight={
+                                      <IconMenu
+                                        iconButtonElement={
+                                          <IconButton><MoreVertIcon /></IconButton>
+                                        }
+                                        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                                        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                                      >
 
 
 
-                          <Link to="/" >
-                            <MenuItem primaryText="Sign out" onClick={this.signOut}></MenuItem>
+                                      <Link to="/" >
+                                        <MenuItem primaryText="Sign out" onClick={this.signOut}></MenuItem>
 
-                            </Link>
-                          </IconMenu>
-                        }
-                      />
-                      <Paper style={styles.paperstyle}>
-                           <form onSubmit = { this.cloneRepository } >
-                               <TextField
-                                    fullWidth={true}
-                                   type = "text"
-                                   hintText="Enter GIT URL"
-                                   floatingLabelText="GIT URL"
-                                   value = { this.state.gitRepositoryURL }
-                                   onChange = { this.handleGitUrlChange }
-                                   name = "gitURL"
-                                   />
-                                <RaisedButton label="Primary" primary={true} style={btnstyle} label="Deploy" secondary={true} style={style} type = "submit" disabled={!this.state.gitRepositoryURL} />
-								<RaisedButton label="Primary" primary={true} style={btnstyle} label="Service log" secondary={true} style={style} type = "button" href="/log/app-fabric"/>
-                           </form >
-                        </Paper>
-                       {this.state.clicked?<DeploymentCard />:null}
-						<h3 align="left"><a href="/log/app-fabric" style={{bottom:'10px',textAlign:'left'}}>Click here to see service log</a></h3>
-                   </div>
+                                        </Link>
+                                      </IconMenu>
+                                    }
+                                  />
+                                  <Paper style={styles.paperstyle}>
+
+                                       <form onSubmit = { this.cloneRepository } >
+                                           <TextField
+                                                fullWidth={true}
+                                               type = "text"
+                                               hintText="Enter GIT URL"
+                                               floatingLabelText="GIT URL"
+                                               value = { this.state.gitRepositoryURL }
+                                               onChange = { this.handleGitUrlChange }
+                                               name = "gitURL"
+                                               />
+                                                <TextField                   
+                                               type = "text"
+                                               hintText="(default)"
+                                               floatingLabelText="Branch Name (default)"
+                                               value = { this.state.branchName }
+                                               onChange = { this.handlebranchChange }
+                                               name = "gitURL"
+                                               />
+                                            <RaisedButton label="Primary" primary={true} style={btnstyle} label="Deploy" secondary={true} style={style} type = "submit" disabled={!this.state.gitRepositoryURL} />
+            								<RaisedButton label="Primary" primary={true} style={btnstyle} label="Service log" secondary={true} style={style} type = "button" href="/log/app-fabric"/>
+                                       </form >
+                                    </Paper>
+                                   {this.state.clicked?<DeploymentCard clone={this.state.clone} deploy={this.state.deploy} />:null}
+            						          <h3 align="left"><a href="/log/app-fabric" style={{bottom:'10px',textAlign:'left'}}>Click here to see service log</a></h3>
+                      </div>
                  </MuiThemeProvider>
              );
 

@@ -9,6 +9,9 @@ import ContentSend from 'material-ui/svg-icons/content/send';
 import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 import Divider from 'material-ui/Divider';
 import ActionDone from 'material-ui/svg-icons/action/done';
+import ActionDonutLarge from 'material-ui/svg-icons/action/donut-large';
+import ToggleRadioButtonUnchecked from 'material-ui/svg-icons/toggle/radio-button-unchecked';
+
   const iconStyles = {
     marginRight: 24,
   };
@@ -17,17 +20,37 @@ import ActionDone from 'material-ui/svg-icons/action/done';
     };
     
     var deploymentCard = React.createClass({
-      getInitialState() {
-          return {
-              status:false  
-          };
-      },
-      componentDidMount() {
-    setTimeout(() => {
-      this.setState({status:true});
-    }, 2000) ;
-  },
+
         render() {
+          var iconsClone;
+          if((!this.props.clone.isInProgress)&&(!this.props.clone.isComplete)){
+                iconsClone = (
+                  <ToggleRadioButtonUnchecked />
+                  )
+            }else if((this.props.clone.isInProgress)&&(!this.props.clone.isComplete)){
+               iconsClone = (
+                <CircularProgress size={0.4} style ={style}/>
+                )
+            }else if((this.props.clone.isComplete)&&(!this.props.clone.isInProgress)){              
+                iconsClone = (
+                   <ActionDone />
+                   )
+            }
+            var iconsDeploy;            
+            if((!this.props.deploy.isInProgress)&&(!this.props.deploy.isComplete)){
+                iconsDeploy = (
+                  <ToggleRadioButtonUnchecked />
+                  )
+            }else if((this.props.deploy.isInProgress)&&(!this.props.deploy.isComplete)){
+              iconsDeploy = (
+                <CircularProgress size = {0.4} style = {style} />
+                )
+            }else if((this.props.deploy.isComplete)&&(!this.props.deploy.isInProgress)){
+              iconsDeploy = (
+                <ActionDone />
+                )
+            }
+
             return (
               <Card>
             <CardHeader
@@ -37,9 +60,9 @@ import ActionDone from 'material-ui/svg-icons/action/done';
             />
             <CardActions>
                 <List>
-                  <ListItem primaryText="Cloning" leftIcon={this.state.status?<ActionDone />:<CircularProgress size={0.4} style ={style}/>} />
-                  <ListItem primaryText="Building Base-Image" leftIcon={this.state.status?<ActionDone />:<CircularProgress size={0.4} style ={style}/>} />
-                  <ListItem primaryText="Deploying" leftIcon={this.state.status?<ActionDone />:<CircularProgress size={0.4} style ={style}/>} />
+                  <ListItem primaryText="Cloning" leftIcon={iconsClone} />
+                  <ListItem primaryText="Building Base-Image" leftIcon={<ActionDonutLarge />} />
+                  <ListItem primaryText="Deploying" leftIcon={iconsDeploy} />
                 </List>              
             </CardActions>            
          </Card>

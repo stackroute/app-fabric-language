@@ -10,14 +10,20 @@ var request = require('request');
 var cookieParser = require('cookie-parser');
 var log = require('fs');
 var logfile = "./deployment_log.log";
+var app = express();
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
-io.sockets.on("8080", function(socket){
-	console.log("we are connected")
+io.on("connection",function(socket){
+	console.log("we have a connection");
+	socket.on("deploy", function(data,data1){		
+		  var gitURL = data.gitURL;
+		  var gitBranch = data1.gitBranch;
+		  console.log("gitURL ",gitURL);
+		  console.log("gitBranch",gitBranch);
+		  cloneGit(gitURL, deployProject, socket,gitBranch); 
+  // cloneGit(gitURL, socket, deployProject.bind(this,socket));  
+	})
 });
-
-// create our app
-var app = express();
 var log = require('fs');
 
 
@@ -97,20 +103,6 @@ app.use(function(req,res,next){
 })
 
 
-var scope = {
-	cloning: {
-		isComplete: false,
-		isInProgress: false
-	},
-	buildImage: {
-		isComplete: false,
-		isInProgress: false
-	},
-	deployment: {
-		isComplete: false,
-		isInProgress: false
-	}
-};
 
 // This route receives the posted form.
 app.post('/deploy', function(req, res){
@@ -120,4 +112,6 @@ app.post('/deploy', function(req, res){
 });
 
 
-app.listen(8080);
+http.listen("8080", function(){
+	console.log("we are connected")
+});
