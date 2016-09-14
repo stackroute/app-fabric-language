@@ -1,0 +1,26 @@
+executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.CloneGit:REPOSITORY_PATH is:: /vagrant/New folder/CloneGit:Git clone from stderr:: Cloning into 'ReverseProxyConfig'...
+CloneGit:Done git clone
+deployProject:dockerComposeCommand.stderr::Starting reverseproxyconfig_site2_1
+deployProject:dockerComposeCommand.stderr::Starting reverseproxyconfig_site1_1
+deployProject:dockerComposeCommand.stderr::Starting reverseproxyconfig_proxy_1
+Closer of docker compose.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.CloneGit:REPOSITORY_PATH is:: /vagrant/New folder/CloneGit:Git clone from stderr:: fatal: destination path 'ReverseProxyConfig' already exists and is not an empty directory.
+CloneGit:Done git clone
+deployProject:dockerComposeCommand.stderr::reverseproxyconfig_site2_1 is up-to-date
+deployProject:dockerComposeCommand.stderr::reverseproxyconfig_site1_1 is up-to-date
+deployProject:dockerComposeCommand.stderr::reverseproxyconfig_proxy_1 is up-to-date
+Closer of docker compose.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.CloneGit:REPOSITORY_PATH is:: /vagrant/New folder/CloneGit:Git clone from stderr:: Cloning into 'ReverseProxyConfig'...
+CloneGit:Done git clone
+deployProject:dockerComposeCommand.stderr::reverseproxyconfig_site2_1 is up-to-date
+deployProject:dockerComposeCommand.stderr::reverseproxyconfig_site1_1 is up-to-date
+deployProject:dockerComposeCommand.stderr::reverseproxyconfig_proxy_1 is up-to-date
+Closer of docker compose.executing body-parser.executing body-parser.executing body-parser.executing body-parser.CloneGit:REPOSITORY_PATH is:: /vagrant/New folder/CloneGit:Git clone from stderr:: Cloning into 'ReverseProxyConfig'...
+CloneGit:Done git clone
+deployProject:dockerComposeCommand.stderr::reverseproxyconfig_site2_1 is up-to-date
+deployProject:dockerComposeCommand.stderr::reverseproxyconfig_site1_1 is up-to-date
+deployProject:dockerComposeCommand.stderr::reverseproxyconfig_proxy_1 is up-to-date
+Closer of docker compose.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.CloneGit:REPOSITORY_PATH is:: /vagrant/New folder/CloneGit:Git clone from stderr:: Cloning into 'ReverseProxyConfig'...
+CloneGit:Done git clone
+deployProject:dockerComposeCommand.stderr::reverseproxyconfig_site2_1 is up-to-date
+deployProject:dockerComposeCommand.stderr::reverseproxyconfig_site1_1 is up-to-date
+deployProject:dockerComposeCommand.stderr::reverseproxyconfig_proxy_1 is up-to-date
+Closer of docker compose.

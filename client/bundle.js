@@ -37182,11 +37182,15 @@
 
 	var _deploymentCard2 = _interopRequireDefault(_deploymentCard);
 
+	var _BaseImageCard = __webpack_require__(485);
+
+	var _BaseImageCard2 = _interopRequireDefault(_BaseImageCard);
+
 	var _Login = __webpack_require__(235);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
-	var _AppBar = __webpack_require__(485);
+	var _AppBar = __webpack_require__(486);
 
 	var _AppBar2 = _interopRequireDefault(_AppBar);
 
@@ -37194,29 +37198,31 @@
 
 	var _IconButton2 = _interopRequireDefault(_IconButton);
 
-	var _IconMenu = __webpack_require__(488);
+	var _IconMenu = __webpack_require__(489);
 
 	var _IconMenu2 = _interopRequireDefault(_IconMenu);
 
-	var _MenuItem = __webpack_require__(503);
+	var _MenuItem = __webpack_require__(504);
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _moreVert = __webpack_require__(504);
+	var _moreVert = __webpack_require__(505);
 
 	var _moreVert2 = _interopRequireDefault(_moreVert);
 
-	var _close = __webpack_require__(505);
+	var _close = __webpack_require__(506);
 
 	var _close2 = _interopRequireDefault(_close);
 
 	var _reactRouter = __webpack_require__(172);
 
+	var _reactTapEventPlugin = __webpack_require__(417);
+
+	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	//App Bar 
-
 
 	var styles = {
 	    paperstyle: {
@@ -37251,6 +37257,7 @@
 	    getInitialState: function getInitialState() {
 	        return { gitRepositoryURL: '',
 	            clicked: false,
+	            noClicked: false,
 	            socket: window.io(),
 	            clone: { isComplete: false, isInProgress: false },
 	            deploy: { isComplete: false, isInProgress: false },
@@ -37271,11 +37278,15 @@
 	    handlebranchChange: function handlebranchChange(event) {
 	        this.setState({ branchName: event.target.value });
 	    },
+	    clickedDeploy: function clickedDeploy() {
+	        this.setState({ clicked: true });
+	    },
 
 	    cloneRepository: function cloneRepository(e) {
 	        e.preventDefault();
 	        console.log(this.state.gitRepositoryURL);
-	        this.setState({ gitRepositoryURL: '', clicked: true });
+	        this.setState({ noClicked: true });
+	        this.setState({ gitRepositoryURL: '' });
 	        this.state.socket.emit("deploy", { "gitURL": this.state.gitRepositoryURL }, { "gitBranch": this.state.branchName });
 	        this.state.socket.on("clone", function (data) {
 	            this.setState({ clone: data });
@@ -37329,7 +37340,7 @@
 	                    { style: styles.paperstyle },
 	                    _react2.default.createElement(
 	                        'form',
-	                        { onSubmit: this.cloneRepository },
+	                        { onSubmit: this.clickedDeploy },
 	                        _react2.default.createElement(_TextField2.default, {
 	                            fullWidth: true,
 	                            type: 'text',
@@ -37347,11 +37358,14 @@
 	                            onChange: this.handlebranchChange,
 	                            name: 'gitURL'
 	                        }),
-	                        _react2.default.createElement(_RaisedButton2.default, (_React$createElement = { label: 'Primary', primary: true, style: btnstyle }, _defineProperty(_React$createElement, 'label', 'Deploy'), _defineProperty(_React$createElement, 'secondary', true), _defineProperty(_React$createElement, 'style', style), _defineProperty(_React$createElement, 'type', 'submit'), _defineProperty(_React$createElement, 'disabled', !this.state.gitRepositoryURL), _React$createElement)),
-	                        _react2.default.createElement(_RaisedButton2.default, (_React$createElement2 = { label: 'Primary', primary: true, style: btnstyle }, _defineProperty(_React$createElement2, 'label', 'Service log'), _defineProperty(_React$createElement2, 'secondary', true), _defineProperty(_React$createElement2, 'style', style), _defineProperty(_React$createElement2, 'type', 'button'), _defineProperty(_React$createElement2, 'href', '/log/app-fabric'), _React$createElement2))
+	                        _react2.default.createElement(_RaisedButton2.default, (_React$createElement = { label: 'Primary', primary: true,
+	                            style: btnstyle }, _defineProperty(_React$createElement, 'label', 'Deploy'), _defineProperty(_React$createElement, 'secondary', true), _defineProperty(_React$createElement, 'style', style), _defineProperty(_React$createElement, 'type', 'submit'), _defineProperty(_React$createElement, 'disabled', !this.state.gitRepositoryURL), _React$createElement)),
+	                        _react2.default.createElement(_RaisedButton2.default, (_React$createElement2 = { label: 'Primary', primary: true, style: btnstyle
+	                        }, _defineProperty(_React$createElement2, 'label', 'Service log'), _defineProperty(_React$createElement2, 'secondary', true), _defineProperty(_React$createElement2, 'style', style), _defineProperty(_React$createElement2, 'type', 'button'), _defineProperty(_React$createElement2, 'href', '/log/app-fabric'), _React$createElement2))
 	                    )
 	                ),
-	                this.state.clicked ? _react2.default.createElement(_deploymentCard2.default, { clone: this.state.clone, deploy: this.state.deploy }) : null,
+	                this.state.clicked ? _react2.default.createElement(_BaseImageCard2.default, { cloneRepository: this.cloneRepository }) : null,
+	                this.state.noClicked ? _react2.default.createElement(_deploymentCard2.default, { clone: this.state.clone, deploy: this.state.deploy }) : null,
 	                _react2.default.createElement(
 	                    'h3',
 	                    { align: 'left' },
@@ -43770,11 +43784,64 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Card = __webpack_require__(448);
+
+	var _FlatButton = __webpack_require__(431);
+
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+
+	var _RaisedButton = __webpack_require__(397);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+	var _deploymentCard = __webpack_require__(447);
+
+	var _deploymentCard2 = _interopRequireDefault(_deploymentCard);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var style = {
+		margin: 14
+	};
+
+	var BaseImageCard = _react2.default.createClass({
+		displayName: 'BaseImageCard',
+		render: function render() {
+			return _react2.default.createElement(
+				_Card.Card,
+				null,
+				_react2.default.createElement(_Card.CardHeader, {
+					title: 'BASE-IMAGE',
+					actAsExpander: true,
+					showExpandableButton: true
+				}),
+				_react2.default.createElement(_RaisedButton2.default, { label: 'YES', primary: true, style: style }),
+				_react2.default.createElement(_RaisedButton2.default, { label: 'NO', secondary: true, style: style, onClick: this.props.cloneRepository })
+			);
+		}
+	});
+
+	exports.default = BaseImageCard;
+
+/***/ },
+/* 486 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.default = undefined;
 
-	var _AppBar = __webpack_require__(486);
+	var _AppBar = __webpack_require__(487);
 
 	var _AppBar2 = _interopRequireDefault(_AppBar);
 
@@ -43783,7 +43850,7 @@
 	exports.default = _AppBar2.default;
 
 /***/ },
-/* 486 */
+/* 487 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -43810,7 +43877,7 @@
 
 	var _IconButton2 = _interopRequireDefault(_IconButton);
 
-	var _menu = __webpack_require__(487);
+	var _menu = __webpack_require__(488);
 
 	var _menu2 = _interopRequireDefault(_menu);
 
@@ -44150,7 +44217,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 487 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44187,7 +44254,7 @@
 	exports.default = NavigationMenu;
 
 /***/ },
-/* 488 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44197,11 +44264,11 @@
 	});
 	exports.default = exports.MenuItem = exports.IconMenu = undefined;
 
-	var _IconMenu2 = __webpack_require__(489);
+	var _IconMenu2 = __webpack_require__(490);
 
 	var _IconMenu3 = _interopRequireDefault(_IconMenu2);
 
-	var _MenuItem2 = __webpack_require__(501);
+	var _MenuItem2 = __webpack_require__(502);
 
 	var _MenuItem3 = _interopRequireDefault(_MenuItem2);
 
@@ -44212,7 +44279,7 @@
 	exports.default = _IconMenu3.default;
 
 /***/ },
-/* 489 */
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44245,11 +44312,11 @@
 
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 
-	var _Menu = __webpack_require__(490);
+	var _Menu = __webpack_require__(491);
 
 	var _Menu2 = _interopRequireDefault(_Menu);
 
-	var _Popover = __webpack_require__(493);
+	var _Popover = __webpack_require__(494);
 
 	var _Popover2 = _interopRequireDefault(_Popover);
 
@@ -44604,7 +44671,7 @@
 	exports.default = IconMenu;
 
 /***/ },
-/* 490 */
+/* 491 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -44633,7 +44700,7 @@
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _ClickAwayListener = __webpack_require__(491);
+	var _ClickAwayListener = __webpack_require__(492);
 
 	var _ClickAwayListener2 = _interopRequireDefault(_ClickAwayListener);
 
@@ -44665,7 +44732,7 @@
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _menuUtils = __webpack_require__(492);
+	var _menuUtils = __webpack_require__(493);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -45329,7 +45396,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 491 */
+/* 492 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45448,7 +45515,7 @@
 	exports.default = ClickAwayListener;
 
 /***/ },
-/* 492 */
+/* 493 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -45486,7 +45553,7 @@
 	}();
 
 /***/ },
-/* 493 */
+/* 494 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45511,7 +45578,7 @@
 
 	var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
 
-	var _RenderToLayer = __webpack_require__(494);
+	var _RenderToLayer = __webpack_require__(495);
 
 	var _RenderToLayer2 = _interopRequireDefault(_RenderToLayer);
 
@@ -45523,11 +45590,11 @@
 
 	var _Paper2 = _interopRequireDefault(_Paper);
 
-	var _throttle = __webpack_require__(495);
+	var _throttle = __webpack_require__(496);
 
 	var _throttle2 = _interopRequireDefault(_throttle);
 
-	var _PopoverAnimationDefault = __webpack_require__(500);
+	var _PopoverAnimationDefault = __webpack_require__(501);
 
 	var _PopoverAnimationDefault2 = _interopRequireDefault(_PopoverAnimationDefault);
 
@@ -45926,7 +45993,7 @@
 	exports.default = Popover;
 
 /***/ },
-/* 494 */
+/* 495 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46099,10 +46166,10 @@
 	exports.default = RenderToLayer;
 
 /***/ },
-/* 495 */
+/* 496 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var debounce = __webpack_require__(496),
+	var debounce = __webpack_require__(497),
 	    isObject = __webpack_require__(259);
 
 	/** Used as the `TypeError` message for "Functions" methods. */
@@ -46174,12 +46241,12 @@
 
 
 /***/ },
-/* 496 */
+/* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(259),
-	    now = __webpack_require__(497),
-	    toNumber = __webpack_require__(498);
+	    now = __webpack_require__(498),
+	    toNumber = __webpack_require__(499);
 
 	/** Used as the `TypeError` message for "Functions" methods. */
 	var FUNC_ERROR_TEXT = 'Expected a function';
@@ -46368,7 +46435,7 @@
 
 
 /***/ },
-/* 497 */
+/* 498 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var root = __webpack_require__(263);
@@ -46397,11 +46464,11 @@
 
 
 /***/ },
-/* 498 */
+/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(259),
-	    isSymbol = __webpack_require__(499);
+	    isSymbol = __webpack_require__(500);
 
 	/** Used as references for various `Number` constants. */
 	var NAN = 0 / 0;
@@ -46469,7 +46536,7 @@
 
 
 /***/ },
-/* 499 */
+/* 500 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isObjectLike = __webpack_require__(299);
@@ -46513,7 +46580,7 @@
 
 
 /***/ },
-/* 500 */
+/* 501 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46675,7 +46742,7 @@
 	exports.default = PopoverDefaultAnimation;
 
 /***/ },
-/* 501 */
+/* 502 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46704,11 +46771,11 @@
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _Popover = __webpack_require__(493);
+	var _Popover = __webpack_require__(494);
 
 	var _Popover2 = _interopRequireDefault(_Popover);
 
-	var _check = __webpack_require__(502);
+	var _check = __webpack_require__(503);
 
 	var _check2 = _interopRequireDefault(_check);
 
@@ -46716,7 +46783,7 @@
 
 	var _ListItem2 = _interopRequireDefault(_ListItem);
 
-	var _Menu = __webpack_require__(490);
+	var _Menu = __webpack_require__(491);
 
 	var _Menu2 = _interopRequireDefault(_Menu);
 
@@ -47041,7 +47108,7 @@
 	exports.default = MenuItem;
 
 /***/ },
-/* 502 */
+/* 503 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47078,7 +47145,7 @@
 	exports.default = NavigationCheck;
 
 /***/ },
-/* 503 */
+/* 504 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47088,7 +47155,7 @@
 	});
 	exports.default = undefined;
 
-	var _MenuItem = __webpack_require__(501);
+	var _MenuItem = __webpack_require__(502);
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -47097,7 +47164,7 @@
 	exports.default = _MenuItem2.default;
 
 /***/ },
-/* 504 */
+/* 505 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47134,7 +47201,7 @@
 	exports.default = NavigationMoreVert;
 
 /***/ },
-/* 505 */
+/* 506 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
