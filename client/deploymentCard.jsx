@@ -9,7 +9,7 @@ import ContentSend from 'material-ui/svg-icons/content/send';
 import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 import Divider from 'material-ui/Divider';
 import ActionDone from 'material-ui/svg-icons/action/done';
-import ActionDonutLarge from 'material-ui/svg-icons/action/donut-large';
+import ActionHighlightOff from 'material-ui/svg-icons/action/highlight-off';
 import ToggleRadioButtonUnchecked from 'material-ui/svg-icons/toggle/radio-button-unchecked';
 
   const iconStyles = {
@@ -61,7 +61,7 @@ import ToggleRadioButtonUnchecked from 'material-ui/svg-icons/toggle/radio-butto
             <CardActions>
                 <List>
                   <ListItem primaryText="Cloning" leftIcon={iconsClone} />
-                  <ListItem primaryText="Building Base-Image" leftIcon={<ActionDonutLarge />} />
+                  <ListItem primaryText="Building Base-Image" leftIcon={<ActionHighlightOff />} />
                   <ListItem primaryText="Deploying" leftIcon={iconsDeploy} />
                 </List>              
             </CardActions>            

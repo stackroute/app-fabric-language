@@ -39705,9 +39705,9 @@
 
 	var _done2 = _interopRequireDefault(_done);
 
-	var _donutLarge = __webpack_require__(483);
+	var _highlightOff = __webpack_require__(483);
 
-	var _donutLarge2 = _interopRequireDefault(_donutLarge);
+	var _highlightOff2 = _interopRequireDefault(_highlightOff);
 
 	var _radioButtonUnchecked = __webpack_require__(484);
 
@@ -39757,7 +39757,7 @@
 	          _List.List,
 	          null,
 	          _react2.default.createElement(_List.ListItem, { primaryText: 'Cloning', leftIcon: iconsClone }),
-	          _react2.default.createElement(_List.ListItem, { primaryText: 'Building Base-Image', leftIcon: _react2.default.createElement(_donutLarge2.default, null) }),
+	          _react2.default.createElement(_List.ListItem, { primaryText: 'Building Base-Image', leftIcon: _react2.default.createElement(_highlightOff2.default, null) }),
 	          _react2.default.createElement(_List.ListItem, { primaryText: 'Deploying', leftIcon: iconsDeploy })
 	        )
 	      )
@@ -43727,18 +43727,18 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var ActionDonutLarge = function ActionDonutLarge(props) {
+	var ActionHighlightOff = function ActionHighlightOff(props) {
 	  return _react2.default.createElement(
 	    _SvgIcon2.default,
 	    props,
-	    _react2.default.createElement('path', { d: 'M11 5.08V2c-5 .5-9 4.81-9 10s4 9.5 9 10v-3.08c-3-.48-6-3.4-6-6.92s3-6.44 6-6.92zM18.97 11H22c-.47-5-4-8.53-9-9v3.08C16 5.51 18.54 8 18.97 11zM13 18.92V22c5-.47 8.53-4 9-9h-3.03c-.43 3-2.97 5.49-5.97 5.92z' })
+	    _react2.default.createElement('path', { d: 'M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z' })
 	  );
 	};
-	ActionDonutLarge = (0, _pure2.default)(ActionDonutLarge);
-	ActionDonutLarge.displayName = 'ActionDonutLarge';
-	ActionDonutLarge.muiName = 'SvgIcon';
+	ActionHighlightOff = (0, _pure2.default)(ActionHighlightOff);
+	ActionHighlightOff.displayName = 'ActionHighlightOff';
+	ActionHighlightOff.muiName = 'SvgIcon';
 
-	exports.default = ActionDonutLarge;
+	exports.default = ActionHighlightOff;
 
 /***/ },
 /* 484 */
@@ -43818,7 +43818,7 @@
 				_Card.Card,
 				null,
 				_react2.default.createElement(_Card.CardHeader, {
-					title: 'BASE-IMAGE',
+					title: 'Do You Require a BASE-IMAGE For Your Deployment ? ',
 					actAsExpander: true,
 					showExpandableButton: true
 				}),

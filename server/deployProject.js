@@ -8,7 +8,7 @@ var deployProject = function(currentDirectoryPath, socket) {
       
       console.log("looking for docker file in ",currentDirectoryPath);
 
-      var dockerComposeCommand = spawn('docker-compose', ['up','-d'], {cwd : currentDirectoryPath});
+      var dockerComposeCommand = spawn('docker-compose', ['up','-d','--build'], {cwd : currentDirectoryPath});
         
       dockerComposeCommand.stdout.on('data', (data)=>{ 
       log.appendFile(logfile, "deployProject:dockerComposeCommand.stdout::" +data, function(error){
