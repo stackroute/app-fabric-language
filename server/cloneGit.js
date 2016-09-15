@@ -3,6 +3,7 @@ var path = require('path');
 var log = require('fs');
 var logfile = "./deployment_log.log";
 
+
 var cloneGit = function(gitURL, dockerComposeCommand,socket,gitBranch){
 	var cloneDirectoryPath = process.env.REPOSITORY_PATH;
 	log.appendFile(logfile, 'CloneGit:REPOSITORY_PATH is:: ' +cloneDirectoryPath, function(error){

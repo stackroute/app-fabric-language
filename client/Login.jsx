@@ -5,8 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-var injectTapEventPlugin = require("react-tap-event-plugin");
-injectTapEventPlugin();
+
 
 const style = {
     width: "50%",

@@ -2,6 +2,7 @@ var jwt = require('jsonwebtoken');
 var jws = require('jws');
 var express = require('express');
 var path = require('path');
+var cloneBase = require("./cloneBase.js");
 var cloneGit = require('./cloneGit.js');
 var bodyParser = require('body-parser');
 var deployProject = require('./deployProject.js');
@@ -14,6 +15,12 @@ var http = require("http").createServer(app);
 var io = require("socket.io")(http);
 io.on("connection",function(socket){
 	console.log("we have a connection");
+	socket.on("baseImage",function(data,data1){
+		 var gitURL = data.gitURL;
+		 var gitBranch = data1.gitBranch;
+		 console.log("gitURL");
+		 cloneBase(gitURL,socket,gitBranch);
+	});
 	socket.on("deploy", function(data,data1){		
 		  var gitURL = data.gitURL;
 		  var gitBranch = data1.gitBranch;
@@ -21,7 +28,7 @@ io.on("connection",function(socket){
 		  console.log("gitBranch",gitBranch);
 		  cloneGit(gitURL, deployProject, socket,gitBranch); 
   // cloneGit(gitURL, socket, deployProject.bind(this,socket));  
-	})
+	});
 });
 var log = require('fs');
 
