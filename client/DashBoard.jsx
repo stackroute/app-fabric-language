@@ -19,7 +19,9 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import {Router,Route,hashHistory,Link} from "react-router";
-
+import Dropdown from 'react-dropdown';
+import SelectField from 'material-ui/SelectField';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 const styles = {
     paperstyle: {
@@ -41,6 +43,10 @@ const style = {
    margin: 12,
 };
 
+const textStyle = {
+    marginBottom : 20,
+};
+
  const btnstyle={
     width:"80%"
  }
@@ -51,14 +57,16 @@ var DashBoard = React.createClass({
    },
    getInitialState: function() {
        return { gitRepositoryURL: '',
+       gitBranchURL: '',
        clicked:false,
        noClicked:false,
        yesClicked:false,
        socket: window.io(),
        clone : {isComplete: false,isInProgress: false },
        deploy : {isComplete: false,isInProgress: false },
-       branchName: '',
-       cookieStatus: false };
+       branchName: [],
+       cookieStatus: false,
+       branchNameValue:'' };
    },
    componentWillMount: function(){
       if(document.cookie){
@@ -69,15 +77,29 @@ var DashBoard = React.createClass({
       }
    },
    handleGitUrlChange: function(event) {
-       this.setState({ gitRepositoryURL: event.target.value });
-       console.log(event.target.value)
-   },
-   handlebranchChange: function(event){
-      this.setState({branchName: event.target.value});
+      console.log(event.target.value);
+      var gitURL = event.target.value;
+      var res = gitURL.split("/");
+      var repoName = (res[res.length-1].split("."))[0];
+      var projName = (res[res.length-2].split("."))[0];
+      var gitBranchURL = 'https://api.github.com/repos/' + projName + '/' + repoName + '/branches'
+      console.log('gitBranchURL :' +gitBranchURL);
+      this.setState({gitRepositoryURL: gitURL});
 
+      $.ajax({
+       url: gitBranchURL,
+       dataType: 'json',
+       type: 'GET',
+       }).done(function(data) {
+        this.setState({branchName: data, gitRepositoryURL: gitURL});
+      }.bind(this));
    },
-   clickedDeploy:function(e){
-    e.preventDefault();
+   handlebranchChange: function(event, index, value){
+      console.log('Branch name value changed');
+      this.setState({branchNameValue: value});
+	    console.log(value)
+   },
+   clickedDeploy:function(){
     this.setState({clicked:true});
    },
 
@@ -93,10 +115,10 @@ var DashBoard = React.createClass({
 
    cloneRepository: function(e) {
        e.preventDefault();
-       console.log(this.state.gitRepositoryURL);
-       this.setState({noClicked: true});
-       this.setState({gitRepositoryURL: ''});
-       this.state.socket.emit("deploy", {"gitURL":this.state.gitRepositoryURL} , {"gitBranch" : this.state.branchName});
+       console.log("inside clone repo",this.state.gitRepositoryURL);
+       this.setState({gitRepositoryURL: '',gitBranchURL: '',branchName: '',noClicked:true});
+
+       this.state.socket.emit("deploy", {"gitURL":this.state.gitRepositoryURL} , {"branchName" : this.state.branchName});
        this.state.socket.on("clone",function(data){
          this.setState({clone: data});
        }.bind(this));
@@ -115,6 +137,13 @@ var DashBoard = React.createClass({
     },
 
    render: function() {
+          console.log(this.state.branchName);
+          if (this.state.branchName != ''){
+            var branchItems = this.state.branchName.map(function(branch) {
+              return <MenuItem value={branch.name} primaryText={branch.name}/>;
+            }.bind(this));
+          }
+
              return (
                  <MuiThemeProvider muiTheme={muiTheme}>
                    <div>
@@ -148,16 +177,17 @@ var DashBoard = React.createClass({
                                                floatingLabelText="GIT URL"
                                                value = { this.state.gitRepositoryURL }
                                                onChange = { this.handleGitUrlChange }
-                                               name = "gitURL"
-                                               />
-                                                <TextField                   
-                                               type = "text"
-                                               hintText="(default)"
-                                               floatingLabelText="Branch Name (default)"
-                                               value = { this.state.branchName }
-                                               onChange = { this.handlebranchChange }
-                                               name = "gitURL"
-                                               />
+                                               name = "gitURL" style = {textStyle} />
+
+                                           <SelectField 
+                                               fullWidth={true} 
+                                               value={this.state.branchNameValue} 
+                                               onChange = {this.handlebranchChange}
+                                               hintText="Select any one GIT Branch"                                                                                           
+                                               maxHeight={200} >
+                                                {branchItems}
+                                            </SelectField> 
+					    
                                             <RaisedButton label="Primary" primary={true} 
                                             style={btnstyle} label="Deploy" secondary={true} 
                                             style={style} type = "submit" 
