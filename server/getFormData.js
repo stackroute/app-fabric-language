@@ -3,6 +3,7 @@ var jwt = require('jsonwebtoken');
 var jws = require('jws');
 var express = require('express');
 var path = require('path');
+var cloneBase = require("./cloneBase.js");
 var cloneGit = require('./cloneGit.js');
 var bodyParser = require('body-parser');
 var deployProject = require('./deployProject.js');
@@ -10,32 +11,51 @@ var request = require('request');
 var cookieParser = require('cookie-parser');
 var log = require('fs');
 var logfile = "./deployment_log.log";
+
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
 io.sockets.on("8080", function(socket) {
     console.log("we are connected")
 });
-
-// create our app
 var app = express();
+var http = require("http").createServer(app);
+var io = require("socket.io")(http);
+io.on("connection",function(socket){
+	console.log("we have a connection");
+	socket.on("baseImage",function(data,data1){
+		 var gitURL = data.gitURL;
+		 var gitBranch = data1.gitBranch;
+		 console.log("gitURL");
+		 cloneBase(gitURL,socket,gitBranch);
+	});
+	socket.on("deploy", function(data,data1){		
+		  var gitURL = data.gitURL;
+		  var gitBranch = data1.gitBranch;
+		  console.log("gitURL ",gitURL);
+		  console.log("gitBranch",gitBranch);
+		  cloneGit(gitURL, deployProject, socket,gitBranch); 
+  // cloneGit(gitURL, socket, deployProject.bind(this,socket));  
+	});
+});
 var log = require('fs');
+
 
 // instruct the app to use the `bodyParser()` middleware for all routes
 app.use(bodyParser());
 app.use(cookieParser());
 
 
-app.get("/log/app-fabric", function(req, res) {
-    res.set("Content-Type", "application/log");
-    res.sendfile('deployment_log.log');
+app.get("/log/app-fabric", function(req, res){
+	res.set("Content-Type","application/log");
+    res.sendfile(logfile);
 });
 
+app.use(function(req,res,next) {
 
-app.use(function(req, res, next) {
-    log.appendFile("./deployment_log.txt", "executing body-parser.", function(error) {
-        if (error) return console.log(error);
-    });
-    next();
+	log.appendFile(logfile, "executing body-parser.", function(error){
+		if (error) return console.log(error);
+	});
+	next();
 });
 
 
@@ -102,7 +122,6 @@ var scope = {
     }
 };
 
-
 // This route receives the posted form.
 app.post('/deploy', function(req, res) {
     var gitURL = req.body.gitURL;
@@ -147,4 +166,8 @@ app.use("/deployedAppDetails", function(req, res) {
 });
 
 
-app.listen(8080);
+//app.listen(8080);
+
+http.listen("8080", function(){
+	console.log("we are connected")
+});

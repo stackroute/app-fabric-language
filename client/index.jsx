@@ -5,10 +5,8 @@ import Login from "./Login.jsx";
 import DashBoard from "./DashBoard.jsx";
 import DeployedAppDetails from "./deployedAppDetails.jsx";
 import AppId from "./appId.jsx"
-import Test from "./test.jsx"
-
-
-
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 var Index=React.createClass({
 	
 	requireAuth: function(nextState, replace) {
@@ -23,7 +21,6 @@ var Index=React.createClass({
     render(){
         return <Router history={hashHistory}>
             <Route path="/" component={Login}/>
-			<Route path="/test" component={Test}/>
 			<Route path="/apps" component={DeployedAppDetails}  onEnter={this.requireAuth}/>
 			<Route path="/apps/:appId" component={AppId}  onEnter={this.requireAuth}/>
             <Route path="/form" component={DashBoard}  onEnter={this.requireAuth}/>
