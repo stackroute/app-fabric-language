@@ -21,93 +21,86 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import {Router,Route,hashHistory,Link} from "react-router";
 
 const styles = {
-    paperstyle: {
-        width: "100%",
-        margin: '10px',
-        textAlign: 'center',
-        display: 'inline-block',
-        padding: '30px'
-    }
+  paperstyle: {
+    width: "100%",
+    margin: '10px',
+    textAlign: 'center',
+    display: 'inline-block',
+    padding: '30px'
+  }
 };
 
 const muiTheme = getMuiTheme({
-   palette: {
-       textColor: cyan500,
-   },
+ palette: {
+   textColor: cyan500,
+ },
 });
 
 const style = {
-   margin: 12,
+ margin: 12,
 };
 
- const btnstyle={
-    width:"80%"
- }
+const btnstyle={
+  width:"80%"
+};
 
 var SignOut = React.createClass({
-   getInitialState: function() {
-       return { gitRepositoryURL: '',clicked:false, cookieStatus: false };
-   },
-   componentWillMount: function(){
-      if(document.cookie){
-        this.setState({cookieStatus:true})
-      }
-      else if(document.cookie.length == 0){
-        this.setState({cookieStatus:false})
-      }
-   },
+ getInitialState: function() {
+   return { gitRepositoryURL: '',clicked:false, cookieStatus: false };
+ },
 
-   signOut: function(){
+ componentWillMount: function(){
+  if(document.cookie){
+    this.setState({cookieStatus:true})
+  }
+  else if(document.cookie.length == 0){
+    this.setState({cookieStatus:false})
+  }
+},
 
-      document.cookie = 'JWT' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-   },
-   
-    contextTypes: {
-        router: React.PropTypes.object.isRequired
-    },
-    componentDidMount: function () {
+signOut: function(){
+  document.cookie = 'JWT' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+},
 
-      if (!this.state.cookieStatus){
-          this.context.router.push('/')
-      }
-    },
+contextTypes: {
+  router: React.PropTypes.object.isRequired
+},
 
-   render: function() {
-             return (
-                          <Link to="/" >
-                            <MenuItem primaryText="Sign out" onClick={this.signOut}></MenuItem>
-                          </Link>
-             );
+componentDidMount: function () {
+  if (!this.state.cookieStatus){
+    this.context.router.push('/')
+  }
+},
 
-   }
+render: function() {
+ return (
+  <Link to="/" >
+  <MenuItem primaryText="Sign out" onClick={this.signOut}></MenuItem>
+  </Link>
+  );
+}
 });
 
 var AppHeader = React.createClass({
 	render(){
 		return(
-				<AppBar
-                        title="App Fabric"
-                        iconElementLeft={<IconButton></IconButton>}
-                        iconElementRight={
-                          <IconMenu
-                            iconButtonElement={
-                              <IconButton><MoreVertIcon /></IconButton>
-                            }
-                            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                          >
-
-
-						<SignOut />
-                          </IconMenu>
-                        }
-                      />
-		);
-	}
-	
+      <AppBar
+      title="App Fabric"
+      iconElementLeft={<IconButton></IconButton>}
+      iconElementRight={
+        <IconMenu
+        iconButtonElement={
+          <IconButton><MoreVertIcon /></IconButton>
+        }
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+        >
+        <SignOut />
+        </IconMenu>
+      }
+      />
+      );
+	}	
 })		
-
-
-
 
 module.exports=AppHeader;

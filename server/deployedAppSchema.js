@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/appfabric');
 var Schema = mongoose.Schema;
 
-
 var deployedAppSchema = new Schema({
     appName: String,
     dns: { type: String, required: true },
@@ -13,7 +12,6 @@ var deployedAppSchema = new Schema({
     created_at: Date,
     updated_at: Date
 });
-
 
 deployedAppSchema.pre('save', function(next) {
     // get the current date
@@ -26,6 +24,6 @@ deployedAppSchema.pre('save', function(next) {
     next();
 });
 
-
 var deployedAppModel = mongoose.model('deployedAppModel', deployedAppSchema);
+
 module.exports = deployedAppModel;

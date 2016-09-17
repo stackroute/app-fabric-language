@@ -26,93 +26,85 @@ import AppId from "./appId.jsx"
 import AppHeader from "./AppHeader.jsx";
 
 const muiTheme = getMuiTheme({
-   palette: {
-       textColor: cyan500,
-   },
+	palette: {
+		textColor: cyan500,
+	},
 });
+
 const styles = {
-  title: {
-    cursor: 'pointer',
-  },
+	title: {
+		cursor: 'pointer',
+	},
 };
 
 var CardExampleExpandable =React.createClass ({
-  render(){
-	  var services=this.props.data.services.map(function(data,key){
-				return(
+	render(){
+		var services=this.props.data.services.map(function(data,key){
+			return(
 				<div>
-					
 					<h3>Service Name: {data.serviceName}</h3>
 					<h3>Replicas : {data.replicas}</h3>
-					</div>
-				
+				</div>				
 				);
-	  });
-	  return(
-	  <Card>
-    <Link to={"/apps/"+this.props.data._id}>
-		<CardHeader
-		title={this.props.data.appName}
-		  subtitle="Subtitle"
-		  actAsExpander={true}
-		  showExpandableButton={false}
-		/>
-	</Link>
-   // <CardText expandable={true}>
-	//	{services}
-    //</CardText>
-  </Card>);
-  }
+		});
+		return(
+			<Card>
+				<Link to={"/apps/"+this.props.data._id}>
+				<CardHeader
+				title={this.props.data.appName}
+				subtitle="Subtitle"
+				actAsExpander={true}
+				showExpandableButton={false}
+				/>
+				</Link>
+			</Card>);
+	}
 });
 
+const iconStyles = {
+	marginRight: 24,
+};
 
+const style = {
+	marginTop: 0,
+};
 
-  const iconStyles = {
-    marginRight: 24,
-  };
-    const style = {
-        marginTop: 0,
-    };
-    
-    var DeployedAppDetails = React.createClass({
-      getInitialState() {
-          return {
-				data:[]
-          };
-      },
+var DeployedAppDetails = React.createClass({
+	getInitialState() {
+		return {
+			data:[]
+		};
+	},
 
-      componentWillMount() {
-		   $.ajax({
-	       url: 'http://localhost:8080/deployedAppDetails',
-	       dataType: 'json',
-	       type: 'GET',
-	       success: function(data){
-	       	   console.log("successful",data);
-			   this.setState({data: data});
-	       }.bind(this)
-	        
-	       })
-	    },
-        
-        render() {
-			var deployedApps=this.state.data.map(function(data,key){
-				return(
-						<CardExampleExpandable data={data}/>	
-					)
-			});
-			var data = this.state.data.length>0? this.state.data : "Loading";
-			console.log(data)
-            return (
-			
-				data=="Loading"?null:<MuiThemeProvider muiTheme={muiTheme}>
-				
-										<div>
-											<AppHeader />
-											{deployedApps}
-											</div>
-									</MuiThemeProvider>
-				
-            );
-        }
-    });
-    export default DeployedAppDetails;
+	componentWillMount() {
+		$.ajax({
+			url: 'http://localhost:8080/deployedAppDetails',
+			dataType: 'json',
+			type: 'GET',
+			success: function(data){
+				console.log("successful",data);
+				this.setState({data: data});
+			}.bind(this)
+		})
+	},
+
+	render() {
+		var deployedApps=this.state.data.map(function(data,key){
+			return(
+				<CardExampleExpandable data={data}/>	
+				)
+		});
+		var data = this.state.data.length>0? this.state.data : "Loading";
+		console.log(data)
+		return (			
+			data=="Loading"?null:<MuiThemeProvider muiTheme={muiTheme}>
+			<div>
+				<AppHeader />
+				{deployedApps}
+			</div>
+			</MuiThemeProvider>
+			);
+	}
+});
+
+export default DeployedAppDetails;

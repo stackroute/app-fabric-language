@@ -15,22 +15,18 @@ import ActionHighlightOff from 'material-ui/svg-icons/action/highlight-off';
 import ToggleRadioButtonUnchecked from 'material-ui/svg-icons/toggle/radio-button-unchecked';
 import DeploymentCard from "./deploymentCard.jsx";
 
-
 var BaseImageDetails = React.createClass({
 	render(){
 		return(
 			<Card>
-				<CardHeader
-			      title="Do You Require a BASE-IMAGE For Your Deployment ? "
-			      actAsExpander={true}
-			      showExpandableButton={true}
-			    />
-			    <TextField hintText="Image Tag" underlineShow={false} />
-			    <Divider /> 
-			    
-
-			     
-			 </Card>
+			<CardHeader
+			title="Do You Require a BASE-IMAGE For Your Deployment ? "
+			actAsExpander={true}
+			showExpandableButton={true}
+			/>
+			<TextField hintText="Image Tag" underlineShow={false} />
+			<Divider /> 
+			</Card>
 			);
 	}
 });

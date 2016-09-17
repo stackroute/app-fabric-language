@@ -81,4 +81,4 @@ deployProject:dockerComposeCommand.stderr::
 ERROR: for site1  Cannot create container for service site1: Conflict. The name "/reverseproxyconfig_site1_1" is already in use by container 75d2c671a899510a1010ae5aa8e62360e3cfcfbf4538095a1ce87c944b77b613. You have to remove (or rename) that container to be able to reuse that name.
 deployProject:dockerComposeCommand.stderr::Encountered errors while bringing up the project.
 Closer of docker compose.deployProject:dockerComposeCommand.stderr::Creating reverseproxyconfig_proxy_1
-Closer of docker compose.executing body-parser.
+Closer of docker compose.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.

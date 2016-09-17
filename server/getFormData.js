@@ -11,7 +11,6 @@ var request = require('request');
 var cookieParser = require('cookie-parser');
 var log = require('fs');
 var logfile = "./deployment_log.log";
-
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
 io.sockets.on("8080", function(socket) {
@@ -20,6 +19,7 @@ io.sockets.on("8080", function(socket) {
 var app = express();
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
+
 io.on("connection",function(socket){
 	console.log("we have a connection");
 	socket.on("baseImage",function(data,data1){
@@ -34,16 +34,13 @@ io.on("connection",function(socket){
 		  console.log("gitURL ",gitURL);
 		  console.log("gitBranch",gitBranch);
 		  cloneGit(gitURL, deployProject, socket,gitBranch); 
-  // cloneGit(gitURL, socket, deployProject.bind(this,socket));  
 	});
 });
 var log = require('fs');
 
-
 // instruct the app to use the `bodyParser()` middleware for all routes
 app.use(bodyParser());
 app.use(cookieParser());
-
 
 app.get("/log/app-fabric", function(req, res){
 	res.set("Content-Type","application/log");
@@ -51,16 +48,13 @@ app.get("/log/app-fabric", function(req, res){
 });
 
 app.use(function(req,res,next) {
-
 	log.appendFile(logfile, "executing body-parser.", function(error){
 		if (error) return console.log(error);
 	});
 	next();
 });
 
-
 app.use(express.static(__dirname + '/../client'));
-
 
 app.get('/auth/github/success', function(req1, res1) {
     // GET code
@@ -91,7 +85,6 @@ app.get('/auth/github/success', function(req1, res1) {
     });
 });
 
-
 app.use(function(req, res, next) {
     if (!req.cookies.JWT) {
         return res.status(403).send('You are not Authorized');
@@ -105,7 +98,6 @@ app.use(function(req, res, next) {
         next();
     });
 })
-
 
 var scope = {
     cloning: {
@@ -128,7 +120,6 @@ app.post('/deploy', function(req, res) {
     console.log("gitURL ", gitURL);
     cloneGit(gitURL, deployProject);
 });
-
 
 app.use("/deployedAppDetails", function(req, res) {
     /*		// create a new user called chris
@@ -165,9 +156,7 @@ app.use("/deployedAppDetails", function(req, res) {
     });
 });
 
-
 //app.listen(8080);
-
 http.listen("8080", function(){
 	console.log("we are connected")
 });
