@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var deployedAppSchema = new Schema({
     appName: String,
-    dns: { type: String, required: true },
+    dns: { type: String },
     services: [{
         serviceName: String,
         replicas: Number
