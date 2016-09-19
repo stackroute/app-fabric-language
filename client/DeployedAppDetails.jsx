@@ -24,7 +24,6 @@ import {Router,Route,hashHistory,Link} from "react-router";
 //appid
 import AppId from "./appId.jsx"	
 import AppHeader from "./AppHeader.jsx";
-
 const muiTheme = getMuiTheme({
 	palette: {
 		textColor: cyan500,
@@ -87,6 +86,14 @@ var DeployedAppDetails = React.createClass({
 			}.bind(this)
 		})
 	},
+	
+	 contextTypes: {
+    router: React.PropTypes.object.isRequired
+   },
+	
+	 deployProject(){
+		 this.context.router.push('/form');
+	 },
 
 	render() {
 		var deployedApps=this.state.data.map(function(data,key){
@@ -100,6 +107,8 @@ var DeployedAppDetails = React.createClass({
 			data=="Loading"?null:<MuiThemeProvider muiTheme={muiTheme}>
 			<div>
 				<AppHeader />
+				 <RaisedButton style={{margin:'30px 0 30px 45%',textAlign:'center'}} onClick={this.deployProject} label="Deploy New App"/>
+				 <h3 style={{textAlign:'center'}}>List of deployed applications</h3>
 				{deployedApps}
 			</div>
 			</MuiThemeProvider>
