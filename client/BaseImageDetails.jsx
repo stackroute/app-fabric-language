@@ -15,7 +15,6 @@ import ActionHighlightOff from 'material-ui/svg-icons/action/highlight-off';
 import ToggleRadioButtonUnchecked from 'material-ui/svg-icons/toggle/radio-button-unchecked';
 import DeploymentCard from "./deploymentCard.jsx";
 
-
 var BaseImageDetails = React.createClass({
 	getInitialState:function(){	
 		return{
@@ -50,6 +49,7 @@ var BaseImageDetails = React.createClass({
 			    
 			    		     
 			 </Card>
+
 			);
 	}
 });

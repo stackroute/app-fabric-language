@@ -10,8 +10,9 @@ import Paper from 'material-ui/Paper';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import DeploymentCard from "./deploymentCard.jsx";
-import BaseImageCard from "./BaseImageCard.jsx";
 import Login from "./Login.jsx";
+//App Bar 
+import BaseImageCard from "./BaseImageCard.jsx";
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
@@ -19,31 +20,39 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import {Router,Route,hashHistory,Link} from "react-router";
-
+import SelectField from 'material-ui/SelectField';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+//Sign Out
+import AppHeader from "./AppHeader.jsx";
 
 const styles = {
-    paperstyle: {
-        width: "100%",
-        margin: '10px',
-        textAlign: 'center',
-        display: 'inline-block',
-        padding: '30px'
-    }
+	paperstyle: {
+		width: "100%",
+		margin: '10px',
+		textAlign: 'center',
+		display: 'inline-block',
+		padding: '30px'
+	}
 };
 
+const textStyle = {
+	marginBottom : 20,
+};
+
+const btnstyle={
+	width:"80%"
+}
+
 const muiTheme = getMuiTheme({
-   palette: {
-       textColor: cyan500,
-   },
+	palette: {
+		textColor: cyan500,
+	},
 });
 
 const style = {
-   margin: 12,
+	margin: 12,
 };
 
- const btnstyle={
-    width:"80%"
- }
 var DashBoard = React.createClass({
    signOut: function(){
 
@@ -55,13 +64,15 @@ var DashBoard = React.createClass({
    },
    getInitialState: function() {
        return { gitRepositoryURL: '',
-       clicked:false,
-       noClicked:false,
-       yesClicked:false,
-       clone : {isComplete: false,isInProgress: false },
-       deploy : {isComplete: false,isInProgress: false },
-       branchName: '',
-       cookieStatus: false };
+    gitBranchURL: '',
+    clicked:false,
+    noClicked:false,
+    yesClicked:false,
+    clone : {isComplete: false,isInProgress: false },
+    deploy : {isComplete: false,isInProgress: false },
+    branchName: [],
+    cookieStatus: false,
+    branchNameValue:'' };
    },
 
    componentWillMount: function(){
@@ -122,30 +133,16 @@ var DashBoard = React.createClass({
     },
 
    render: function() {
+          console.log(this.state.branchName);
+            if (this.state.branchName != ''){
+              var branchItems = this.state.branchName.map(function(branch) {
+                return <MenuItem value={branch.name} primaryText={branch.name}/>;
+              }.bind(this));
+            }
              return (
                  <MuiThemeProvider muiTheme={muiTheme}>
                    <div>
-                                  <AppBar
-                                    title="App Fabric"
-                                    iconElementLeft={<IconButton></IconButton>}
-                                    iconElementRight={
-                                      <IconMenu
-                                        iconButtonElement={
-                                          <IconButton><MoreVertIcon /></IconButton>
-                                        }
-                                        targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                                        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                                      >
-
-
-
-                                      <Link to="/" >
-                                        <MenuItem primaryText="Sign out" onClick={this.signOut}></MenuItem>
-
-                                        </Link>
-                                      </IconMenu>
-                                    }
-                                  />
+                                <AppHeader />
                                   <Paper style={styles.paperstyle} >
                                        <form onSubmit = { this.clickedDeploy } >
                                            <TextField
@@ -183,12 +180,6 @@ var DashBoard = React.createClass({
              );
 
    }
-})
+ })
 
-var App = React.createClass({
-   render: function() {
-       return <DashBoard />
-   }
-});
-module.exports=DashBoard;
-
+export default DashBoard;
