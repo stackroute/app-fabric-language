@@ -74,6 +74,15 @@
 
 	var Index = _react2.default.createClass({
 	    displayName: "Index",
+
+	    getChildContext: function getChildContext() {
+	        return {
+	            socket: io()
+	        };
+	    },
+	    childContextTypes: {
+	        socket: _react2.default.PropTypes.object
+	    },
 	    render: function render() {
 	        return _react2.default.createElement(
 	            _reactRouter.Router,
@@ -27164,7 +27173,7 @@
 	                            null,
 	                            "Login with GitHub"
 	                        ),
-	                        _react2.default.createElement(_RaisedButton2.default, { style: { margin: '30px 0 30px 0', textAlign: 'center' }, href: "https://github.com/login/oauth/authorize?client_id=06ae9c621282646f4225", label: "Continue" })
+	                        _react2.default.createElement(_RaisedButton2.default, { style: { margin: '30px 0 30px 0', textAlign: 'center' }, href: "https://github.com/login/oauth/authorize?client_id=f7bff20df63009ecc9cc", label: "Continue" })
 	                    )
 	                )
 	            )
@@ -36861,179 +36870,184 @@
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	var styles = {
-	    paperstyle: {
-	        width: "100%",
-	        margin: '10px',
-	        textAlign: 'center',
-	        display: 'inline-block',
-	        padding: '30px'
-	    }
+	  paperstyle: {
+	    width: "100%",
+	    margin: '10px',
+	    textAlign: 'center',
+	    display: 'inline-block',
+	    padding: '30px'
+	  }
 	};
 
 	var muiTheme = (0, _getMuiTheme2.default)({
-	    palette: {
-	        textColor: _colors.cyan500
-	    }
+	  palette: {
+	    textColor: _colors.cyan500
+	  }
 	});
 
 	var style = {
-	    margin: 12
+	  margin: 12
 	};
 
 	var btnstyle = {
-	    width: "80%"
+	  width: "80%"
 	};
 	var DashBoard = _react2.default.createClass({
-	    displayName: 'DashBoard',
+	  displayName: 'DashBoard',
 
-	    signOut: function signOut() {
+	  signOut: function signOut() {
 
-	        document.cookie = 'JWT' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-	    },
-	    getInitialState: function getInitialState() {
-	        return { gitRepositoryURL: '',
-	            clicked: false,
-	            noClicked: false,
-	            yesClicked: false,
-	            socket: window.io(),
-	            clone: { isComplete: false, isInProgress: false },
-	            deploy: { isComplete: false, isInProgress: false },
-	            branchName: '',
-	            cookieStatus: false };
-	    },
-	    componentWillMount: function componentWillMount() {
-	        if (document.cookie) {
-	            this.setState({ cookieStatus: true });
-	        } else if (document.cookie.length == 0) {
-	            this.setState({ cookieStatus: false });
-	        }
-	    },
-	    handleGitUrlChange: function handleGitUrlChange(event) {
-	        this.setState({ gitRepositoryURL: event.target.value });
-	        console.log(event.target.value);
-	    },
-	    handlebranchChange: function handlebranchChange(event) {
-	        this.setState({ branchName: event.target.value });
-	    },
-	    clickedDeploy: function clickedDeploy(e) {
-	        e.preventDefault();
-	        this.setState({ clicked: true });
-	    },
+	    document.cookie = 'JWT' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	  },
+	  contextTypes: {
+	    socket: _react2.default.PropTypes.object.isRequired,
+	    router: _react2.default.PropTypes.object.isRequired
+	  },
+	  getInitialState: function getInitialState() {
+	    return { gitRepositoryURL: '',
+	      clicked: false,
+	      noClicked: false,
+	      yesClicked: false,
+	      clone: { isComplete: false, isInProgress: false },
+	      deploy: { isComplete: false, isInProgress: false },
+	      branchName: '',
+	      cookieStatus: false };
+	  },
 
-	    cloneRepositoryYes: function cloneRepositoryYes(e) {
-	        e.preventDefault();
-	        this.setState({ yesClicked: true });
-	        this.setState({ gitRepositoryURL: '' });
-	        this.state.socket.emit("baseImage", { "gitURL": this.state.gitRepositoryURL }, { "gitBranch": this.state.branchName });
-	        this.state.socket.on("clone", function (data) {
-	            this.setState({ clone: data });
-	        }.bind(this));
-	    },
-
-	    cloneRepository: function cloneRepository(e) {
-	        e.preventDefault();
-	        console.log(this.state.gitRepositoryURL);
-	        this.setState({ noClicked: true });
-	        this.setState({ gitRepositoryURL: '' });
-	        this.state.socket.emit("deploy", { "gitURL": this.state.gitRepositoryURL }, { "gitBranch": this.state.branchName });
-	        this.state.socket.on("clone", function (data) {
-	            this.setState({ clone: data });
-	        }.bind(this));
-	        this.state.socket.on("deploy", function (data) {
-	            this.setState({ deploy: data });
-	        }.bind(this));
-	    },
-	    contextTypes: {
-	        router: _react2.default.PropTypes.object.isRequired
-	    },
-	    componentDidMount: function componentDidMount() {
-
-	        if (!this.state.cookieStatus) {
-	            this.context.router.push('/');
-	        }
-	    },
-
-	    render: function render() {
-	        var _React$createElement, _React$createElement2;
-
-	        return _react2.default.createElement(
-	            _MuiThemeProvider2.default,
-	            { muiTheme: muiTheme },
-	            _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(_AppBar2.default, {
-	                    title: 'App Fabric',
-	                    iconElementLeft: _react2.default.createElement(_IconButton2.default, null),
-	                    iconElementRight: _react2.default.createElement(
-	                        _IconMenu2.default,
-	                        {
-	                            iconButtonElement: _react2.default.createElement(
-	                                _IconButton2.default,
-	                                null,
-	                                _react2.default.createElement(_moreVert2.default, null)
-	                            ),
-	                            targetOrigin: { horizontal: 'right', vertical: 'top' },
-	                            anchorOrigin: { horizontal: 'right', vertical: 'top' }
-	                        },
-	                        _react2.default.createElement(
-	                            _reactRouter.Link,
-	                            { to: '/' },
-	                            _react2.default.createElement(_MenuItem2.default, { primaryText: 'Sign out', onClick: this.signOut })
-	                        )
-	                    )
-	                }),
-	                _react2.default.createElement(
-	                    _Paper2.default,
-	                    { style: styles.paperstyle },
-	                    _react2.default.createElement(
-	                        'form',
-	                        { onSubmit: this.clickedDeploy },
-	                        _react2.default.createElement(_TextField2.default, {
-	                            fullWidth: true,
-	                            type: 'text',
-	                            hintText: 'Enter GIT URL',
-	                            floatingLabelText: 'GIT URL',
-	                            value: this.state.gitRepositoryURL,
-	                            onChange: this.handleGitUrlChange,
-	                            name: 'gitURL'
-	                        }),
-	                        _react2.default.createElement(_TextField2.default, {
-	                            type: 'text',
-	                            hintText: '(default)',
-	                            floatingLabelText: 'Branch Name (default)',
-	                            value: this.state.branchName,
-	                            onChange: this.handlebranchChange,
-	                            name: 'gitURL'
-	                        }),
-	                        _react2.default.createElement(_RaisedButton2.default, (_React$createElement = { label: 'Primary', primary: true,
-	                            style: btnstyle }, _defineProperty(_React$createElement, 'label', 'Deploy'), _defineProperty(_React$createElement, 'secondary', true), _defineProperty(_React$createElement, 'style', style), _defineProperty(_React$createElement, 'type', 'submit'), _defineProperty(_React$createElement, 'disabled', !this.state.gitRepositoryURL), _React$createElement)),
-	                        _react2.default.createElement(_RaisedButton2.default, (_React$createElement2 = { label: 'Primary', primary: true, style: btnstyle
-	                        }, _defineProperty(_React$createElement2, 'label', 'Service log'), _defineProperty(_React$createElement2, 'secondary', true), _defineProperty(_React$createElement2, 'style', style), _defineProperty(_React$createElement2, 'type', 'button'), _defineProperty(_React$createElement2, 'href', '/log/app-fabric'), _React$createElement2))
-	                    )
-	                ),
-	                this.state.clicked ? _react2.default.createElement(_BaseImageCard2.default, { cloneRepository: this.cloneRepository, yesClicked: this.state.yesClicked, cloneRepositoryYes: this.cloneRepositoryYes }) : null,
-	                this.state.noClicked ? _react2.default.createElement(_deploymentCard2.default, { clone: this.state.clone, deploy: this.state.deploy }) : null,
-	                _react2.default.createElement(
-	                    'h3',
-	                    { align: 'left' },
-	                    _react2.default.createElement(
-	                        'a',
-	                        { href: '/log/app-fabric', style: { bottom: '10px', textAlign: 'left' } },
-	                        'Click here to see service log'
-	                    )
-	                )
-	            )
-	        );
+	  componentWillMount: function componentWillMount() {
+	    if (document.cookie) {
+	      this.setState({ cookieStatus: true });
+	    } else if (document.cookie.length == 0) {
+	      this.setState({ cookieStatus: false });
 	    }
+	  },
+	  handleGitUrlChange: function handleGitUrlChange(event) {
+	    this.setState({ gitRepositoryURL: event.target.value });
+	    console.log(event.target.value);
+	  },
+	  handlebranchChange: function handlebranchChange(event) {
+	    this.setState({ branchName: event.target.value });
+	  },
+	  clickedDeploy: function clickedDeploy(e) {
+	    e.preventDefault();
+	    this.setState({ clicked: true });
+	  },
+
+	  cloneRepositoryYes: function cloneRepositoryYes(e) {
+	    e.preventDefault();
+	    this.setState({ yesClicked: true });
+	    this.setState({ gitRepositoryURL: '' });
+	    this.context.socket.emit("baseImage", { "gitURL": this.state.gitRepositoryURL }, { "gitBranch": this.state.branchName });
+	    this.context.socket.on("clone", function (data) {
+	      this.setState({ clone: data });
+	    }.bind(this));
+	    this.context.socket.on("location", function (data) {
+	      console.log(data);
+	    });
+	  },
+
+	  cloneRepository: function cloneRepository(e) {
+	    e.preventDefault();
+	    console.log(this.state.gitRepositoryURL);
+	    this.setState({ noClicked: true });
+	    this.setState({ gitRepositoryURL: '' });
+	    this.context.socket.emit("deploy", { "gitURL": this.state.gitRepositoryURL }, { "gitBranch": this.state.branchName });
+	    this.context.socket.on("clone", function (data) {
+	      this.setState({ clone: data });
+	    }.bind(this));
+	    this.context.socket.on("deploy", function (data) {
+	      this.setState({ deploy: data });
+	    }.bind(this));
+	  },
+
+	  componentDidMount: function componentDidMount() {
+
+	    if (!this.state.cookieStatus) {
+	      this.context.router.push('/');
+	    }
+	  },
+
+	  render: function render() {
+	    var _React$createElement, _React$createElement2;
+
+	    return _react2.default.createElement(
+	      _MuiThemeProvider2.default,
+	      { muiTheme: muiTheme },
+	      _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_AppBar2.default, {
+	          title: 'App Fabric',
+	          iconElementLeft: _react2.default.createElement(_IconButton2.default, null),
+	          iconElementRight: _react2.default.createElement(
+	            _IconMenu2.default,
+	            {
+	              iconButtonElement: _react2.default.createElement(
+	                _IconButton2.default,
+	                null,
+	                _react2.default.createElement(_moreVert2.default, null)
+	              ),
+	              targetOrigin: { horizontal: 'right', vertical: 'top' },
+	              anchorOrigin: { horizontal: 'right', vertical: 'top' }
+	            },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/' },
+	              _react2.default.createElement(_MenuItem2.default, { primaryText: 'Sign out', onClick: this.signOut })
+	            )
+	          )
+	        }),
+	        _react2.default.createElement(
+	          _Paper2.default,
+	          { style: styles.paperstyle },
+	          _react2.default.createElement(
+	            'form',
+	            { onSubmit: this.clickedDeploy },
+	            _react2.default.createElement(_TextField2.default, {
+	              fullWidth: true,
+	              type: 'text',
+	              hintText: 'Enter GIT URL',
+	              floatingLabelText: 'GIT URL',
+	              value: this.state.gitRepositoryURL,
+	              onChange: this.handleGitUrlChange,
+	              name: 'gitURL'
+	            }),
+	            _react2.default.createElement(_TextField2.default, {
+	              type: 'text',
+	              hintText: '(default)',
+	              floatingLabelText: 'Branch Name (default)',
+	              value: this.state.branchName,
+	              onChange: this.handlebranchChange,
+	              name: 'gitURL'
+	            }),
+	            _react2.default.createElement(_RaisedButton2.default, (_React$createElement = { label: 'Primary', primary: true,
+	              style: btnstyle }, _defineProperty(_React$createElement, 'label', 'Deploy'), _defineProperty(_React$createElement, 'secondary', true), _defineProperty(_React$createElement, 'style', style), _defineProperty(_React$createElement, 'type', 'submit'), _defineProperty(_React$createElement, 'disabled', !this.state.gitRepositoryURL), _React$createElement)),
+	            _react2.default.createElement(_RaisedButton2.default, (_React$createElement2 = { label: 'Primary', primary: true, style: btnstyle
+	            }, _defineProperty(_React$createElement2, 'label', 'Service log'), _defineProperty(_React$createElement2, 'secondary', true), _defineProperty(_React$createElement2, 'style', style), _defineProperty(_React$createElement2, 'type', 'button'), _defineProperty(_React$createElement2, 'href', '/log/app-fabric'), _React$createElement2))
+	          )
+	        ),
+	        this.state.clicked ? _react2.default.createElement(_BaseImageCard2.default, { cloneRepository: this.cloneRepository, yesClicked: this.state.yesClicked, cloneRepositoryYes: this.cloneRepositoryYes }) : null,
+	        this.state.noClicked ? _react2.default.createElement(_deploymentCard2.default, { clone: this.state.clone, deploy: this.state.deploy }) : null,
+	        _react2.default.createElement(
+	          'h3',
+	          { align: 'left' },
+	          _react2.default.createElement(
+	            'a',
+	            { href: '/log/app-fabric', style: { bottom: '10px', textAlign: 'left' } },
+	            'Click here to see service log'
+	          )
+	        )
+	      )
+	    );
+	  }
 	});
 
 	var App = _react2.default.createClass({
-	    displayName: 'App',
+	  displayName: 'App',
 
-	    render: function render() {
-	        return _react2.default.createElement(DashBoard, null);
-	    }
+	  render: function render() {
+	    return _react2.default.createElement(DashBoard, null);
+	  }
 	});
 	module.exports = DashBoard;
 
@@ -43532,6 +43546,14 @@
 
 	var _Divider2 = _interopRequireDefault(_Divider);
 
+	var _Paper = __webpack_require__(392);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
+	var _TextField = __webpack_require__(418);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
 	var _done = __webpack_require__(476);
 
 	var _done2 = _interopRequireDefault(_done);
@@ -43552,22 +43574,35 @@
 
 	var BaseImageDetails = _react2.default.createClass({
 		displayName: 'BaseImageDetails',
+
+		getInitialState: function getInitialState() {
+			return {
+				imageTag: ''
+			};
+		},
+		contextTypes: {
+			socket: _react2.default.PropTypes.object.isRequired
+		},
+
+		handleImageChange: function handleImageChange(event) {
+			this.setState({ imageTag: event.target.value });
+			console.log(event.target.value);
+			this.context.socket.emit("image", { "imageName": event.target.value });
+		},
+
 		render: function render() {
 			return _react2.default.createElement(
 				_Card.Card,
 				null,
 				_react2.default.createElement(_Card.CardHeader, {
-					title: 'Do You Require a BASE-IMAGE For Your Deployment ? ',
+					title: 'Please provide the following details ? ',
 					actAsExpander: true,
 					showExpandableButton: true
 				}),
-				_react2.default.createElement(
-					_List.List,
-					null,
-					_react2.default.createElement(_List.ListItem, { primaryText: 'Image' }),
-					_react2.default.createElement(_List.ListItem, { primaryText: 'Image', s: true }),
-					_react2.default.createElement(_List.ListItem, { primaryText: 'Image' })
-				)
+				_react2.default.createElement(_TextField2.default, { hintText: 'Image Tag',
+					floatingLabelText: 'Image Tag',
+					value: this.state.imageTag, onChange: this.handleImageChange }),
+				_react2.default.createElement(_Divider2.default, null)
 			);
 		}
 	});

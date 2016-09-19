@@ -18,6 +18,14 @@ var cloneBase = function(gitURL,socket,gitBranch){
 	var repoName = (res[res.length-1].split("."))[0];
 	console.log(repoName);
 
+	const findDocker = spawn('find',['.' , '-name' , 'Dockerfile'],{cwd : cloneDirectoryPath});
+		findDocker.stdout.on('data', (data) => {
+	 	 console.log(`stdout: ${data}`);
+	 	 console.log("command output " +data);
+	 	 var location = data.toString();
+	 	 socket.emit("location",{"area" : location});
+
+		});
 }
 
-module.exports = cloneBase;
+module.exports = cloneBase; 

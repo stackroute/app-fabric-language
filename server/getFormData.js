@@ -18,8 +18,12 @@ io.on("connection",function(socket){
 	socket.on("baseImage",function(data,data1){
 		 var gitURL = data.gitURL;
 		 var gitBranch = data1.gitBranch;
-		 console.log("gitURL");
+		 console.log(gitURL);
 		 cloneBase(gitURL,socket,gitBranch);
+	});
+	socket.on("image",function(data){
+		var imageName = data.imageName;
+		console.log(imageName);
 	});
 	socket.on("deploy", function(data,data1){		
 		  var gitURL = data.gitURL;
@@ -54,12 +58,12 @@ app.use(function(req,res,next) {
 app.use(express.static(__dirname + '/../client'));
 
 
-app.get('/auth/github/success',function(req1,res1){
+app.get('/form',function(req1,res1){
 
 	// GET code
 	var code=req1.query.code;
-	console.log("requeested code is",code);
-	var oauthUrl="https://github.com/login/oauth/access_token?client_id=06ae9c621282646f4225&client_secret=8715ba33d34bf0658fe6ae558f20cc8e8de217aa&code="+code;
+	console.log("requested code is",code);
+	var oauthUrl="https://github.com/login/oauth/access_token?client_id=f7bff20df63009ecc9cc&client_secret=486f3d3ab84bf748e814843ee51acc1cb27d165a&code="+code;
 
 	// GET Authentication Token
 	var accessToken="";

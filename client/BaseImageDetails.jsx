@@ -17,19 +17,38 @@ import DeploymentCard from "./deploymentCard.jsx";
 
 
 var BaseImageDetails = React.createClass({
+	getInitialState:function(){	
+		return{
+			imageTag:''
+		};
+			
+	},
+	contextTypes: {
+    socket: React.PropTypes.object.isRequired
+   },
+
+	  handleImageChange:function(event){
+	    this.setState({imageTag: event.target.value});
+	    console.log(event.target.value);
+	    this.context.socket.emit("image",{"imageName" : event.target.value});
+
+  },
+  
+
 	render(){
 		return(
 			<Card>
 				<CardHeader
-			      title="Do You Require a BASE-IMAGE For Your Deployment ? "
+			      title="Please provide the following details ? "
 			      actAsExpander={true}
 			      showExpandableButton={true}
 			    />
-			    <TextField hintText="Image Tag" underlineShow={false} />
-			    <Divider /> 
+			    <TextField hintText="Image Tag" 
+			    floatingLabelText="Image Tag"
+			    value = {this.state.imageTag} onChange = {this.handleImageChange}/>
+			    <Divider />
 			    
-
-			     
+			    		     
 			 </Card>
 			);
 	}

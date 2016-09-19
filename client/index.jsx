@@ -8,13 +8,20 @@ injectTapEventPlugin();
 
 
 var Index=React.createClass({
+	getChildContext: function() {
+    	return {
+    		socket: io()
+    	};
+    },
+    childContextTypes: {
+		socket: React.PropTypes.object
+	},
     render(){
         return <Router history={hashHistory}>
             <Route path="/" component={Login}/>
             <Route path="/form" component={DashBoard}/>
         </Router>
     }
-
-})
+});
 
 ReactDOM.render(<Index/>,document.getElementById('app'))

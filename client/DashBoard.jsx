@@ -49,17 +49,21 @@ var DashBoard = React.createClass({
 
       document.cookie = 'JWT' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
    },
+   contextTypes: {
+    socket: React.PropTypes.object.isRequired,
+    router: React.PropTypes.object.isRequired
+   },
    getInitialState: function() {
        return { gitRepositoryURL: '',
        clicked:false,
        noClicked:false,
        yesClicked:false,
-       socket: window.io(),
        clone : {isComplete: false,isInProgress: false },
        deploy : {isComplete: false,isInProgress: false },
        branchName: '',
        cookieStatus: false };
    },
+
    componentWillMount: function(){
       if(document.cookie){
         this.setState({cookieStatus:true})
@@ -85,28 +89,31 @@ var DashBoard = React.createClass({
     e.preventDefault();
     this.setState({yesClicked:true});
     this.setState({gitRepositoryURL: ''});
-    this.state.socket.emit("baseImage", {"gitURL":this.state.gitRepositoryURL} , {"gitBranch" : this.state.branchName});
-    this.state.socket.on("clone",function(data){
+    this.context.socket.emit("baseImage", {"gitURL":this.state.gitRepositoryURL} ,
+     {"gitBranch" : this.state.branchName});
+    this.context.socket.on("clone",function(data){
       this.setState({clone: data});
        }.bind(this));
+    this.context.socket.on("location",function(data){
+        console.log(data);
+      });    
    },
-
+ 
    cloneRepository: function(e) {
        e.preventDefault();
        console.log(this.state.gitRepositoryURL);
        this.setState({noClicked: true});
        this.setState({gitRepositoryURL: ''});
-       this.state.socket.emit("deploy", {"gitURL":this.state.gitRepositoryURL} , {"gitBranch" : this.state.branchName});
-       this.state.socket.on("clone",function(data){
+       this.context.socket.emit("deploy", {"gitURL" : this.state.gitRepositoryURL} ,
+        {"gitBranch" : this.state.branchName});
+       this.context.socket.on("clone",function(data){
          this.setState({clone: data});
        }.bind(this));
-       this.state.socket.on("deploy",function(data){
+       this.context.socket.on("deploy",function(data){
         this.setState({deploy : data});
        }.bind(this));
    },
-    contextTypes: {
-        router: React.PropTypes.object.isRequired
-    },
+    
     componentDidMount: function () {
 
       if (!this.state.cookieStatus){
