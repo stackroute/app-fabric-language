@@ -1,107 +1,17 @@
-executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.CloneGit:REPOSITORY_PATH is:: /vagrant/DemoCloneGit:Git clone from stderr:: Cloning into 'ReverseProxyConfig'...
-executing body-parser.CloneGit:Done git clone
-CloneGit:REPOSITORY_PATH is:: /vagrant/DemoCloneGit:Git clone from stderr:: fatal: destination path 'ReverseProxyConfig' already exists and is not an empty directory.
+executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.CloneGit:REPOSITORY_PATH is:: /vagrant/docker/CloneGit:Git clone from stderr:: Cloning into 'ReverseProxyConfig'...
+CloneGit:Git clone from stderr:: fCloneGit:Git clone from stderr:: atal: CloneGit:Git clone from stderr:: RCloneGit:Git clone from stderr:: emote branch [object Object],[object Object],[object Object] not found in upstream origin
+executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.CloneGit:REPOSITORY_PATH is:: /vagrant/docker/CloneGit:Git clone from stderr:: Cloning into 'ReverseProxyConfig'...
 CloneGit:Done git clone
 deployProject:dockerComposeCommand.stderr::Creating network "reverseproxyconfig_default" with the default driver
-deployProject:dockerComposeCommand.stderr::Creating network "reverseproxyconfig_default" with the default driver
 deployProject:dockerComposeCommand.stderr::Building site2
-deployProject:dockerComposeCommand.stdout::Step 1 : FROM mhart/alpine-node:6.3.0
-deployProject:dockerComposeCommand.stdout:: ---> fffb49210fed
-deployProject:dockerComposeCommand.stdout::Step 2 : RUN npm install -g http-server
-deployProject:dockerComposeCommand.stdout:: ---> Using cache
-deployProject:dockerComposeCommand.stdout:: ---> 7a265e3318ee
-deployProject:dockerComposeCommand.stdout::Step 3 : COPY index.html .
-deployProject:dockerComposeCommand.stdout:: ---> Using cache
-deployProject:dockerComposeCommand.stdout:: ---> 23e76e4750b0
-deployProject:dockerComposeCommand.stdout::Step 4 : CMD http-server --port 8080
-deployProject:dockerComposeCommand.stdout:: ---> Using cache
-deployProject:dockerComposeCommand.stdout:: ---> 705ad0e218e1
-deployProject:dockerComposeCommand.stdout::Successfully built 705ad0e218e1
-deployProject:dockerComposeCommand.stderr::Building site1
-deployProject:dockerComposeCommand.stdout::Step 1 : FROM mhart/alpine-node:6.3.0
-deployProject:dockerComposeCommand.stdout:: ---> fffb49210fed
-deployProject:dockerComposeCommand.stdout::Step 2 : RUN npm install -g http-server
-deployProject:dockerComposeCommand.stdout:: ---> Using cache
-deployProject:dockerComposeCommand.stdout:: ---> 7a265e3318ee
-deployProject:dockerComposeCommand.stdout::Step 3 : COPY index.html .
-deployProject:dockerComposeCommand.stderr::Building site2
-deployProject:dockerComposeCommand.stdout:: ---> cf11ebf0a17e
-deployProject:dockerComposeCommand.stdout::Removing intermediate container 81425f2aa537
-deployProject:dockerComposeCommand.stdout::Step 4 : CMD http-server --port 8080
-deployProject:dockerComposeCommand.stdout::Step 1 : FROM mhart/alpine-node:6.3.0
-deployProject:dockerComposeCommand.stdout:: ---> fffb49210fed
-deployProject:dockerComposeCommand.stdout::Step 2 : RUN npm install -g http-server
-deployProject:dockerComposeCommand.stdout:: ---> Using cache
-deployProject:dockerComposeCommand.stdout:: ---> 7a265e3318ee
-deployProject:dockerComposeCommand.stdout:: ---> Running in f4cf68866d7e
-deployProject:dockerComposeCommand.stdout::Step 3 : COPY index.html .
-deployProject:dockerComposeCommand.stdout:: ---> Using cache
-deployProject:dockerComposeCommand.stdout:: ---> 23e76e4750b0
-deployProject:dockerComposeCommand.stdout::Step 4 : CMD http-server --port 8080
-deployProject:dockerComposeCommand.stdout:: ---> Using cache
-deployProject:dockerComposeCommand.stdout:: ---> 705ad0e218e1
-deployProject:dockerComposeCommand.stdout::Successfully built 705ad0e218e1
-deployProject:dockerComposeCommand.stderr::Building site1
-deployProject:dockerComposeCommand.stdout:: ---> 93ee9d040ff6
-deployProject:dockerComposeCommand.stdout::Removing intermediate container f4cf68866d7e
-deployProject:dockerComposeCommand.stdout::Successfully built 93ee9d040ff6
-deployProject:dockerComposeCommand.stderr::Building proxy
-deployProject:dockerComposeCommand.stdout::Step 1 : FROM mhart/alpine-node:6.3.0
-deployProject:dockerComposeCommand.stdout:: ---> fffb49210fed
-deployProject:dockerComposeCommand.stdout::Step 3 : COPY index.html .
-deployProject:dockerComposeCommand.stdout::Step 2 : RUN npm install -g http-server
-deployProject:dockerComposeCommand.stdout:: ---> Using cache
-deployProject:dockerComposeCommand.stdout:: ---> 7a265e3318ee
-deployProject:dockerComposeCommand.stdout:: ---> cf11ebf0a17e
-deployProject:dockerComposeCommand.stdout:: ---> Using cache
-deployProject:dockerComposeCommand.stdout::Step 4 : CMD http-server --port 8080
-deployProject:dockerComposeCommand.stdout:: ---> Using cache
-deployProject:dockerComposeCommand.stdout:: ---> 93ee9d040ff6
-deployProject:dockerComposeCommand.stdout::Successfully built 93ee9d040ff6
-deployProject:dockerComposeCommand.stderr::Building proxy
-deployProject:dockerComposeCommand.stdout::Step 1 : FROM smebberson/alpine-nginx:3.0.0
-deployProject:dockerComposeCommand.stdout:: ---> 5473ded7a8f3
-deployProject:dockerComposeCommand.stdout::Step 2 : ADD root /
-deployProject:dockerComposeCommand.stdout:: ---> Using cache
-deployProject:dockerComposeCommand.stdout:: ---> d00e0fd68657
-deployProject:dockerComposeCommand.stdout::Successfully built d00e0fd68657
-deployProject:dockerComposeCommand.stdout::Step 1 : FROM smebberson/alpine-nginx:3.0.0
-deployProject:dockerComposeCommand.stdout:: ---> 5473ded7a8f3
-deployProject:dockerComposeCommand.stdout::Step 2 : ADD root /
-deployProject:dockerComposeCommand.stdout:: ---> Using cache
-<<<<<<< HEAD
-deployProject:dockerComposeCommand.stdout:: ---> b11b41ad6789
-deployProject:dockerComposeCommand.stdout::Successfully built b11b41ad6789
-deployProject:dockerComposeCommand.stderr::Recreating reverseproxyconfig_site2_1
-deployProject:dockerComposeCommand.stderr::Recreating reverseproxyconfig_site1_1
-deployProject:dockerComposeCommand.stderr::Recreating reverseproxyconfig_proxy_1
-Closer of docker compose.executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/New folder/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.cloneBase:REPOSITORY_PATH is:: /vagrant/docker/executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.
-=======
-deployProject:dockerComposeCommand.stdout:: ---> d00e0fd68657
-deployProject:dockerComposeCommand.stdout::Successfully built d00e0fd68657
-deployProject:dockerComposeCommand.stderr::Creating reverseproxyconfig_site2_1
-deployProject:dockerComposeCommand.stderr::Creating reverseproxyconfig_site1_1
-deployProject:dockerComposeCommand.stderr::Creating reverseproxyconfig_site2_1
-deployProject:dockerComposeCommand.stderr::Creating reverseproxyconfig_site1_1
-deployProject:dockerComposeCommand.stderr::
-ERROR: for site2  Cannot create container for service site2: Conflict. The name "/reverseproxyconfig_site2_1" is already in use by container 74793e8b5bf637553960807f33283a4cb4e612d6e9ce9b67a8ef77b17e9c7c21. You have to remove (or rename) that container to be able to reuse that name.
-deployProject:dockerComposeCommand.stderr::
-ERROR: for site1  Cannot create container for service site1: Conflict. The name "/reverseproxyconfig_site1_1" is already in use by container 75d2c671a899510a1010ae5aa8e62360e3cfcfbf4538095a1ce87c944b77b613. You have to remove (or rename) that container to be able to reuse that name.
-deployProject:dockerComposeCommand.stderr::Encountered errors while bringing up the project.
-Closer of docker compose.deployProject:dockerComposeCommand.stderr::Creating reverseproxyconfig_proxy_1
-Closer of docker compose.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.
->>>>>>> d062feff7dfe61fdabbb122d9e42ddb369b777e9
-executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.CloneGit:REPOSITORY_PATH is:: /vagrant/docker/CloneGit:Git clone from stderr:: fatal: destination path 'ReverseProxyConfig' already exists and is not an empty directory.
-CloneGit:Done git clone
-executing body-parser.executing body-parser.deployProject:dockerComposeCommand.stderr::Building site2
 deployProject:dockerComposeCommand.stdout::Step 1 : FROM mhart/alpine-node:6.3.0
 deployProject:dockerComposeCommand.stdout:: ---> fffb49210fed
 deployProject:dockerComposeCommand.stdout::Step 2 : RUN npm install -g http-server
 deployProject:dockerComposeCommand.stdout:: ---> Using cache
 deployProject:dockerComposeCommand.stdout:: ---> 152249e987f4
 deployProject:dockerComposeCommand.stdout::Step 3 : COPY index.html .
-deployProject:dockerComposeCommand.stdout:: ---> 23575874b8e1
 deployProject:dockerComposeCommand.stdout:: ---> Using cache
+deployProject:dockerComposeCommand.stdout:: ---> 23575874b8e1
 deployProject:dockerComposeCommand.stdout::Step 4 : CMD http-server --port 8080
 deployProject:dockerComposeCommand.stdout:: ---> Using cache
 deployProject:dockerComposeCommand.stdout:: ---> 883250ee6737
@@ -113,12 +23,12 @@ deployProject:dockerComposeCommand.stdout::Step 2 : RUN npm install -g http-serv
 deployProject:dockerComposeCommand.stdout:: ---> Using cache
 deployProject:dockerComposeCommand.stdout:: ---> 152249e987f4
 deployProject:dockerComposeCommand.stdout::Step 3 : COPY index.html .
-deployProject:dockerComposeCommand.stdout:: ---> Using cache
 deployProject:dockerComposeCommand.stdout:: ---> f8e781799c3d
+deployProject:dockerComposeCommand.stdout:: ---> Using cache
+deployProject:dockerComposeCommand.stdout:: ---> daef4fc19833
 deployProject:dockerComposeCommand.stdout::Step 4 : CMD http-server --port 8080
 deployProject:dockerComposeCommand.stdout:: ---> Using cache
- ---> daef4fc19833
-Successfully built daef4fc19833
+deployProject:dockerComposeCommand.stdout::Successfully built daef4fc19833
 deployProject:dockerComposeCommand.stderr::Building proxy
 deployProject:dockerComposeCommand.stdout::Step 1 : FROM smebberson/alpine-nginx:3.0.0
 deployProject:dockerComposeCommand.stdout:: ---> 5473ded7a8f3
@@ -126,10 +36,11 @@ deployProject:dockerComposeCommand.stdout::Step 2 : ADD root /
 deployProject:dockerComposeCommand.stdout:: ---> Using cache
 deployProject:dockerComposeCommand.stdout:: ---> b11b41ad6789
 deployProject:dockerComposeCommand.stdout::Successfully built b11b41ad6789
-deployProject:dockerComposeCommand.stderr::Recreating reverseproxyconfig_site2_1
-deployProject:dockerComposeCommand.stderr::Recreating reverseproxyconfig_site1_1
-executing body-parser.executing body-parser.deployProject:dockerComposeCommand.stderr::Recreating reverseproxyconfig_proxy_1
-Closer of docker compose.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.CloneGit:REPOSITORY_PATH is:: /vagrant/docker/CloneGit:Git clone from stderr:: fatal: destination path 'ReverseProxyConfig' already exists and is not an empty directory.
+deployProject:dockerComposeCommand.stderr::Creating reverseproxyconfig_site1_1
+deployProject:dockerComposeCommand.stderr::Creating reverseproxyconfig_site2_1
+deployProject:dockerComposeCommand.stderr::Creating reverseproxyconfig_proxy_1
+Closer of docker compose.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.CloneGit:REPOSITORY_PATH is:: /vagrant/docker/CloneGit:Git clone from stderr:: Cloning into 'ReverseProxyConfig'...
+executing body-parser.executing body-parser.CloneGit:REPOSITORY_PATH is:: /vagrant/docker/CloneGit:Git clone from stderr:: Cloning into 'ReverseProxyConfig'...
 CloneGit:Done git clone
 deployProject:dockerComposeCommand.stderr::Building site2
 deployProject:dockerComposeCommand.stdout::Step 1 : FROM mhart/alpine-node:6.3.0
@@ -137,12 +48,12 @@ deployProject:dockerComposeCommand.stdout:: ---> fffb49210fed
 deployProject:dockerComposeCommand.stdout::Step 2 : RUN npm install -g http-server
 deployProject:dockerComposeCommand.stdout:: ---> Using cache
 deployProject:dockerComposeCommand.stdout:: ---> 152249e987f4
-deployProject:dockerComposeCommand.stdout::Step 3 : COPY index.html .
+Step 3 : COPY index.html .
+ ---> Using cache
+ ---> 23575874b8e1
+Step 4 : CMD http-server --port 8080
 deployProject:dockerComposeCommand.stdout:: ---> Using cache
-deployProject:dockerComposeCommand.stdout:: ---> 23575874b8e1
-deployProject:dockerComposeCommand.stdout::Step 4 : CMD http-server --port 8080
-deployProject:dockerComposeCommand.stdout:: ---> 883250ee6737
-deployProject:dockerComposeCommand.stdout:: ---> Using cache
+ ---> 883250ee6737
 deployProject:dockerComposeCommand.stdout::Successfully built 883250ee6737
 deployProject:dockerComposeCommand.stderr::Building site1
 deployProject:dockerComposeCommand.stdout::Step 1 : FROM mhart/alpine-node:6.3.0
@@ -165,7 +76,45 @@ deployProject:dockerComposeCommand.stdout:: ---> Using cache
 deployProject:dockerComposeCommand.stdout:: ---> b11b41ad6789
 deployProject:dockerComposeCommand.stdout::Successfully built b11b41ad6789
 deployProject:dockerComposeCommand.stderr::reverseproxyconfig_site2_1 is up-to-date
-deployProject:dockerComposeCommand.stderr::reverseproxyconfig_proxy_1 is up-to-date
 deployProject:dockerComposeCommand.stderr::reverseproxyconfig_site1_1 is up-to-date
-Closer of docker compose.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.CloneGit:REPOSITORY_PATH is:: /vagrant/docker/CloneGit:Git clone from stderr:: Cloning into 'ReverseProxyConfig'...
-CloneGit:Git clone from stderr:: fCloneGit:Git clone from stderr:: atal: CloneGit:Git clone from stderr:: RCloneGit:Git clone from stderr:: emote branch CloneGit:Git clone from stderr::  CloneGit:Git clone from stderr:: not found in upstream CloneGit:Git clone from stderr:: oCloneGit:Git clone from stderr:: riginCloneGit:Git clone from stderr:: 
+deployProject:dockerComposeCommand.stderr::reverseproxyconfig_proxy_1 is up-to-date
+Closer of docker compose.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.CloneGit:REPOSITORY_PATH is:: /vagrant/docker/CloneGit:Git clone from stderr:: Cloning into 'ReverseProxyConfig'...
+executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.CloneGit:REPOSITORY_PATH is:: /vagrant/docker/CloneGit:Git clone from stderr:: Cloning into 'ReverseProxyConfig'...
+CloneGit:Done git clone
+deployProject:dockerComposeCommand.stderr::Building site2
+deployProject:dockerComposeCommand.stdout::Step 1 : FROM mhart/alpine-node:6.3.0
+deployProject:dockerComposeCommand.stdout:: ---> fffb49210fed
+deployProject:dockerComposeCommand.stdout::Step 2 : RUN npm install -g http-server
+deployProject:dockerComposeCommand.stdout:: ---> Using cache
+deployProject:dockerComposeCommand.stdout:: ---> 152249e987f4
+deployProject:dockerComposeCommand.stdout::Step 3 : COPY index.html .
+deployProject:dockerComposeCommand.stdout:: ---> Using cache
+deployProject:dockerComposeCommand.stdout:: ---> 23575874b8e1
+deployProject:dockerComposeCommand.stdout::Step 4 : CMD http-server --port 8080
+deployProject:dockerComposeCommand.stdout:: ---> Using cache
+deployProject:dockerComposeCommand.stdout:: ---> 883250ee6737
+deployProject:dockerComposeCommand.stdout::Successfully built 883250ee6737
+deployProject:dockerComposeCommand.stderr::Building site1
+deployProject:dockerComposeCommand.stdout::Step 1 : FROM mhart/alpine-node:6.3.0
+deployProject:dockerComposeCommand.stdout:: ---> fffb49210fed
+deployProject:dockerComposeCommand.stdout::Step 2 : RUN npm install -g http-server
+deployProject:dockerComposeCommand.stdout:: ---> Using cache
+deployProject:dockerComposeCommand.stdout:: ---> 152249e987f4
+deployProject:dockerComposeCommand.stdout::Step 3 : COPY index.html .
+deployProject:dockerComposeCommand.stdout:: ---> Using cache
+deployProject:dockerComposeCommand.stdout:: ---> f8e781799c3d
+deployProject:dockerComposeCommand.stdout::Step 4 : CMD http-server --port 8080
+deployProject:dockerComposeCommand.stdout:: ---> Using cache
+deployProject:dockerComposeCommand.stdout:: ---> daef4fc19833
+deployProject:dockerComposeCommand.stdout::Successfully built daef4fc19833
+deployProject:dockerComposeCommand.stderr::Building proxy
+deployProject:dockerComposeCommand.stdout::Step 1 : FROM smebberson/alpine-nginx:3.0.0
+deployProject:dockerComposeCommand.stdout:: ---> 5473ded7a8f3
+deployProject:dockerComposeCommand.stdout::Step 2 : ADD root /
+deployProject:dockerComposeCommand.stdout:: ---> Using cache
+deployProject:dockerComposeCommand.stdout:: ---> b11b41ad6789
+deployProject:dockerComposeCommand.stdout::Successfully built b11b41ad6789
+deployProject:dockerComposeCommand.stderr::reverseproxyconfig_site2_1 is up-to-date
+deployProject:dockerComposeCommand.stderr::reverseproxyconfig_site1_1 is up-to-date
+deployProject:dockerComposeCommand.stderr::reverseproxyconfig_proxy_1 is up-to-date
+Closer of docker compose.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.executing body-parser.

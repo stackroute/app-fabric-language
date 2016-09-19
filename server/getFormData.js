@@ -32,7 +32,8 @@ io.on("connection",function(socket){
 		var imageName = data.imageName;
 		console.log(imageName);
 	});
-	socket.on("deploy", function(data,data1){		
+	socket.on("deploy", function(data,data1){
+          console.log(data1);
 		  var gitURL = data.gitURL;
 		  var gitBranch = data1.gitBranch;
 		  console.log("gitURL ",gitURL);
