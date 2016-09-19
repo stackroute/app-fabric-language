@@ -26,6 +26,7 @@ io.on("connection",function(socket){
 		 var gitURL = data.gitURL;
 		 var gitBranch = data1.gitBranch;
 		 console.log(gitURL);
+         console.log(gitBranch);
 		 cloneBase(gitURL,socket,gitBranch);
 	});
 	socket.on("image",function(data){
