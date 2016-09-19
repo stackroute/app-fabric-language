@@ -95,7 +95,11 @@ var DashBoard = React.createClass({
 			dataType: 'json',
 			type: 'GET',
 		}).done(function(data) {
-			this.setState({branchName: data, gitRepositoryURL: gitURL});
+        var newState = {branchName: data, gitRepositoryURL: gitURL};
+        if(data.length === 1) {
+          newState.branchNameValue = data[0].name
+        }
+        this.setState(newState);
 		}.bind(this));
 	},
 	
@@ -172,7 +176,9 @@ var DashBoard = React.createClass({
 					maxHeight={200} >
 					{branchItems}
 					</SelectField> 
-					<RaisedButton label="Primary" primary={true} style={btnstyle} label="Deploy" secondary={true} style={style} type = "submit" disabled={!this.state.gitRepositoryURL} />
+					<RaisedButton label="Primary" primary={true} style={btnstyle} label="Deploy" secondary={true} style={style} type = "submit"
+					 disabled={(this.state.gitRepositoryURL.length===0) ||
+                                             (this.state.branchNameValue.length===0)} />
 				<RaisedButton label="Primary" primary={true} style={btnstyle} label="Service log" secondary={true} style={style} type = "button" href="/log/app-fabric"/>
 				</form >
 			</Paper>
