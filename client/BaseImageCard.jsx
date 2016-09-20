@@ -12,7 +12,6 @@ const style = {
 var BaseImageCard = React.createClass({
 
 	render() {
-		console.log("BaseImage location" , this.props.locationDetails);
 		return(
 			<div>
 				<Card>

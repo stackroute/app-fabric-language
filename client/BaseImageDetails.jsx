@@ -15,11 +15,14 @@ import ActionHighlightOff from 'material-ui/svg-icons/action/highlight-off';
 import ToggleRadioButtonUnchecked from 'material-ui/svg-icons/toggle/radio-button-unchecked';
 import DeploymentCard from "./deploymentCard.jsx";
 import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+
 
 var BaseImageDetails = React.createClass({
 	getInitialState:function(){	
 		return{
-			imageTag:''
+			imageTag:'',
+			locationValue : ''
 		};
 			
 	},
@@ -39,6 +42,10 @@ var BaseImageDetails = React.createClass({
   */
 
 	render(){
+			var locationItems = this.props.locationDetails.map(function(location){
+				return <MenuItem value = {location.name} primaryText = {location.name} />
+			}.bind(this));		
+		console.log("wwwww",locationItems);
 		return(
 			<Card>
 				<CardHeader
@@ -51,11 +58,11 @@ var BaseImageDetails = React.createClass({
 			    value = {this.state.imageTag} onChange = {this.handleImageChange}/>
 			    <Divider />
 			    	<SelectField 
-			    	fullWidth={true} 
+			    	fullWidth={true}
 					hintText="Select the location of your base-image Dockerfile"                                                                                           
-					maxHeight={200} />
-
-			    
+					maxHeight={200} >{locationItems}</SelectField>	
+					
+	    
 			    		     
 			 </Card>
 

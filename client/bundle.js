@@ -36880,7 +36880,7 @@
 
 	var _BaseImageCard2 = _interopRequireDefault(_BaseImageCard);
 
-	var _AppBar = __webpack_require__(502);
+	var _AppBar = __webpack_require__(503);
 
 	var _AppBar2 = _interopRequireDefault(_AppBar);
 
@@ -36888,11 +36888,11 @@
 
 	var _IconButton2 = _interopRequireDefault(_IconButton);
 
-	var _IconMenu = __webpack_require__(505);
+	var _IconMenu = __webpack_require__(506);
 
 	var _IconMenu2 = _interopRequireDefault(_IconMenu);
 
-	var _MenuItem = __webpack_require__(507);
+	var _MenuItem = __webpack_require__(502);
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -37058,7 +37058,6 @@
 		render: function render() {
 			var _React$createElement, _React$createElement2;
 
-			console.log(this.state.locationDetails);
 			console.log(this.state.branchName);
 			if (this.state.branchName.length > 0) {
 				var branchItems = this.state.branchName.map(function (branch) {
@@ -43566,7 +43565,7 @@
 					_react2.default.createElement(_RaisedButton2.default, { label: 'YES', primary: true, style: style, onClick: this.props.cloneRepositoryYes }),
 					_react2.default.createElement(_RaisedButton2.default, { label: 'NO', secondary: true, style: style, onClick: this.props.cloneRepository })
 				),
-				this.props.yesClicked ? _react2.default.createElement(_BaseImageDetails2.default, null) : null
+				this.props.yesClicked ? _react2.default.createElement(_BaseImageDetails2.default, { locationDetails: this.props.locationDetails }) : null
 			);
 		}
 	});
@@ -43647,6 +43646,10 @@
 
 	var _SelectField2 = _interopRequireDefault(_SelectField);
 
+	var _MenuItem = __webpack_require__(502);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var BaseImageDetails = _react2.default.createClass({
@@ -43672,6 +43675,10 @@
 	 */
 
 		render: function render() {
+			var locationItems = this.props.locationDetails.map(function (location) {
+				return _react2.default.createElement(_MenuItem2.default, { value: location.name, primaryText: location.name });
+			}.bind(this));
+			console.log("wwwww", locationItems);
 			return _react2.default.createElement(
 				_Card.Card,
 				null,
@@ -43686,6 +43693,7 @@
 				_react2.default.createElement(_Divider2.default, null),
 				_react2.default.createElement(_SelectField2.default, {
 					fullWidth: true,
+					value: this.props.locationDetails,
 					hintText: 'Select the location of your base-image Dockerfile',
 					maxHeight: 200 })
 			);
@@ -47280,7 +47288,26 @@
 	});
 	exports.default = undefined;
 
-	var _AppBar = __webpack_require__(503);
+	var _MenuItem = __webpack_require__(500);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _MenuItem2.default;
+
+/***/ },
+/* 503 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _AppBar = __webpack_require__(504);
 
 	var _AppBar2 = _interopRequireDefault(_AppBar);
 
@@ -47289,7 +47316,7 @@
 	exports.default = _AppBar2.default;
 
 /***/ },
-/* 503 */
+/* 504 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -47316,7 +47343,7 @@
 
 	var _IconButton2 = _interopRequireDefault(_IconButton);
 
-	var _menu = __webpack_require__(504);
+	var _menu = __webpack_require__(505);
 
 	var _menu2 = _interopRequireDefault(_menu);
 
@@ -47656,7 +47683,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 504 */
+/* 505 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47693,7 +47720,7 @@
 	exports.default = NavigationMenu;
 
 /***/ },
-/* 505 */
+/* 506 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47703,7 +47730,7 @@
 	});
 	exports.default = exports.MenuItem = exports.IconMenu = undefined;
 
-	var _IconMenu2 = __webpack_require__(506);
+	var _IconMenu2 = __webpack_require__(507);
 
 	var _IconMenu3 = _interopRequireDefault(_IconMenu2);
 
@@ -47718,7 +47745,7 @@
 	exports.default = _IconMenu3.default;
 
 /***/ },
-/* 506 */
+/* 507 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -48108,25 +48135,6 @@
 	  muiTheme: _react.PropTypes.object.isRequired
 	};
 	exports.default = IconMenu;
-
-/***/ },
-/* 507 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-
-	var _MenuItem = __webpack_require__(500);
-
-	var _MenuItem2 = _interopRequireDefault(_MenuItem);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _MenuItem2.default;
 
 /***/ },
 /* 508 */
@@ -48621,7 +48629,7 @@
 
 	var _Login2 = _interopRequireDefault(_Login);
 
-	var _AppBar = __webpack_require__(502);
+	var _AppBar = __webpack_require__(503);
 
 	var _AppBar2 = _interopRequireDefault(_AppBar);
 
@@ -48629,11 +48637,11 @@
 
 	var _IconButton2 = _interopRequireDefault(_IconButton);
 
-	var _IconMenu = __webpack_require__(505);
+	var _IconMenu = __webpack_require__(506);
 
 	var _IconMenu2 = _interopRequireDefault(_IconMenu);
 
-	var _MenuItem = __webpack_require__(507);
+	var _MenuItem = __webpack_require__(502);
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -48800,7 +48808,7 @@
 
 	var _Card = __webpack_require__(442);
 
-	var _AppBar = __webpack_require__(502);
+	var _AppBar = __webpack_require__(503);
 
 	var _AppBar2 = _interopRequireDefault(_AppBar);
 
@@ -48808,11 +48816,11 @@
 
 	var _IconButton2 = _interopRequireDefault(_IconButton);
 
-	var _IconMenu = __webpack_require__(505);
+	var _IconMenu = __webpack_require__(506);
 
 	var _IconMenu2 = _interopRequireDefault(_IconMenu);
 
-	var _MenuItem = __webpack_require__(507);
+	var _MenuItem = __webpack_require__(502);
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
@@ -48917,6 +48925,15 @@
 				}.bind(this)
 			});
 		},
+
+
+		contextTypes: {
+			router: _react2.default.PropTypes.object.isRequired
+		},
+
+		deployProject: function deployProject() {
+			this.context.router.push('/form');
+		},
 		render: function render() {
 			var deployedApps = this.state.data.map(function (data, key) {
 				return _react2.default.createElement(CardExampleExpandable, { data: data });
@@ -48930,6 +48947,12 @@
 					'div',
 					null,
 					_react2.default.createElement(_AppHeader2.default, null),
+					_react2.default.createElement(_RaisedButton2.default, { style: { margin: '30px 0 30px 45%', textAlign: 'center' }, onClick: this.deployProject, label: 'Deploy New App' }),
+					_react2.default.createElement(
+						'h3',
+						{ style: { textAlign: 'center' } },
+						'List of deployed applications'
+					),
 					deployedApps
 				)
 			);

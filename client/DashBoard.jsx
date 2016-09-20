@@ -155,7 +155,6 @@ var DashBoard = React.createClass({
 	},
 
 	render: function() {
-		console.log(this.state.locationDetails);
 		console.log(this.state.branchName);
 		if (this.state.branchName.length > 0) {
 			var branchItems = this.state.branchName.map(function(branch) {
