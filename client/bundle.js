@@ -43550,7 +43550,6 @@
 	var BaseImageCard = _react2.default.createClass({
 		displayName: 'BaseImageCard',
 		render: function render() {
-			console.log("BaseImage location", this.props.locationDetails);
 			return _react2.default.createElement(
 				'div',
 				null,
@@ -43650,52 +43649,84 @@
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
+	var _RaisedButton = __webpack_require__(397);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	var BaseImageDetails = _react2.default.createClass({
 		displayName: 'BaseImageDetails',
 
 		getInitialState: function getInitialState() {
 			return {
-				imageTag: ''
+				imageTag: '',
+				locationValue: ''
 			};
 		},
 		contextTypes: {
 			socket: _react2.default.PropTypes.object.isRequired
 		},
-
 		handleImageChange: function handleImageChange(event) {
 			this.setState({ imageTag: event.target.value });
-			console.log(event.target.value);
-			this.context.socket.emit("image", { "imageName": event.target.value });
+			console.log(this.state.imageTag);
 		},
-		/*handleDockerfile:function(event){
-	 	this.setState
-	 }
-	 */
+		handleLocationChange: function handleLocationChange(event, index, value) {
+			console.log('handling location change!!!');
+			this.setState({ locationValue: value });
+			console.log(this.state.locationValue);
+		},
+		clickedBase: function clickedBase(e) {
+			e.preventDefault();
+			console.log("socket ", this.state.imageTag, this.state.locationValue);
+			this.context.socket.emit("baseImageSubmit", { imageTag: this.state.imageTag }, { locationValue: this.state.locationValue });
+		},
 
 		render: function render() {
-			var locationItems = this.props.locationDetails.map(function (location) {
-				return _react2.default.createElement(_MenuItem2.default, { value: location.name, primaryText: location.name });
+			var _React$createElement;
+
+			console.log(this.state.locationValue, this.state.imageTag);
+			console.log("wwooowwowow", this.props.locationDetails);
+			var locationItems = this.props.locationDetails.map(function (locationItem) {
+				return _react2.default.createElement(_MenuItem2.default, { value: locationItem, primaryText: locationItem });
 			}.bind(this));
-			console.log("wwwww", locationItems);
+
+			console.log("locationItems------------", locationItems);
 			return _react2.default.createElement(
-				_Card.Card,
+				'div',
 				null,
-				_react2.default.createElement(_Card.CardHeader, {
-					title: 'Please provide the following details ? ',
-					actAsExpander: true,
-					showExpandableButton: true
-				}),
-				_react2.default.createElement(_TextField2.default, { hintText: 'Image Tag',
-					floatingLabelText: 'Image Tag',
-					value: this.state.imageTag, onChange: this.handleImageChange }),
-				_react2.default.createElement(_Divider2.default, null),
-				_react2.default.createElement(_SelectField2.default, {
-					fullWidth: true,
-					value: this.props.locationDetails,
-					hintText: 'Select the location of your base-image Dockerfile',
-					maxHeight: 200 })
+				_react2.default.createElement(
+					_Card.Card,
+					null,
+					_react2.default.createElement(_Card.CardHeader, {
+						title: 'Please provide the following details ? ',
+						actAsExpander: true,
+						showExpandableButton: true
+					}),
+					_react2.default.createElement(
+						'form',
+						{ onSubmit: this.clickedBase },
+						_react2.default.createElement(_TextField2.default, { hintText: 'Image Tag',
+							floatingLabelText: 'Image Tag',
+							value: this.state.imageTag, onChange: this.handleImageChange }),
+						_react2.default.createElement(_Divider2.default, null),
+						_react2.default.createElement(
+							_SelectField2.default,
+							{
+								fullWidth: true,
+								hintText: 'Select the location of your base-image Dockerfile',
+								onChange: this.handleLocationChange,
+								value: this.state.locationValue,
+								maxHeight: 200 },
+							locationItems
+						),
+						_react2.default.createElement(_Divider2.default, null),
+						_react2.default.createElement(_RaisedButton2.default, (_React$createElement = { label: 'Secondary', primary: true
+						}, _defineProperty(_React$createElement, 'label', 'Build'), _defineProperty(_React$createElement, 'secondary', true), _defineProperty(_React$createElement, 'type', 'submit'), _React$createElement))
+					)
+				)
 			);
 		}
 	});

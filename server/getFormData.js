@@ -5,6 +5,7 @@ var express = require('express');
 var path = require('path');
 var cloneBase = require("./cloneBase.js");
 var cloneGit = require('./cloneGit.js');
+var deployBase = require('./deployBase.js');
 var bodyParser = require('body-parser');
 var deployProject = require('./deployProject.js');
 var request = require('request');
@@ -29,9 +30,12 @@ io.on("connection",function(socket){
          console.log(gitBranch);
 		 cloneBase(gitURL,socket,gitBranch);
 	});
-	socket.on("image",function(data){
-		var imageName = data.imageName;
+	socket.on("baseImageSubmit",function(data,data1){
+		var imageName = data.imageTag;
+        var locationName = data1.locationValue;
 		console.log(imageName);
+        console.log(locationName);
+        deployBase(imageName,locationName);
 	});
 	socket.on("deploy", function(data,data1){
           console.log(data1);

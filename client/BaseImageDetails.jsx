@@ -16,56 +16,73 @@ import ToggleRadioButtonUnchecked from 'material-ui/svg-icons/toggle/radio-butto
 import DeploymentCard from "./deploymentCard.jsx";
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
+
 
 
 var BaseImageDetails = React.createClass({
 	getInitialState:function(){	
-		return{
-			imageTag:'',
-			locationValue : ''
+		return {
+			imageTag: '',
+			locationValue: ''
 		};
 			
 	},
 	contextTypes: {
     socket: React.PropTypes.object.isRequired
    },
-
 	  handleImageChange:function(event){
 	    this.setState({imageTag: event.target.value});
-	    console.log(event.target.value);
-	    this.context.socket.emit("image",{"imageName" : event.target.value});
-
+	    console.log(this.state.imageTag);
   },
-  	/*handleDockerfile:function(event){
-  		this.setState
-  	}
-  */
+  	  handleLocationChange:function(event, index, value){
+  	  	console.log('handling location change!!!');
+	    this.setState({locationValue: value});
+	    console.log(this.state.locationValue);
+  },
+  	  clickedBase: function(e){
+  		e.preventDefault();
+  		console.log("socket " , this.state.imageTag,this.state.locationValue);
+  		this.context.socket.emit("baseImageSubmit",{imageTag:this.state.imageTag},{locationValue:this.state.locationValue});
+
+  	},
 
 	render(){
-			var locationItems = this.props.locationDetails.map(function(location){
-				return <MenuItem value = {location.name} primaryText = {location.name} />
+		 console.log(this.state.locationValue,this.state.imageTag);
+		console.log("wwooowwowow" , this.props.locationDetails);
+			var locationItems = this.props.locationDetails.map(function(locationItem){
+				return <MenuItem value = {locationItem} primaryText = {locationItem} />
 			}.bind(this));		
-		console.log("wwwww",locationItems);
-		return(
-			<Card>
-				<CardHeader
-			      title="Please provide the following details ? "
-			      actAsExpander={true}
-			      showExpandableButton={true}
-			    />
-			    <TextField hintText="Image Tag" 
-			    floatingLabelText="Image Tag"
-			    value = {this.state.imageTag} onChange = {this.handleImageChange}/>
-			    <Divider />
-			    	<SelectField 
-			    	fullWidth={true}
-					hintText="Select the location of your base-image Dockerfile"                                                                                           
-					maxHeight={200} >{locationItems}</SelectField>	
-					
-	    
-			    		     
-			 </Card>
 
+		console.log("locationItems------------",locationItems);
+		return(
+			<div>			  
+				<Card>
+					<CardHeader
+				      title="Please provide the following details ? "
+				      actAsExpander={true}
+				      showExpandableButton={true}
+				    />
+				   <form onSubmit = {this.clickedBase} >
+					    <TextField hintText="Image Tag" 
+					    floatingLabelText="Image Tag"
+					    value = {this.state.imageTag} onChange = {this.handleImageChange}/>
+					    <Divider />
+					    <SelectField 
+					    	fullWidth={true}
+							hintText="Select the location of your base-image Dockerfile"
+							onChange = {this.handleLocationChange}
+							value = {this.state.locationValue}                                                                                     
+							maxHeight={200}>
+							{locationItems}
+						</SelectField>
+						<Divider />
+						<RaisedButton label="Secondary" primary={true}
+						 label="Build" secondary={true} 
+						 type = "submit" />
+					</form>				    		     
+				 	</Card>
+				 </div>
 			);
 	}
 });
