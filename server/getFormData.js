@@ -83,7 +83,7 @@ app.get('/auth/github/success', function(req1, res1) {
                     var token = jwt.sign({ "accesstoken": accessToken, "user": "github.com/" + obj.login }, '0170263fb5ff2830816c9731d0598426aa24064');
                     console.log("Token generated is ", token);
                     console.log("User profile details " + typeof obj + " " + obj.login) // Show the HTML for the Google homepage.
-                    res1.cookie('JWT', token, { maxAge: 900000 }).redirect("/#/form");
+                    res1.cookie('JWT', token, { maxAge: 900000 }).redirect("/#/apps");
                 } else {
                     console.log(response3.statusCode);
                 }
@@ -130,32 +130,7 @@ app.post('/deploy', function(req, res) {
 
 app.use("/deployedAppDetails", function(req, res) {
     		// create a new user called chris
-    		var newUser  = deployedAppModel({
-    		  appName: 'QuizRT',
-    		  dns: 'www.quizRT.com',
-    		  services: [{
-    			serviceName:"chatservice" ,
-    			replicas: 5
-    		  },
-    		  {
-    			serviceName:"questionGenerator" ,
-    			replicas: 5
-    		  },
-    		  {
-    			serviceName:"authentication" ,
-    			replicas: 5
-    		  },
-    		  {
-    			serviceName:"badges" ,
-    			replicas: 5
-    		  }
-    		  ],
-    		});
-			// Save the user details
-    		newUser.save(function(err) {
-    		  if (err) throw err;
-    		  console.log('User created!');
-    		  });
+    		
     
     deployedAppModel.find({}, function(err, users) {
         if (err) throw err;
