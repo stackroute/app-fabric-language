@@ -18,10 +18,13 @@ var cloneBase = function(gitURL,socket,gitBranch){
 
 	gitCloneCommand.on("close",function(){
 	   const findDocker = spawn('find',['.' , '-name' , 'Dockerfile'],{cwd : cloneDirectoryPath});
+	   var count = 0;
 		findDocker.stdout.on('data', (data) => {
+			console.log('Count is: ', ++count);
 	 	 console.log(`stdout: ${data}`);
 	 	 console.log("command output " +data);
-	 	 var location = data.toString();
+	 	 var location = data.toString().split('\n');
+	 	 console.log('location:', location);
 	 	 socket.emit("location",{"area" : location});
 
 		});

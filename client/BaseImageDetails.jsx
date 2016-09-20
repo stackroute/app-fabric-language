@@ -14,6 +14,7 @@ import ActionDone from 'material-ui/svg-icons/action/done';
 import ActionHighlightOff from 'material-ui/svg-icons/action/highlight-off';
 import ToggleRadioButtonUnchecked from 'material-ui/svg-icons/toggle/radio-button-unchecked';
 import DeploymentCard from "./deploymentCard.jsx";
+import SelectField from 'material-ui/SelectField';
 
 var BaseImageDetails = React.createClass({
 	getInitialState:function(){	
@@ -32,7 +33,10 @@ var BaseImageDetails = React.createClass({
 	    this.context.socket.emit("image",{"imageName" : event.target.value});
 
   },
-  
+  	/*handleDockerfile:function(event){
+  		this.setState
+  	}
+  */
 
 	render(){
 		return(
@@ -46,6 +50,11 @@ var BaseImageDetails = React.createClass({
 			    floatingLabelText="Image Tag"
 			    value = {this.state.imageTag} onChange = {this.handleImageChange}/>
 			    <Divider />
+			    	<SelectField 
+			    	fullWidth={true} 
+					hintText="Select the location of your base-image Dockerfile"                                                                                           
+					maxHeight={200} />
+
 			    
 			    		     
 			 </Card>

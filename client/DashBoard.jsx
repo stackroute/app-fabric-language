@@ -70,6 +70,7 @@ var DashBoard = React.createClass({
 		clone : {isComplete: false,isInProgress: false },
 		deploy : {isComplete: false,isInProgress: false },
 		branchName: [],
+		locationDetails:[],
 		cookieStatus: false,
 		branchNameValue:'' };
 	},
@@ -127,7 +128,9 @@ var DashBoard = React.createClass({
 		}.bind(this));
     this.context.socket.on("location",function(data){
         console.log(data);
-      });    
+        this.setState({locationDetails:data});
+        console.log(this.state.locationDetails);
+      }.bind(this));    
 	},
 	
 	cloneRepository: function(e) {
@@ -152,6 +155,7 @@ var DashBoard = React.createClass({
 	},
 
 	render: function() {
+		console.log(this.state.locationDetails);
 		console.log(this.state.branchName);
 		if (this.state.branchName.length > 0) {
 			var branchItems = this.state.branchName.map(function(branch) {
@@ -191,7 +195,8 @@ var DashBoard = React.createClass({
 					type = "button" href="/log/app-fabric"/>
 				</form >
 			</Paper>
-			{this.state.clicked?<BaseImageCard cloneRepository={this.cloneRepository} yesClicked={this.state.yesClicked} cloneRepositoryYes = {this.cloneRepositoryYes}/>:null}
+			{this.state.clicked?<BaseImageCard cloneRepository={this.cloneRepository} yesClicked={this.state.yesClicked}
+			locationDetails = {this.state.locationDetails} cloneRepositoryYes = {this.cloneRepositoryYes}/>:null}
 			{this.state.noClicked?<DeploymentCard clone={this.state.clone} deploy={this.state.deploy} />:null}                              
 			<h3 align="left"><a href="/log/app-fabric" style={{bottom:'10px',textAlign:'left'}}>Click here to see service log</a></h3>
 		</div>

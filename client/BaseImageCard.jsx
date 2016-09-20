@@ -10,7 +10,9 @@ const style = {
 };
 
 var BaseImageCard = React.createClass({
+
 	render() {
+		console.log("BaseImage location" , this.props.locationDetails);
 		return(
 			<div>
 				<Card>
@@ -22,7 +24,7 @@ var BaseImageCard = React.createClass({
 				<RaisedButton label="YES" primary={true} style={style} onClick={this.props.cloneRepositoryYes}/>
 				<RaisedButton label="NO" secondary={true} style={style} onClick={this.props.cloneRepository}/>
 				</Card>
-			{this.props.yesClicked?<BaseImageDetails />:null}
+			{this.props.yesClicked?<BaseImageDetails locationDetails = {this.props.locationDetails} />:null}
 			</div>
 			);
 	}
