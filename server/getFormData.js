@@ -12,8 +12,14 @@ var request = require('request');
 var cookieParser = require('cookie-parser');
 var log = require('fs');
 var logfile = "./deployment_log.log";
+var deployedAppModel=require("./deployedAppSchema.js");
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
+var mongoose=require("mongoose");
+
+var events = require('events');
+// Create an eventEmitter object
+var eventEmitter = new events.EventEmitter();
 io.sockets.on("8080", function(socket) {
     console.log("we are connected")
 });
@@ -23,7 +29,9 @@ var io = require("socket.io")(http);
 
 io.on("connection",function(socket){
 	console.log("we have a connection");
+	
 	socket.on("baseImage",function(data,data1){
+
 		 var gitURL = data.gitURL;
 		 var gitBranch = data1.gitBranch;
 		 console.log(gitURL);
@@ -38,13 +46,21 @@ io.on("connection",function(socket){
         deployBase(imageName,deployProject,locationName,socket);
 	});
 	socket.on("deploy", function(data,data1){
-          console.log(data1);
-		  var gitURL = data.gitURL;
-		  var gitBranch = data1.gitBranch;
-		  console.log("gitURL ",gitURL);
-		  console.log("gitBranch",gitBranch);
-		  cloneGit(gitURL, deployProject, socket,gitBranch); 
+      console.log(data1);
+      var gitURL = data.gitURL;
+      var gitBranch = data1.gitBranch;
+      console.log("gitURL ",gitURL);
+      console.log("gitBranch",gitBranch);
+      cloneGit(gitURL, deployProject, socket,gitBranch); 
+  });
+  
+  eventEmitter.on('updated',function(){
+		console.log("inside event emitter");
+		socket.emit("update",{update : true});
+		
 	});
+	
+  
 });
 var log = require('fs');
 
@@ -66,6 +82,34 @@ app.use(function(req,res,next) {
 
 app.use(express.static(__dirname + '/../client'));
 
+app.post("/update",function(req,res,socket){
+	
+	console.log("service_id : "+req.body.service_id+" no. "+req.body.value+" app_id "+req.body.app_id )
+
+	
+	deployedAppModel.findById(req.body.app_id, function(err, user) {
+        if (err) throw err;
+        var a= user.services;
+        a.map(function(data){
+          if(data._id==req.body.service_id){
+           data.replicas = req.body.value;
+       }
+   });
+
+     // save the user
+     user.save(function(err) {
+       if (err) throw err;
+       console.log('User successfully updated!');
+	   eventEmitter.emit('updated');
+	    
+
+      
+   });
+  
+   
+ });
+ res.redirect("/#/apps/req.body.app_id");
+})
 
 app.get('/auth/github/success', function(req1, res1) {
     // GET code
@@ -133,9 +177,8 @@ app.post('/deploy', function(req, res) {
 });
 
 app.use("/deployedAppDetails", function(req, res) {
-    		// create a new user called chris
-    		
-    
+
+    // create a new user called chris  
     deployedAppModel.find({}, function(err, users) {
         if (err) throw err;
         res.send(users);
