@@ -36971,6 +36971,7 @@
 				noClicked: false,
 				yesClicked: false,
 				clone: { isComplete: false, isInProgress: false },
+				base: { isComplete: false, isInProgress: false },
 				deploy: { isComplete: false, isInProgress: false },
 				branchName: [],
 				locationDetails: [],
@@ -37028,6 +37029,12 @@
 			this.context.socket.on("clone", function (data) {
 				this.setState({ clone: data });
 			}.bind(this));
+			this.context.socket.on("base", function (data) {
+				this.setState({ base: data });
+			}.bind(this));
+			this.context.socket.on("deploy", function (data) {
+				this.setState({ deploy: data });
+			}.bind(this));
 			this.context.socket.on("location", function (data) {
 				console.log(data);
 				this.setState({ locationDetails: data });
@@ -37042,6 +37049,9 @@
 			this.context.socket.emit("deploy", { "gitURL": this.state.gitRepositoryURL }, { "gitBranch": this.state.branchNameValue });
 			this.context.socket.on("clone", function (data) {
 				this.setState({ clone: data });
+			}.bind(this));
+			this.context.socket.on("base", function (data) {
+				this.setState({ base: data });
 			}.bind(this));
 			this.context.socket.on("deploy", function (data) {
 				this.setState({ deploy: data });
@@ -37102,8 +37112,9 @@
 						)
 					),
 					this.state.clicked ? _react2.default.createElement(_BaseImageCard2.default, { cloneRepository: this.cloneRepository, yesClicked: this.state.yesClicked,
-						locationDetails: this.state.locationDetails, cloneRepositoryYes: this.cloneRepositoryYes }) : null,
-					this.state.noClicked ? _react2.default.createElement(_deploymentCard2.default, { clone: this.state.clone, deploy: this.state.deploy }) : null,
+						locationDetails: this.state.locationDetails, clone: this.state.clone, base: this.state.base, deploy: this.state.deploy,
+						cloneRepositoryYes: this.cloneRepositoryYes }) : null,
+					this.state.noClicked ? _react2.default.createElement(_deploymentCard2.default, { clone: this.state.clone, base: this.state.base, deploy: this.state.deploy }) : null,
 					_react2.default.createElement(
 						'h3',
 						{ align: 'left' },
@@ -39464,6 +39475,15 @@
 	    } else if (this.props.clone.isComplete && !this.props.clone.isInProgress) {
 	      iconsClone = _react2.default.createElement(_done2.default, null);
 	    }
+	    var iconsBase;
+	    if (!this.props.base.isInProgress && !this.props.base.isComplete) {
+	      iconsBase = _react2.default.createElement(_radioButtonUnchecked2.default, null);
+	    } else if (this.props.base.isInProgress && !this.props.base.isComplete) {
+	      iconsBase = _react2.default.createElement(_CircularProgress2.default, { size: 0.4, style: style });
+	    } else if (this.props.base.isComplete && !this.props.base.isInProgress) {
+	      iconsBase = _react2.default.createElement(_done2.default, null);
+	    }
+
 	    var iconsDeploy;
 	    if (!this.props.deploy.isInProgress && !this.props.deploy.isComplete) {
 	      iconsDeploy = _react2.default.createElement(_radioButtonUnchecked2.default, null);
@@ -39488,7 +39508,7 @@
 	          _List.List,
 	          null,
 	          _react2.default.createElement(_List.ListItem, { primaryText: 'Cloning', leftIcon: iconsClone }),
-	          _react2.default.createElement(_List.ListItem, { primaryText: 'Building Base-Image', leftIcon: _react2.default.createElement(_highlightOff2.default, null) }),
+	          _react2.default.createElement(_List.ListItem, { primaryText: 'Building Base-Image', leftIcon: iconsBase }),
 	          _react2.default.createElement(_List.ListItem, { primaryText: 'Deploying', leftIcon: iconsDeploy })
 	        )
 	      )
@@ -43564,7 +43584,8 @@
 					_react2.default.createElement(_RaisedButton2.default, { label: 'YES', primary: true, style: style, onClick: this.props.cloneRepositoryYes }),
 					_react2.default.createElement(_RaisedButton2.default, { label: 'NO', secondary: true, style: style, onClick: this.props.cloneRepository })
 				),
-				this.props.yesClicked ? _react2.default.createElement(_BaseImageDetails2.default, { locationDetails: this.props.locationDetails }) : null
+				this.props.yesClicked ? _react2.default.createElement(_BaseImageDetails2.default, { locationDetails: this.props.locationDetails,
+					clone: this.props.clone, base: this.props.base, deploy: this.props.deploy }) : null
 			);
 		}
 	});
@@ -43663,7 +43684,8 @@
 		getInitialState: function getInitialState() {
 			return {
 				imageTag: '',
-				locationValue: ''
+				locationValue: '',
+				clicked: false
 			};
 		},
 		contextTypes: {
@@ -43680,6 +43702,7 @@
 		},
 		clickedBase: function clickedBase(e) {
 			e.preventDefault();
+			this.setState({ clicked: true });
 			console.log("socket ", this.state.imageTag, this.state.locationValue);
 			this.context.socket.emit("baseImageSubmit", { imageTag: this.state.imageTag }, { locationValue: this.state.locationValue });
 		},
@@ -43694,6 +43717,7 @@
 			}.bind(this));
 
 			console.log("locationItems------------", locationItems);
+			console.log('clicked: ', this.state.clicked);
 			return _react2.default.createElement(
 				'div',
 				null,
@@ -43726,7 +43750,9 @@
 						_react2.default.createElement(_RaisedButton2.default, (_React$createElement = { label: 'Secondary', primary: true
 						}, _defineProperty(_React$createElement, 'label', 'Build'), _defineProperty(_React$createElement, 'secondary', true), _defineProperty(_React$createElement, 'type', 'submit'), _React$createElement))
 					)
-				)
+				),
+				this.state.clicked ? _react2.default.createElement(_deploymentCard2.default, { clone: this.props.clone,
+					base: this.props.base, deploy: this.props.deploy }) : null
 			);
 		}
 	});

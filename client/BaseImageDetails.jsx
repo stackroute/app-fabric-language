@@ -20,11 +20,13 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 
 
+
 var BaseImageDetails = React.createClass({
 	getInitialState:function(){	
 		return {
 			imageTag: '',
-			locationValue: ''
+			locationValue: '',
+			clicked:false
 		};
 			
 	},
@@ -42,7 +44,8 @@ var BaseImageDetails = React.createClass({
   },
   	  clickedBase: function(e){
   		e.preventDefault();
-  		console.log("socket " , this.state.imageTag,this.state.locationValue);
+  		this.setState({clicked : true});
+  		console.log("socket " , this.state.imageTag,this.state.locationValue);  		
   		this.context.socket.emit("baseImageSubmit",{imageTag:this.state.imageTag},{locationValue:this.state.locationValue});
 
   	},
@@ -55,6 +58,7 @@ var BaseImageDetails = React.createClass({
 			}.bind(this));		
 
 		console.log("locationItems------------",locationItems);
+		console.log('clicked: ', this.state.clicked);
 		return(
 			<div>			  
 				<Card>
@@ -81,7 +85,9 @@ var BaseImageDetails = React.createClass({
 						 label="Build" secondary={true} 
 						 type = "submit" />
 					</form>				    		     
-				 	</Card>
+				 	</Card>				 	
+				 	{this.state.clicked?<DeploymentCard clone={this.props.clone}
+				 	 base={this.props.base} deploy={this.props.deploy}/>:null}
 				 </div>
 			);
 	}

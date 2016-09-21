@@ -68,7 +68,8 @@ var DashBoard = React.createClass({
 		noClicked:false,
 		yesClicked:false,
 		clone : {isComplete: false,isInProgress: false },
-		deploy : {isComplete: false,isInProgress: false },
+		base : {isComplete:false,isInProgress: false},
+		deploy : {isComplete: false,isInProgress: false },		
 		branchName: [],
 		locationDetails:[],
 		cookieStatus: false,
@@ -126,7 +127,13 @@ var DashBoard = React.createClass({
 		this.context.socket.on("clone",function(data){
 			this.setState({clone: data});
 		}.bind(this));
-    this.context.socket.on("location",function(data){
+		this.context.socket.on("base",function(data){
+			this.setState({base:data});
+		}.bind(this));
+		this.context.socket.on("deploy",function(data){
+			this.setState({deploy : data});
+		}.bind(this));		
+    	this.context.socket.on("location",function(data){
         console.log(data);
         this.setState({locationDetails:data});
         console.log(this.state.locationDetails);
@@ -140,6 +147,9 @@ var DashBoard = React.createClass({
 		this.context.socket.emit("deploy", {"gitURL":this.state.gitRepositoryURL} , {"gitBranch" : this.state.branchNameValue});
 		this.context.socket.on("clone",function(data){
 			this.setState({clone: data});
+		}.bind(this));
+		this.context.socket.on("base",function(data){
+			this.setState({base:data});
 		}.bind(this));
 		this.context.socket.on("deploy",function(data){
 			this.setState({deploy : data});
@@ -195,8 +205,9 @@ var DashBoard = React.createClass({
 				</form >
 			</Paper>
 			{this.state.clicked?<BaseImageCard cloneRepository={this.cloneRepository} yesClicked={this.state.yesClicked}
-			locationDetails = {this.state.locationDetails} cloneRepositoryYes = {this.cloneRepositoryYes}/>:null}
-			{this.state.noClicked?<DeploymentCard clone={this.state.clone} deploy={this.state.deploy} />:null}                              
+			locationDetails = {this.state.locationDetails} clone={this.state.clone} base={this.state.base} deploy={this.state.deploy}
+			 cloneRepositoryYes = {this.cloneRepositoryYes}/>:null}
+			{this.state.noClicked?<DeploymentCard clone={this.state.clone} base={this.state.base} deploy={this.state.deploy} />:null}                              
 			<h3 align="left"><a href="/log/app-fabric" style={{bottom:'10px',textAlign:'left'}}>Click here to see service log</a></h3>
 		</div>
 		</MuiThemeProvider>

@@ -35,7 +35,7 @@ io.on("connection",function(socket){
         var locationName = data1.locationValue;
 		console.log(imageName);
         console.log(locationName);
-        deployBase(imageName,locationName);
+        deployBase(imageName,deployProject,locationName,socket);
 	});
 	socket.on("deploy", function(data,data1){
           console.log(data1);

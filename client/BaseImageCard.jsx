@@ -23,7 +23,8 @@ var BaseImageCard = React.createClass({
 				<RaisedButton label="YES" primary={true} style={style} onClick={this.props.cloneRepositoryYes}/>
 				<RaisedButton label="NO" secondary={true} style={style} onClick={this.props.cloneRepository}/>
 				</Card>
-			{this.props.yesClicked?<BaseImageDetails locationDetails = {this.props.locationDetails} />:null}
+			{this.props.yesClicked?<BaseImageDetails locationDetails = {this.props.locationDetails}
+			 clone={this.props.clone} base={this.props.base} deploy={this.props.deploy} />:null}
 			</div>
 			);
 	}

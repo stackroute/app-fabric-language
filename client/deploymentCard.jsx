@@ -36,6 +36,21 @@ var deploymentCard = React.createClass({
      <ActionDone />
      )
   }
+  var iconsBase;
+  if((!this.props.base.isInProgress)&&(!this.props.base.isComplete)){
+      iconsBase = (
+        <ToggleRadioButtonUnchecked />
+        )
+    }else if((this.props.base.isInProgress)&&(!this.props.base.isComplete)){
+     iconsBase = (
+      <CircularProgress size={0.4} style ={style}/>
+      )
+   }else if((this.props.base.isComplete)&&(!this.props.base.isInProgress)){              
+    iconsBase = (
+     <ActionDone />
+     )
+  }
+
   var iconsDeploy;            
   if((!this.props.deploy.isInProgress)&&(!this.props.deploy.isComplete)){
     iconsDeploy = (
@@ -61,7 +76,7 @@ var deploymentCard = React.createClass({
       <CardActions>
         <List>
           <ListItem primaryText="Cloning" leftIcon={iconsClone} />
-          <ListItem primaryText="Building Base-Image" leftIcon={<ActionHighlightOff />} />
+          <ListItem primaryText="Building Base-Image" leftIcon={iconsBase} />
           <ListItem primaryText="Deploying" leftIcon={iconsDeploy} />
         </List>              
       </CardActions>            
