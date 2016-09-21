@@ -18,11 +18,19 @@ var cloneBase = function(gitURL,socket,gitBranch){
 
 	gitCloneCommand.on("close",function(){
 	   const findDocker = spawn('find',['.' , '-name' , 'Dockerfile'],{cwd : cloneDirectoryPath});
+	   var count = 0;var location = [];
 		findDocker.stdout.on('data', (data) => {
 	 	 console.log(`stdout: ${data}`);
 	 	 console.log("command output " +data);
-	 	 var location = data.toString();
-	 	 socket.emit("location",{"area" : location});
+	 	 var locationdetails = data.toString().split('\n');
+	 	 for (var i = 0 ; i < locationdetails.length ; i++){
+	 	 	if(locationdetails[i].length > 0){
+	 	 		location[i] = locationdetails[i];
+	 	 	}
+
+	 	 }	 	 
+	 	 console.log('location:', location);
+	 	 socket.emit("location",location);
 
 		});
 	});

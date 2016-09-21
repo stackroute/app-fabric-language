@@ -75,7 +75,7 @@ var DeployedAppDetails = React.createClass({
 		};
 	},
 
-	componentWillMount() {
+	componentDidMount() {
 		$.ajax({
 			url: 'http://localhost:8080/deployedAppDetails',
 			dataType: 'json',
