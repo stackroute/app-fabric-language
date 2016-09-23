@@ -26,12 +26,9 @@ io.sockets.on("8080", function(socket) {
 var app = express();
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
-
 io.on("connection",function(socket){
-	console.log("we have a connection");
-	
+	console.log("we have a connection");	
 	socket.on("baseImage",function(data,data1){
-
 		 var gitURL = data.gitURL;
 		 var gitBranch = data1.gitBranch;
 		 console.log(gitURL);
@@ -52,8 +49,7 @@ io.on("connection",function(socket){
       console.log("gitURL ",gitURL);
       console.log("gitBranch",gitBranch);
       cloneGit(gitURL, deployProject, socket,gitBranch); 
-  });
-  
+  });  
   eventEmitter.on('updated',function(){
 		console.log("inside event emitter");
 		socket.emit("update",{update : true});

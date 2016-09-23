@@ -45,4 +45,4 @@ var deployBase = function(imageName,dockerComposeCommand,locationName,socket){
 
 }
 
-//module.exports = deployBase; 
+module.exports = deployBase; 

@@ -48971,7 +48971,7 @@
 				data: []
 			};
 		},
-		componentWillMount: function componentWillMount() {
+		componentDidMount: function componentDidMount() {
 			$.ajax({
 				url: 'http://localhost:8080/deployedAppDetails',
 				dataType: 'json',
@@ -49054,6 +49054,14 @@
 
 	var _reactRouter = __webpack_require__(172);
 
+	var _TextField = __webpack_require__(418);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _RaisedButton = __webpack_require__(397);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var style = {
@@ -49077,10 +49085,61 @@
 		}
 	});
 
+	var Replicas = _react2.default.createClass({
+		displayName: "Replicas",
+		getInitialState: function getInitialState() {
+			return { repvalue: this.props.repfromdata.replicas, clicked: false, update: false };
+		},
+
+
+		contextTypes: {
+			socket: _react2.default.PropTypes.object.isRequired
+		},
+
+		handleChange: function handleChange(event) {
+			this.setState({ clicked: true });
+			console.log("changing", this.state.clicked);
+			if (parseInt(event.target.value != NaN) || event.target.value > 0) {
+				this.setState({
+					repvalue: event.target.value
+				});
+			}
+		},
+		update: function update() {
+
+			$.ajax({
+				type: "POST",
+				url: "/update",
+				data: { "value": this.state.repvalue, "service_id": this.props.repfromdata._id, "app_id": this.props.parentAppId },
+				dataType: "json"
+
+			}).done(function (data) {
+				console.log("Updating...");
+			});
+
+			this.context.socket.on("update", function (data) {
+				this.setState({ update: data });
+				console.log("are we inside this fn?", data);
+			}.bind(this));
+		},
+		render: function render() {
+
+			return _react2.default.createElement(
+				"div",
+				null,
+				_react2.default.createElement(_TextField2.default, { id: "text-field-controlled", defaultValue: this.state.repvalue, onChange: this.handleChange }),
+				this.state.clicked && !this.state.update ? _react2.default.createElement(_RaisedButton2.default, { label: "Update", onClick: this.update }) : null
+			);
+		}
+	});
+
 	var ServicesList = _react2.default.createClass({
 		displayName: "ServicesList",
 		render: function render() {
 			var services = this.props.data.map(function (data, key) {
+
+				console.dir(data);
+
 				return _react2.default.createElement(
 					"div",
 					null,
@@ -49088,20 +49147,25 @@
 						_Card.Card,
 						{ style: cardStyle },
 						_react2.default.createElement(
-							"h5",
+							"div",
 							null,
-							"Service Name: ",
-							data.serviceName
-						),
-						_react2.default.createElement(
-							"h5",
-							null,
-							"Replicas: ",
-							data.replicas
+							_react2.default.createElement(
+								"h5",
+								null,
+								"Service Name: ",
+								data.serviceName
+							),
+							_react2.default.createElement(
+								"h5",
+								null,
+								"Replicas:  ",
+								_react2.default.createElement(Replicas, { repfromdata: data, parentAppId: this.props.appId }),
+								"  "
+							)
 						)
 					)
 				);
-			});
+			}.bind(this));
 			return _react2.default.createElement(
 				"div",
 				null,
@@ -49141,7 +49205,7 @@
 						"div",
 						null,
 						_react2.default.createElement(_AppHeader2.default, null),
-						_react2.default.createElement(ServicesList, { data: data.services })
+						_react2.default.createElement(ServicesList, { data: data.services, appId: data._id })
 					)
 				) : null;
 			}.bind(this));
