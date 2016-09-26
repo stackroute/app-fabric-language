@@ -1,0 +1,22 @@
+{
+  "name": "app-fabric",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Sagar Patke <sagarpatke@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "roboto-and-material-icons-fonts": "^1.1.0",
+    "flexboxgrid": "^6.3.2"
+  }
+}
