@@ -117,9 +117,8 @@ export default class DeployBot extends React.Component {
 
     return (
       <div>
-        { showCloningProgressComponent }
-        { this.state.createBaseImae ? createBaseImageComponent : null}
         { this.state.repositorySubmitted ? createBaseImageComponent : null }
+        { selectRepositoryComponent }
       </div>
     );
   }
