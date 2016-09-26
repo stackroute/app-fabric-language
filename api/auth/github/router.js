@@ -3,8 +3,8 @@ const passport = require('passport');
 const GithubStrategy = require('passport-github').Strategy;
 
 passport.use(new GithubStrategy({
-  clientID: process.env.GITHUB_CLIENT_ID || '',
-  clientSecret: process.env.GITHUB_CLIENT_SECRET || '',
+  clientID: process.env.GITHUB_CLIENT_ID || 'abc',
+  clientSecret: process.env.GITHUB_CLIENT_SECRET || 'xyz',
   callbackURL: 'http://localhost:3000/auth/github/complete'
 }, (accessToken, refreshToken, profile, callback) => {
   callback(null, profile);
