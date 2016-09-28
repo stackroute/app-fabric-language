@@ -5,6 +5,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import CircularProgress from 'material-ui/CircularProgress';
 import $ from 'jquery';
 import io from 'socket.io-client';
 
@@ -64,7 +65,7 @@ export default class DeployBot extends React.Component {
   }
 
   handleCreateBaseImage(createBaseImage) {
-    this.setState({createBaseImage: createBaseImage});
+    this.setState({createBaseImage: createBaseImage, displayProgress: true});
   }
 
   componentDidMount() {
@@ -115,10 +116,24 @@ export default class DeployBot extends React.Component {
       </div>
     );
 
+    const displayProgressComponent = (
+      <div>
+        <Paper style={styles.paper}>
+          <div style={styles.content}>
+            <h3>Progress</h3>
+            <CircularProgress /> Cloning <br />
+            <CircularProgress /> Creating Base Image <br />
+            <CircularProgress /> Deploying <br />
+          </div>
+        </Paper>
+      </div>
+    );
+
     return (
       <div>
-        { this.state.repositorySubmitted ? createBaseImageComponent : null }
         { selectRepositoryComponent }
+        { this.state.repositorySubmitted ? createBaseImageComponent : null }
+        { this.state.displayProgress ? displayProgressComponent : null }
       </div>
     );
   }
