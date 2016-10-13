@@ -7,6 +7,7 @@ passport.use(new GithubStrategy({
   clientSecret: process.env.GITHUB_CLIENT_SECRET || 'b3ddef9b837aee5f5ac40c6ca8f0fdc14f49a8d6',
   callbackURL: 'http://localhost:3000/auth/github/complete'
 }, (accessToken, refreshToken, profile, callback) => {
+  profile.accessToken = accessToken;
   callback(null, profile);
 }));
 
