@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import SubHeader from 'material-ui/SubHeader';
+import SubHeader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 
 const styles = {

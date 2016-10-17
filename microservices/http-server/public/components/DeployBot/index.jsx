@@ -34,6 +34,7 @@ const styles = {
 var timeout;
 var timein;
 var scroll= Scroll.animateScroll;
+var a;
 
 export default class DeployBot extends React.Component {
   constructor() {
@@ -47,12 +48,25 @@ export default class DeployBot extends React.Component {
       selectedPlatform: null,
       repositorySubmitted: false,
       open: false,
-      autoHideDuration: 5000,
+      autoHideDuration: 5000
     }
   }
   handleTextSave = () => {
 
   };
+  componentWillMount() {
+    $.ajax({
+      url: "/repos",
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({repositories: data});
+      }.bind(this),
+      error: function(data,status) {
+        this.setState({repositories: [], selectedRepository: null});
+      }.bind(this)
+    });
+  }
   handleRepositoryChange(e) {
     if(timeout) { clearTimeout(timeout); }
     const newRepositoryValue = e.target.value;
@@ -74,9 +88,33 @@ export default class DeployBot extends React.Component {
       }
     });
   }
+  
   handleRepository(e,i,v) {
+    // var a;
     this.setState({selectedRepository:v});
-  }
+   var ownerName=this.state.repositories.map(function(data) {
+      if(data.name == v){
+        a=data.full_name;
+          console.log(a);
+        }
+      
+    });
+    $.ajax({
+          url: '/branches',
+           data: {a},
+           dataType : 'json',
+          success: (data, status) => {
+            console.log("branchData"+data);
+            this.setState({repositoryBranches: data});
+          },
+          error: (data, status) => {
+            this.setState({repositoryBranches: [], selectedBranch: null});
+          }
+        });
+    }
+        
+  
+  
   fetchRepository(repositoryUrl) {
     const rep= repositoryUrl.split('github.com/')[1].replace('.git','');
     $.ajax({
@@ -93,17 +131,21 @@ export default class DeployBot extends React.Component {
 
   handleBranchChange(e,i,v) {
     this.setState({selectedBranch: v});
+    console.log(a);
+    console.log(v);
+    this.context.socket.emit('con',{url:a,branch:v});
+    
   }
 
   handleselectPlatform(e,i,v){
     this.setState({selectedPlatform:v});
   }
 
-  handleRequestClose = () => {
+  handleRequestClose () {
     this.setState({
       open: false,
     });
-  };
+  }
 
   handleRepositoryFormSubmit(e) {
     e.preventDefault();
@@ -130,8 +172,17 @@ export default class DeployBot extends React.Component {
   handleReview() {
     this.setState({displayProgress:true})
   }
+
+  static get contextTypes(){
+    return{
+      router: React.PropTypes.object.isRequired,
+      socket: React.PropTypes.object.isRequired
+    }
+  }
+
   componentDidMount() {
     this.setState({io: io()});
+
   }
 
   render() {
@@ -156,7 +207,7 @@ export default class DeployBot extends React.Component {
                 value={this.state.repositoryUrl}
                 onChange={this.handleRepositoryChange.bind(this)} />
                 <br />
-                <SelectField style={{width:'100%'}}
+                <SelectField 
                 floatingLabelText="Repositories"
                 onChange={this.handleRepository.bind(this)}
                 value={this.state.selectedRepository}>

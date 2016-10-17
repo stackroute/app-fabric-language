@@ -9,17 +9,21 @@ import {Router,Route,hashHistory} from 'react-router';
 import Home from './views/Home';
 import Dashboard from './views/Dashboard';
 import Deploy from './views/Deploy';
+import ContextComponent from './context';
 
 import $ from 'jquery';
 
 ReactDOM.render(
+  <ContextComponent>
   <MuiThemeProvider>
     <Router history={hashHistory}>
       <Route path="/" component={Home} onEnter={skipIfLoggedIn} />
       <Route path="/dashboard" component={Dashboard} onEnter={requiresAuthentication} />
       <Route path="/deploy" component={Deploy} onEnter={requiresAuthentication} />
     </Router>
-  </MuiThemeProvider>, document.getElementById('content'));
+  </MuiThemeProvider>
+  </ContextComponent>, document.getElementById('content'));
+
 
 function skipIfLoggedIn(nextState,replace,next) {
   if(localStorage.me) {

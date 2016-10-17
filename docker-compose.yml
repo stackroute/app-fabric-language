@@ -1,0 +1,9 @@
+version: "2"
+services:
+  http-server:
+    image: app-fab/http-server
+    build: microservices/http-server
+    ports:
+      - 3000:3000
+
+      
