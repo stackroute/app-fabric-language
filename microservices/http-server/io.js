@@ -6,12 +6,10 @@ module.exports = function(io) {
     socket.on('disconnect', function() {
       console.log('Client Disconnected');
     });
-
     socket.on('con', function(url){
     	console.log("url:"+url.url+" "+"branch:"+url.branch);
     	var url = 'https://github.com/'+url.url;
     	Clone(url,url.branch);
-    	console.log("cloning");
     });
   });
 };

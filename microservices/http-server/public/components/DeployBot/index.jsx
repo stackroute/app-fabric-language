@@ -133,7 +133,8 @@ export default class DeployBot extends React.Component {
     this.setState({selectedBranch: v});
     console.log(a);
     console.log(v);
-    this.context.socket.emit('con',{url:a,branch:v});
+    { this.state.repositorySubmitted ?
+    this.context.socket.emit('con',{url:a,branch:v}) : null };
     
   }
 
