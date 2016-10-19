@@ -6,4 +6,9 @@ services:
     ports:
       - 3000:3000
 
+    environment:
+      REPOSITORY_PATH: ./
+
+
+
       

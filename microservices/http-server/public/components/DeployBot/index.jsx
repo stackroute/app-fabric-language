@@ -131,18 +131,13 @@ export default class DeployBot extends React.Component {
 
   handleBranchChange(e,i,v) {
     this.setState({selectedBranch: v});
-    console.log(a);
-    console.log(v);
-    { this.state.repositorySubmitted ?
-    this.context.socket.emit('con',{url:a,branch:v}) : null };
-    
   }
 
   handleselectPlatform(e,i,v){
     this.setState({selectedPlatform:v});
   }
 
-  handleRequestClose () {
+  handleRequestClose = () => {
     this.setState({
       open: false,
     });
@@ -151,6 +146,9 @@ export default class DeployBot extends React.Component {
   handleRepositoryFormSubmit(e) {
     e.preventDefault();
     this.setState({repositorySubmitted:true});
+    console.log(a);
+    console.log(this.state.selectedBranch);
+    this.context.socket.emit('con',{url:a,branch:this.state.selectedBranch});
   }
 
   handleCreateBaseImage(createBaseImage) {
