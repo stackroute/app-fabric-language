@@ -1,4 +1,4 @@
-version: "2"
+version: '2'
 services:
   http-server:
     image: app-fab/http-server
@@ -7,7 +7,7 @@ services:
       - 3000:3000
 
     environment:
-      REPOSITORY_PATH: ./
+      REPOSITORY_PATH: ./store
 
 
 

@@ -145,9 +145,9 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(skipIfLoggedIn, 'skipIfLoggedIn', '/vagrant/assignments/app-fabric/microservices/http-server/public/app.jsx');
+	  __REACT_HOT_LOADER__.register(skipIfLoggedIn, 'skipIfLoggedIn', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/app.jsx');
 
-	  __REACT_HOT_LOADER__.register(requiresAuthentication, 'requiresAuthentication', '/vagrant/assignments/app-fabric/microservices/http-server/public/app.jsx');
+	  __REACT_HOT_LOADER__.register(requiresAuthentication, 'requiresAuthentication', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/app.jsx');
 	}();
 
 	;
@@ -36409,11 +36409,11 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(styles, 'styles', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Home/index.jsx');
+	  __REACT_HOT_LOADER__.register(styles, 'styles', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/views/Home/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(Home, 'Home', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Home/index.jsx');
+	  __REACT_HOT_LOADER__.register(Home, 'Home', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/views/Home/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Home/index.jsx');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/views/Home/index.jsx');
 	}();
 
 	;
@@ -39498,11 +39498,11 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(styles, 'styles', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Dashboard/index.jsx');
+	  __REACT_HOT_LOADER__.register(styles, 'styles', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/views/Dashboard/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(Dashboard, 'Dashboard', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Dashboard/index.jsx');
+	  __REACT_HOT_LOADER__.register(Dashboard, 'Dashboard', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/views/Dashboard/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Dashboard/index.jsx');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/views/Dashboard/index.jsx');
 	}();
 
 	;
@@ -39603,9 +39603,9 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(NavBar, 'NavBar', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/NavBar/index.jsx');
+	  __REACT_HOT_LOADER__.register(NavBar, 'NavBar', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/NavBar/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/NavBar/index.jsx');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/NavBar/index.jsx');
 	}();
 
 	;
@@ -52096,11 +52096,11 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(styles, 'styles', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Deploy/index.jsx');
+	  __REACT_HOT_LOADER__.register(styles, 'styles', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/views/Deploy/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(Deploy, 'Deploy', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Deploy/index.jsx');
+	  __REACT_HOT_LOADER__.register(Deploy, 'Deploy', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/views/Deploy/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Deploy/index.jsx');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/views/Deploy/index.jsx');
 	}();
 
 	;
@@ -52906,19 +52906,19 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(styles, 'styles', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+	  __REACT_HOT_LOADER__.register(styles, 'styles', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(timeout, 'timeout', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+	  __REACT_HOT_LOADER__.register(timeout, 'timeout', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(timein, 'timein', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+	  __REACT_HOT_LOADER__.register(timein, 'timein', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(scroll, 'scroll', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+	  __REACT_HOT_LOADER__.register(scroll, 'scroll', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(a, 'a', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+	  __REACT_HOT_LOADER__.register(a, 'a', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(DeployBot, 'DeployBot', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+	  __REACT_HOT_LOADER__.register(DeployBot, 'DeployBot', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
 	}();
 
 	;
@@ -69530,11 +69530,11 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(styles, 'styles', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/Dialog.jsx');
+	  __REACT_HOT_LOADER__.register(styles, 'styles', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/Dialog.jsx');
 
-	  __REACT_HOT_LOADER__.register(DailogOne, 'DailogOne', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/Dialog.jsx');
+	  __REACT_HOT_LOADER__.register(DailogOne, 'DailogOne', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/Dialog.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/Dialog.jsx');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/Dialog.jsx');
 	}();
 
 	;
@@ -70609,9 +70609,9 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(SelectClass, 'SelectClass', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/selectfield.jsx');
+	  __REACT_HOT_LOADER__.register(SelectClass, 'SelectClass', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/selectfield.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/selectfield.jsx');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/selectfield.jsx');
 	}();
 
 	;
@@ -70783,9 +70783,9 @@
 			return;
 		}
 
-		__REACT_HOT_LOADER__.register(Dependency, 'Dependency', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/Dependencies.jsx');
+		__REACT_HOT_LOADER__.register(Dependency, 'Dependency', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/Dependencies.jsx');
 
-		__REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/Dependencies.jsx');
+		__REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/Dependencies.jsx');
 	}();
 
 	;
@@ -70914,7 +70914,7 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(Configurations, 'Configurations', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/Configurations.jsx');
+	  __REACT_HOT_LOADER__.register(Configurations, 'Configurations', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/Configurations.jsx');
 	}();
 
 	;
@@ -70966,7 +70966,7 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(List, 'List', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/List.jsx');
+	  __REACT_HOT_LOADER__.register(List, 'List', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/List.jsx');
 	}();
 
 	;
@@ -71023,7 +71023,7 @@
 			return;
 		}
 
-		__REACT_HOT_LOADER__.register(Row, 'Row', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/Row.jsx');
+		__REACT_HOT_LOADER__.register(Row, 'Row', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/components/DeployBot/Row.jsx');
 	}();
 
 	;
@@ -75621,9 +75621,9 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(ContextComponent, 'ContextComponent', '/vagrant/assignments/app-fabric/microservices/http-server/public/context.jsx');
+	  __REACT_HOT_LOADER__.register(ContextComponent, 'ContextComponent', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/context.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/context.jsx');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric/microservices/http-server/public/context.jsx');
 	}();
 
 	;
