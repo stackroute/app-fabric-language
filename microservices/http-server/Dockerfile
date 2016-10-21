@@ -5,6 +5,7 @@ WORKDIR /app
 COPY package.json .
 RUN apk update
 RUN apk add git
+VOLUME /app/store
 RUN npm install --production
 
 COPY . .
