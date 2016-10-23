@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import ReactDOM from 'react-dom'; 
 import FlatButton from 'material-ui/FlatButton';
@@ -74,3 +75,53 @@ class DailogOne extends React.Component{
 	}	
 }
 export default DailogOne;
+=======
+import React from 'react';
+import ReactDOM from 'react-dom'; 
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+import Subheader from 'material-ui/Subheader';
+import Divider from 'material-ui/Divider';
+
+const styles = {
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400,
+  },
+};
+
+class DialogOne extends React.Component{
+
+	constructor(props) {
+    super(props);
+    this.state = {value: 0,openDialog:false};
+  }
+  handleChange = (event,index,value) =>{ 
+    this.setState({value : value});
+   }; 
+   render(){
+    console.log("within Dialog"+this.props.data);
+    return(  
+  			<div>
+          <DropDownMenu value={this.state.value} onChange={this.handleChange}>
+            <Subheader>Public Images</Subheader>
+              <MenuItem value={1} primaryText="ubuntutrusty" />
+              <MenuItem value={2} primaryText="ubuntu xenial" />
+              <MenuItem value={3} primaryText="ubuntu precise" />
+              <MenuItem value={4} primaryText="alphine linux" />
+            <Divider />
+            <Subheader>Custom Images</Subheader>
+              <MenuItem>
+              </MenuItem>
+          </DropDownMenu>
+  			</div>
+	 	);
+	}	
+}
+export default DialogOne;
+>>>>>>> e292dc06c838ccc26db3a94c5dc5d8908b89cd27

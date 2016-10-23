@@ -3,6 +3,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import {List, ListItem} from 'material-ui/List';
 import Snackbar from 'material-ui/Snackbar';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -11,12 +12,13 @@ import $ from 'jquery';
 import io from 'socket.io-client';
 import Dialogone from './Dialog.jsx';
 import SelectClass from './selectfield.jsx';
-import Dependency from './Dependencies.jsx'
+import Dependency from './Dependencies.jsx';
+import Docker from '../../cloning.js';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Scroll from 'react-scroll';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-
+import Checkbox from 'material-ui/Checkbox';
 
 const styles = {
   paper: {
@@ -35,6 +37,8 @@ var timeout;
 var timein;
 var scroll= Scroll.animateScroll;
 var a;
+var docker = [];
+var checkedArray = [];
 
 export default class DeployBot extends React.Component {
   constructor() {
@@ -48,7 +52,8 @@ export default class DeployBot extends React.Component {
       selectedPlatform: null,
       repositorySubmitted: false,
       open: false,
-      autoHideDuration: 5000
+      autoHideDuration: 5000,
+      locate: []
     }
   }
   handleTextSave = () => {
@@ -90,7 +95,6 @@ export default class DeployBot extends React.Component {
   }
   
   handleRepository(e,i,v) {
-    // var a;
     this.setState({selectedRepository:v});
    var ownerName=this.state.repositories.map(function(data) {
       if(data.name == v){
@@ -146,9 +150,6 @@ export default class DeployBot extends React.Component {
   handleRepositoryFormSubmit(e) {
     e.preventDefault();
     this.setState({repositorySubmitted:true});
-    console.log(a);
-    console.log(this.state.selectedBranch);
-    this.context.socket.emit('con',{url:a,branch:this.state.selectedBranch});
   }
 
   handleCreateBaseImage(createBaseImage) {
@@ -156,7 +157,24 @@ export default class DeployBot extends React.Component {
   }
 
   handleDisplayPlatform(){
-    this.setState({displayPlatform:true,open:true,message:'Cloaning Started'})
+    console.log(a);
+    console.log(this.state.selectedBranch);
+    this.context.socket.emit('con',{url:a,branch:this.state.selectedBranch});
+    this.setState({displayPlatform:true,open:true,message:'Cloaning Started'});
+    
+  }
+  
+  handleCheckbox(event) {
+   console.log("Value : "+event);  
+    checkedArray.push({val: event});
+    console.log(checkedArray); 
+  }
+  handleDisplayImages(e) {
+    this.setState({displayBaseImages:true}); 
+    
+  }
+  handleBaseImage(e,i,v) {
+    this.setState({selectedBaseImage:v});
   }
   handleDisplayServices() {
     this.setState({displayConfigServices:true});
@@ -180,19 +198,29 @@ export default class DeployBot extends React.Component {
   }
 
   componentDidMount() {
+    var me = this;
     this.setState({io: io()});
-
+    this.context.socket.on("location",function(data){      
+      console.log(data);
+      me.setState({locate:data});
+    });
+    // this.setState({locate:this.state.data});
   }
 
   render() {
-
     const menuItems = this.state.repositoryBranches.map((branchObject) => {
       return <MenuItem value={branchObject.name} primaryText={branchObject.name} key={branchObject.name} />
     });
 
-  const repositoryItem = this.state.repositories.map((repObject) => {
+    const repositoryItem = this.state.repositories.map((repObject) => {
       return <MenuItem value={repObject.name} primaryText={repObject.name} key={repObject.name} />
     });
+
+    const listLocation = this.state.locate.map((locObject) => {
+      console.log(locObject);
+      return <ListItem primaryText={locObject} leftCheckbox={<Checkbox onCheck={this.handleCheckbox(locObject)} />} />
+    });
+// primaryText={locObject} key={locObject}
 
     const selectRepositoryComponent = (
       <div>
@@ -268,6 +296,24 @@ export default class DeployBot extends React.Component {
       </div>
     );
 
+    const scannedServices = (
+      <div>
+        <Paper style={styles.paper}>
+          <div style={styles.content}>
+            <h3>Select Your Base Image</h3>
+            <div id="checks">
+                <List>
+                  {listLocation}
+                </List>
+            </div>
+            <div className="end-xs">
+              <FlatButton label="Next" primary={true} onTouchTap={this.handleDisplayImages.bind(this,false)} />
+            </div>
+          </div>
+        </Paper>
+      </div>
+      )
+
     const seviceComponent = (
       <div>
       <Paper style={styles.paper}>
@@ -287,7 +333,7 @@ export default class DeployBot extends React.Component {
                 <TableRowColumn>1</TableRowColumn>
                 <TableRowColumn>Service1</TableRowColumn>
                 <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                <TableRowColumn><Dialogone/></TableRowColumn>
+                <TableRowColumn><Dialogone data={this.checkedArray}/></TableRowColumn>
               </TableRow>
               <TableRow>
                 <TableRowColumn>2</TableRowColumn>
@@ -412,7 +458,8 @@ export default class DeployBot extends React.Component {
         { this.state.displayReview ? reviewConfiguration : null }
         { this.state.displayWebhook ? webhooksComponent : null }
         { this.state.displayConfigServices ? configServiceComponent : null }
-        { this.state.displayPlatform ? seviceComponent : null }
+        { this.state.displayBaseImages ? seviceComponent : null }
+        { this.state.displayPlatform ? scannedServices : null }
         { this.state.repositorySubmitted ? selectPlatform : null }
         { selectRepositoryComponent }
       </div>
