@@ -1,4 +1,5 @@
 var Clone = require('./public/cloning.js');
+
 module.exports = function(io) {
   io.on('connection', function(socket) {
     console.log('Client Connected');
@@ -9,7 +10,8 @@ module.exports = function(io) {
     socket.on('con', function(url){
     	console.log("url:"+url.url+" "+"branch:"+url.branch);
     	var url = 'https://github.com/'+url.url;
-    	Clone(url,url.branch);
+    	Clone(url,socket,url.branch);
+      // scan(process.env.REPOSITORY_PATH,process.env.REPO_NAME);
     });
   });
 };

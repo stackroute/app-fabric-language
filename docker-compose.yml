@@ -5,9 +5,9 @@ services:
     build: microservices/http-server
     ports:
       - 3000:3000
-
+    volumes:
+      - /app/storage
     environment:
-      REPOSITORY_PATH: ./store
-  
+      REPOSITORY_PATH: /app/storage  
 
       
