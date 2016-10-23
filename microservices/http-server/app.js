@@ -4,7 +4,7 @@ const session = require('express-session');
 const sessionSecret = process.env.SESSION_SECRET || 'abaeuthateuhuiharp';
 const app = express();
 const repo = require('./public/getRepos.js');
-const branches = require ('.public/getBranches.js');
+const branches = require ('./public/getBranches.js');
 const passport = require('passport');
 const path = require('path');
 // require('./db');
