@@ -4,7 +4,7 @@ services:
     image: app-fab/http-server
     build: microservices/http-server
     environment:
-      REPOSITORY_PATH: /app/storage
+      REPOSITORY_PATH: /storage
     links:
       - dockeradapter
       - gitadapter
@@ -13,16 +13,14 @@ services:
   dockeradapter:
     image: app-fab/dockeradapter
     build: microservices/dockeradapter
-    environment:
-      REPOSITORY_PATH: /app/storage
     volumes:
-      - /app/storage
+      - ~/:/storage
     restart: always
   gitadapter:
     image: app-fab/gitadapter
     build: microservices/gitadapter
     environment:
-      REPOSITORY_PATH: /app/storage
+      REPOSITORY_PATH: /storage
     volumes:
-      - /app/storage
+      - ~/:/storage
     restart: always
