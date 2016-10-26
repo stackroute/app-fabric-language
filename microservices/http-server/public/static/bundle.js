@@ -52243,7 +52243,7 @@
 	      repositorySubmitted: false,
 	      open: false,
 	      autoHideDuration: 5000,
-	      locate: []
+	      dockerlist: []
 	    };
 	    return _this;
 	  }
@@ -52359,9 +52359,13 @@
 	  }, {
 	    key: 'handleDisplayPlatform',
 	    value: function handleDisplayPlatform() {
-	      console.log(this.state.selectedBranch);
-	      this.context.socket.emit('clone', { url: a, branch: this.state.selectedBranch });
-	      this.setState({ displayPlatform: true });
+	      if (this.state.selectedPlatform == null) {
+	        this.setState({ displayPlatform: false });
+	      } else {
+	        console.log(this.state.selectedBranch);
+	        this.context.socket.emit('clone', { repository: this.state.selectedRepository, branch: this.state.selectedBranch });
+	        this.setState({ displayPlatform: true });
+	      }
 	    }
 	  }, {
 	    key: 'handleCheckbox',
@@ -52427,13 +52431,11 @@
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var me = this;
 	      this.setState({ io: (0, _socket2.default)() });
-	      this.context.socket.on("baseImage", function (data) {
-	        console.log(data);
-	        me.setState({ locate: data });
-	      });
-	      // this.setState({locate:this.state.data});
+	      this.context.socket.on("servicelist", function (data) {
+	        console.log('dockerlist List: ', data);
+	        this.setState({ dockerlist: data.dockerlist, packagelist: data.packagelist });
+	      }.bind(this));
 	    }
 	  }, {
 	    key: 'render',
@@ -52448,7 +52450,7 @@
 	        return _react2.default.createElement(_MenuItem2.default, { value: repObject, primaryText: repObject, key: repObject });
 	      });
 
-	      var listLocation = this.state.locate.map(function (locObject) {
+	      var listLocation = this.state.dockerlist.map(function (locObject) {
 	        return _react2.default.createElement(_List.ListItem, { primaryText: locObject, leftCheckbox: _react2.default.createElement(_Checkbox2.default, { onClick: _this5.handleCheckbox(locObject) }) });
 	      });
 	      // primaryText={locObject} key={locObject}
@@ -52475,6 +52477,7 @@
 	                {
 	                  floatingLabelText: 'Repositories',
 	                  onChange: this.handleRepository.bind(this),
+
 	                  value: this.state.selectedRepository },
 	                repositoryItem
 	              ),
@@ -52561,14 +52564,19 @@
 	            _react2.default.createElement(
 	              'h3',
 	              null,
-	              'Select Your Base Image'
+	              'Select Custom Base Image'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'In case you don\'t know what this is, click next to continue.'
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              { id: 'checks' },
 	              _react2.default.createElement(
 	                _List.List,
-	                null,
+	                { style: { height: '400px', overflow: 'auto' } },
 	                listLocation
 	              )
 	            ),

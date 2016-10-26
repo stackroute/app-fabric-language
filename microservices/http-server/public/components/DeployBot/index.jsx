@@ -132,6 +132,10 @@ export default class DeployBot extends React.Component {
 
   handleRepositoryFormSubmit(e) {
     e.preventDefault();
+    if(this.state.selectedBranch == null){
+      this.setState({repositorySubmitted:false});
+    }
+    else
     this.setState({repositorySubmitted:true});
     }
 
@@ -140,9 +144,14 @@ export default class DeployBot extends React.Component {
   }
 
   handleDisplayPlatform(){
+    if(this.state.selectedPlatform == null){
+      this.setState({displayPlatform:false});
+    }
+    else{
     console.log(this.state.selectedBranch);
     this.context.socket.emit('clone',{repository: this.state.selectedRepository,branch:this.state.selectedBranch});
-    this.setState({displayPlatform:true,open:true,message:'Cloning Started'});
+    this.setState({displayPlatform:true});
+    }
   }
 
   handleCheckbox(event) {
@@ -230,13 +239,7 @@ export default class DeployBot extends React.Component {
         <Paper style={styles.paper}>
           <form noValidate onSubmit={this.handleRepositoryFormSubmit.bind(this)}>
             <div style={styles.content}>
-              <h3>Enter OR Select a github repository to deploy</h3>
-              <TextField
-                style={styles.textField}
-                floatingLabelText="Github Repository URL"
-                value={this.state.repositoryUrl}
-                onChange={this.handleRepositoryChange.bind(this)} />
-              <br />
+              <h3>Select a github repository to deploy</h3>
               <SelectField
                 floatingLabelText="Repositories"
                 onChange={this.handleRepository.bind(this)}
@@ -273,14 +276,6 @@ export default class DeployBot extends React.Component {
                   <MenuItem value={2} primaryText="Kubernetes" />
               </SelectField>
           </div>
-          <div>
-          <Snackbar
-          open={this.state.open}
-          message={this.state.message}
-          autoHideDuration={this.state.autoHideDuration}
-          onRequestClose={this.handleRequestClose}
-        />
-      </div>
           <div className="end-xs">
             <FlatButton primary={true} label="Next" onTouchTap={this.handleDisplayPlatform.bind(this,true)} />
           </div>
