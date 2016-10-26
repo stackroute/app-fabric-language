@@ -145,9 +145,9 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(skipIfLoggedIn, 'skipIfLoggedIn', '/vagrant/assignments/app-fabric/microservices/http-server/public/app.jsx');
+	  __REACT_HOT_LOADER__.register(skipIfLoggedIn, 'skipIfLoggedIn', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/app.jsx');
 
-	  __REACT_HOT_LOADER__.register(requiresAuthentication, 'requiresAuthentication', '/vagrant/assignments/app-fabric/microservices/http-server/public/app.jsx');
+	  __REACT_HOT_LOADER__.register(requiresAuthentication, 'requiresAuthentication', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/app.jsx');
 	}();
 
 	;
@@ -36409,11 +36409,11 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(styles, 'styles', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Home/index.jsx');
+	  __REACT_HOT_LOADER__.register(styles, 'styles', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/views/Home/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(Home, 'Home', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Home/index.jsx');
+	  __REACT_HOT_LOADER__.register(Home, 'Home', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/views/Home/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Home/index.jsx');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/views/Home/index.jsx');
 	}();
 
 	;
@@ -39498,11 +39498,11 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(styles, 'styles', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Dashboard/index.jsx');
+	  __REACT_HOT_LOADER__.register(styles, 'styles', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/views/Dashboard/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(Dashboard, 'Dashboard', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Dashboard/index.jsx');
+	  __REACT_HOT_LOADER__.register(Dashboard, 'Dashboard', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/views/Dashboard/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Dashboard/index.jsx');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/views/Dashboard/index.jsx');
 	}();
 
 	;
@@ -39603,9 +39603,9 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(NavBar, 'NavBar', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/NavBar/index.jsx');
+	  __REACT_HOT_LOADER__.register(NavBar, 'NavBar', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/NavBar/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/NavBar/index.jsx');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/NavBar/index.jsx');
 	}();
 
 	;
@@ -52096,11 +52096,11 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(styles, 'styles', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Deploy/index.jsx');
+	  __REACT_HOT_LOADER__.register(styles, 'styles', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/views/Deploy/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(Deploy, 'Deploy', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Deploy/index.jsx');
+	  __REACT_HOT_LOADER__.register(Deploy, 'Deploy', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/views/Deploy/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/views/Deploy/index.jsx');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/views/Deploy/index.jsx');
 	}();
 
 	;
@@ -52288,7 +52288,6 @@
 	    value: function fetchRepositoryBranches(repositoryUrl) {
 	      var _this2 = this;
 
-	      console.log();
 	      var repositoryId = repositoryUrl.split('github.com/')[1].replace('.git', '');
 	      _jquery2.default.ajax({
 	        url: 'https://api.github.com/repos/' + repositoryId + '/branches',
@@ -52309,7 +52308,6 @@
 	      var ownerName = this.state.repositories.map(function (data) {
 	        if (data.name == v) {
 	          a = data.full_name;
-	          console.log(a);
 	        }
 	      });
 	      _jquery2.default.ajax({
@@ -52374,12 +52372,13 @@
 	    value: function handleDisplayPlatform() {
 	      console.log(a);
 	      console.log(this.state.selectedBranch);
-	      this.context.socket.emit('con', { url: a, branch: this.state.selectedBranch });
+	      this.context.socket.emit('clone', { url: a, branch: this.state.selectedBranch });
 	      this.setState({ displayPlatform: true, open: true, message: 'Cloaning Started' });
 	    }
 	  }, {
 	    key: 'handleCheckbox',
 	    value: function handleCheckbox(event) {
+	      console.log("clicked");
 	      console.log("Value : " + event);
 	      checkedArray.push({ val: event });
 	      console.log(checkedArray);
@@ -52420,7 +52419,7 @@
 	    value: function componentDidMount() {
 	      var me = this;
 	      this.setState({ io: (0, _socket2.default)() });
-	      this.context.socket.on("location", function (data) {
+	      this.context.socket.on("baseImagePaths", function (data) {
 	        console.log(data);
 	        me.setState({ locate: data });
 	      });
@@ -52440,8 +52439,7 @@
 	      });
 
 	      var listLocation = this.state.locate.map(function (locObject) {
-	        console.log(locObject);
-	        return _react2.default.createElement(_List.ListItem, { primaryText: locObject, leftCheckbox: _react2.default.createElement(_Checkbox2.default, { onCheck: _this5.handleCheckbox(locObject) }) });
+	        return _react2.default.createElement(_List.ListItem, { primaryText: locObject, leftCheckbox: _react2.default.createElement(_Checkbox2.default, { onClick: _this5.handleCheckbox(locObject) }) });
 	      });
 	      // primaryText={locObject} key={locObject}
 
@@ -52659,7 +52657,7 @@
 	                  _react2.default.createElement(
 	                    _Table.TableRowColumn,
 	                    null,
-	                    _react2.default.createElement(_Dialog2.default, { data: this.checkedArray })
+	                    _react2.default.createElement(_Dialog2.default, { data: checkedArray })
 	                  )
 	                ),
 	                _react2.default.createElement(
@@ -52709,7 +52707,7 @@
 	                  _react2.default.createElement(
 	                    _Table.TableRowColumn,
 	                    null,
-	                    _react2.default.createElement(_Dialog2.default, null)
+	                    _react2.default.createElement(_Dialog2.default, { data: checkedArray })
 	                  )
 	                ),
 	                _react2.default.createElement(
@@ -52734,7 +52732,7 @@
 	                  _react2.default.createElement(
 	                    _Table.TableRowColumn,
 	                    null,
-	                    _react2.default.createElement(_Dialog2.default, null)
+	                    _react2.default.createElement(_Dialog2.default, { data: checkedArray })
 	                  )
 	                )
 	              )
@@ -52981,23 +52979,23 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(styles, 'styles', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+	  __REACT_HOT_LOADER__.register(styles, 'styles', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(timeout, 'timeout', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+	  __REACT_HOT_LOADER__.register(timeout, 'timeout', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(timein, 'timein', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+	  __REACT_HOT_LOADER__.register(timein, 'timein', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(scroll, 'scroll', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+	  __REACT_HOT_LOADER__.register(scroll, 'scroll', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(a, 'a', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+	  __REACT_HOT_LOADER__.register(a, 'a', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(docker, 'docker', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+	  __REACT_HOT_LOADER__.register(docker, 'docker', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(checkedArray, 'checkedArray', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+	  __REACT_HOT_LOADER__.register(checkedArray, 'checkedArray', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(DeployBot, 'DeployBot', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+	  __REACT_HOT_LOADER__.register(DeployBot, 'DeployBot', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 	}();
 
 	;
@@ -69704,6 +69702,7 @@
 	    fontWeight: 400
 	  }
 	};
+	var check = [];
 
 	var DialogOne = function (_React$Component) {
 	  _inherits(DialogOne, _React$Component);
@@ -69729,7 +69728,12 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log("within Dialog" + this.props.data);
+	      console.log('From Dialog Component : ');
+	      console.log(this.props.data);
+	      var check = this.props.data.map(function (baseObject) {
+	        return _react2.default.createElement(_MenuItem2.default, { value: baseObject.val, primaryText: baseObject.val, key: baseObject.val });
+	      });
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -69751,7 +69755,7 @@
 	            null,
 	            'Custom Images'
 	          ),
-	          _react2.default.createElement(_MenuItem2.default, null)
+	          check
 	        )
 	      );
 	    }
@@ -69769,11 +69773,13 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(styles, 'styles', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/Dialog.jsx');
+	  __REACT_HOT_LOADER__.register(styles, 'styles', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/Dialog.jsx');
 
-	  __REACT_HOT_LOADER__.register(DialogOne, 'DialogOne', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/Dialog.jsx');
+	  __REACT_HOT_LOADER__.register(check, 'check', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/Dialog.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/Dialog.jsx');
+	  __REACT_HOT_LOADER__.register(DialogOne, 'DialogOne', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/Dialog.jsx');
+
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/Dialog.jsx');
 	}();
 
 	;
@@ -70848,9 +70854,9 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(SelectClass, 'SelectClass', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/selectfield.jsx');
+	  __REACT_HOT_LOADER__.register(SelectClass, 'SelectClass', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/selectfield.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/selectfield.jsx');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/selectfield.jsx');
 	}();
 
 	;
@@ -71022,9 +71028,9 @@
 			return;
 		}
 
-		__REACT_HOT_LOADER__.register(Dependency, 'Dependency', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/Dependencies.jsx');
+		__REACT_HOT_LOADER__.register(Dependency, 'Dependency', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/Dependencies.jsx');
 
-		__REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/Dependencies.jsx');
+		__REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/Dependencies.jsx');
 	}();
 
 	;
@@ -71153,7 +71159,7 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(Configurations, 'Configurations', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/Configurations.jsx');
+	  __REACT_HOT_LOADER__.register(Configurations, 'Configurations', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/Configurations.jsx');
 	}();
 
 	;
@@ -71205,7 +71211,7 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(List, 'List', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/List.jsx');
+	  __REACT_HOT_LOADER__.register(List, 'List', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/List.jsx');
 	}();
 
 	;
@@ -71262,7 +71268,7 @@
 			return;
 		}
 
-		__REACT_HOT_LOADER__.register(Row, 'Row', '/vagrant/assignments/app-fabric/microservices/http-server/public/components/DeployBot/Row.jsx');
+		__REACT_HOT_LOADER__.register(Row, 'Row', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/Row.jsx');
 	}();
 
 	;
@@ -71295,7 +71301,7 @@
 	console.log(process.env.REPO_NAME);
 	 
 	  gitCloneCommand.on("close",function(){
-	     const findDocker = spawn('find',['.' , '-name' , 'Dockerfile'],{cwd : cloneDirectoryPath});
+	     const findDocker = spawn('find',['.' , '-name' , 'package.json'],{cwd : cloneDirectoryPath});
 	     var count = 0;var location = [];
 	    findDocker.stdout.on('data', (data) => {
 	     console.log(`stdout: ${data}`);
@@ -77184,9 +77190,9 @@
 	    return;
 	  }
 
-	  __REACT_HOT_LOADER__.register(ContextComponent, 'ContextComponent', '/vagrant/assignments/app-fabric/microservices/http-server/public/context.jsx');
+	  __REACT_HOT_LOADER__.register(ContextComponent, 'ContextComponent', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/context.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric/microservices/http-server/public/context.jsx');
+	  __REACT_HOT_LOADER__.register(_default, 'default', '/vagrant/assignments/app-fabric-language/microservices/http-server/public/context.jsx');
 	}();
 
 	;
