@@ -32,6 +32,11 @@ const styles = {
   }
 }
 
+var finalServiceObject={};
+var finalConfigObj={};
+var osNames={};        //os names
+
+
 var timeout;
 var timein;
 var scroll= Scroll.animateScroll;
@@ -49,9 +54,12 @@ export default class DeployBot extends React.Component {
       repositorySubmitted: false,
       open: false,
       autoHideDuration: 5000,
-      dockerlist: []
+      dockerlist: [],
+      packagelist: [],
+      selectedOs: ''
     }
   }
+
   handleTextSave = () => {
 
   };
@@ -93,15 +101,15 @@ export default class DeployBot extends React.Component {
   handleRepository(e,i,v) {
     this.setState({selectedRepository:v});
     $.ajax({
-          url: 'api/v1/github/repo/'+v+'/branches',
-          success: (data, status) => {
-            this.setState({repositoryBranches: data});
-          },
-          error: (data, status) => {
-            this.setState({repositoryBranches: [], selectedBranch: null});
-          }
-        });
-    }
+      url: 'api/v1/github/repo/'+v+'/branches',
+      success: (data, status) => {
+        this.setState({repositoryBranches: data});
+      },
+      error: (data, status) => {
+        this.setState({repositoryBranches: [], selectedBranch: null});
+      }
+    });
+  }
 
   fetchRepository(repositoryUrl) {
     const rep= repositoryUrl.split('github.com/')[1].replace('.git','');
@@ -124,6 +132,10 @@ export default class DeployBot extends React.Component {
     this.setState({selectedPlatform:v});
   }
 
+  handlestartCloning(e,i,v){
+    this.setState({startCloning:v});
+  }
+
   handleRequestClose = () =>{
     this.setState({
       open: false,
@@ -133,7 +145,7 @@ export default class DeployBot extends React.Component {
   handleRepositoryFormSubmit(e) {
     e.preventDefault();
     this.setState({repositorySubmitted:true});
-    }
+  }
 
   handleCreateBaseImage(createBaseImage) {
     this.setState({createBaseImage: createBaseImage, displayServices: true});
@@ -142,7 +154,7 @@ export default class DeployBot extends React.Component {
   handleDisplayPlatform(){
     console.log(this.state.selectedBranch);
     this.context.socket.emit('clone',{repository: this.state.selectedRepository,branch:this.state.selectedBranch});
-    this.setState({displayPlatform:true,open:true,message:'Cloning Started'});
+    this.setState({displayPlatform:true});
   }
 
   handleCheckbox(event) {
@@ -168,22 +180,16 @@ export default class DeployBot extends React.Component {
   }
   handleWebhook() {
     console.log("```````````status```````````````");
-    a=a.split("/");
-
-    var pr={username: a[0],
-            reponame: a[1],
-            };
 
     // pr["Username"]=a[0];
     // pr["Repo Name"]=a[1];
-    console.log(pr);
     $.ajax({
-        type: 'POST',
-          url: '/api/webhook',
-           data: JSON.stringify(pr),
-           contentType: 'application/json',
+      type: 'POST',
+      url: '/api/webhook',
+      data: JSON.stringify(pr),
+      contentType: 'application/json',
            // dataType : 'json',
-          success: (data, status) => {
+           success: (data, status) => {
             console.log('----------------ajax success-----------');
           },
           error:function(err){
@@ -203,6 +209,26 @@ export default class DeployBot extends React.Component {
     }
   }
 
+  handleDropdown = (os,serviceName) =>{
+    osNames[serviceName]=os;
+  }
+
+
+  handleConfiguration = (configuration) =>{
+  
+
+ 
+    for(var key in osNames)
+    {
+    finalServiceObject["name"]=key;
+    finalServiceObject["from"]=osNames[key];
+    }
+    finalServiceObject["config"]=configuration;
+
+
+    console.log(finalServiceObject);
+  }
+
   componentDidMount() {
     this.setState({io: io()});
     this.context.socket.on("servicelist",function(data){
@@ -211,6 +237,7 @@ export default class DeployBot extends React.Component {
     }.bind(this));
   }
 
+  
   render() {
     const menuItems = this.state.repositoryBranches.map((branchObject) => {
       return <MenuItem value={branchObject} primaryText={branchObject} key={branchObject} />
@@ -223,250 +250,230 @@ export default class DeployBot extends React.Component {
     const listLocation = this.state.dockerlist.map((locObject) => {
       return <ListItem primaryText={locObject} leftCheckbox={<Checkbox onClick={this.handleCheckbox(locObject)} />} />
     });
+
+    var packageList = this.state.packagelist.map((locObject) => {
+      return<TableRow>
+      <TableRowColumn>{locObject}</TableRowColumn>
+      <TableRowColumn><Dialogone service={locObject} data={this.handleDropdown}/></TableRowColumn>
+      <TableRowColumn><Dependency data={this.handleConfiguration}/></TableRowColumn>
+      </TableRow>
+    });
+
 // primaryText={locObject} key={locObject}
 
-    const selectRepositoryComponent = (
-      <div>
-        <Paper style={styles.paper}>
-          <form noValidate onSubmit={this.handleRepositoryFormSubmit.bind(this)}>
-            <div style={styles.content}>
-              <h3>Enter OR Select a github repository to deploy</h3>
-              <TextField
-                style={styles.textField}
-                floatingLabelText="Github Repository URL"
-                value={this.state.repositoryUrl}
-                onChange={this.handleRepositoryChange.bind(this)} />
-              <br />
-              <SelectField
-                floatingLabelText="Repositories"
-                onChange={this.handleRepository.bind(this)}
+const selectRepositoryComponent = (
+  <div>
+  <Paper style={styles.paper}>
+  <form noValidate onSubmit={this.handleRepositoryFormSubmit.bind(this)}>
+  <div style={styles.content}>
+  <h3>Enter OR Select a github repository to deploy</h3>
+  <TextField
+  style={styles.textField}
+  floatingLabelText="Github Repository URL"
+  value={this.state.repositoryUrl}
+  onChange={this.handleRepositoryChange.bind(this)} />
+  <br />
+  <SelectField
+  floatingLabelText="Repositories"
+  onChange={this.handleRepository.bind(this)}
 
-                value={this.state.selectedRepository}>
-                {repositoryItem}
-              </SelectField>
-              <br />
-              <SelectField
-                floatingLabelText="Branch"
-                onChange={this.handleBranchChange.bind(this)}
-                value={this.state.selectedBranch}>
-                {menuItems}
-              </SelectField>
-            </div>
-            <div className="end-xs">
-              <FlatButton type="submit" primary={true} label="Next" />
-            </div>
-          </form>
-        </Paper>
-      </div>
-    );
+  value={this.state.selectedRepository}>
+  {repositoryItem}
+  </SelectField>
+  <br />
+  <SelectField
+  floatingLabelText="Branch"
+  onChange={this.handleBranchChange.bind(this)}
+  value={this.state.selectedBranch}>
+  {menuItems}
+  </SelectField>
+  </div>
+  <div className="end-xs">
+  <FlatButton type="submit" primary={true} label="Next" />
+  </div>
+  </form>
+  </Paper>
+  </div>
+  );
 
-    const selectPlatform = (
-      <div>
-        <Paper style={styles.paper}>
-          <div style={styles.content}>
-            <h3>Select on which Platform you want to Deploy.</h3>
-              <SelectField
-                onChange={this.handleselectPlatform.bind(this)}
-                floatingLabelText="Select Platform"
-                value={this.state.selectedPlatform}>
-                  <MenuItem value={1} primaryText="Docker" />
-                  <MenuItem value={2} primaryText="Kubernetes" />
-              </SelectField>
-          </div>
-          <div>
-          <Snackbar
-          open={this.state.open}
-          message={this.state.message}
-          autoHideDuration={this.state.autoHideDuration}
-          onRequestClose={this.handleRequestClose}
-        />
-      </div>
-          <div className="end-xs">
-            <FlatButton primary={true} label="Next" onTouchTap={this.handleDisplayPlatform.bind(this,true)} />
-          </div>
-        </Paper>
-      </div>
-    );
+const selectPlatform = (
+  <div>
+  <Paper style={styles.paper}>
+  <div style={styles.content}>
+  <h3>Select on which Platform you want to Deploy.</h3>
+  <SelectField
+  onChange={this.handleselectPlatform.bind(this)}
+  floatingLabelText="Select Platform"
+  value={this.state.selectedPlatform}>
+  <MenuItem value={1} primaryText="Docker" />
+  <MenuItem value={2} primaryText="Kubernetes" />
+  </SelectField>
+  </div>
+  <div className="end-xs">
+  <FlatButton primary={true} label="Next" onTouchTap={this.handleDisplayPlatform.bind(this,true)} />
+  </div>
+  </Paper>
+  </div>
+  );
 
-    const createBaseImageComponent = (
-      <div>
-        <Paper style={styles.paper}>
-          <div style={styles.content}>
-            <h3>While we clone your repository, tell us if you would like to build a base image.</h3>
-            <FlatButton label="Yes" primary={true} onTouchTap={this.handleCreateBaseImage.bind(this,true)} />
-            <FlatButton label="No" primary={true} onTouchTap={this.handleCreateBaseImage.bind(this,false)} />
-          </div>
-        </Paper>
-      </div>
-    );
+const startCloning = (
+  <div>
+  <Paper style={styles.paper}>
+  <div style={styles.content}>
+  <CircularProgress size={70} thickness={7}/>Cloning is in progress
+  </div>
+  <div className="end-xs">
+  <FlatButton primary={true} label="Next" onTouchTap={this.handlestartCloning.bind(this,true)} />
+  </div>
+  </Paper>
+  </div>
+  );    
 
-    const scannedServices = (
-      <div>
-        <Paper style={styles.paper}>
-          <div style={styles.content}>
-            <h3>Select Custom Base Image</h3>
-            <p>In case you don't know what this is, click next to continue.</p>
-            <div id="checks">
-              <List style={{height: '400px', overflow: 'auto'}}>
-                {listLocation}
-              </List>
-            </div>
-            <div className="end-xs">
-              <FlatButton label="Next" primary={true} onTouchTap={this.handleDisplayImages.bind(this,false)} />
-            </div>
-          </div>
-        </Paper>
-      </div>
-    );
 
-    const seviceComponent = (
-      <div>
-      <Paper style={styles.paper}>
-        <div style={styles.content}>
-        <h3>Checking for availability of Docker File </h3>
-          <Table className="table-bordered">
-            <TableHeader style={{paddingTop:"20px"}} adjustForCheckbox={false} displaySelectAll={false}>
-              <TableRow>
-                <TableHeaderColumn>id</TableHeaderColumn>
-                <TableHeaderColumn>Name</TableHeaderColumn>
-                <TableHeaderColumn>Status</TableHeaderColumn>
-                <TableHeaderColumn>Info</TableHeaderColumn>
-              </TableRow>
-            </TableHeader>
-            <TableBody displayRowCheckbox={false} style={{textAlign:"center"}}>
-              <TableRow>
-                <TableRowColumn>1</TableRowColumn>
-                <TableRowColumn>Service1</TableRowColumn>
-                <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                {/*<TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>*/}
-              </TableRow>
-              <TableRow>
-                <TableRowColumn>2</TableRowColumn>
-                <TableRowColumn>Service2</TableRowColumn>
-                <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                <TableRowColumn><ActionDone style={{color:"#2FAF06"}}/></TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn>3</TableRowColumn>
-                <TableRowColumn>Service3</TableRowColumn>
-                <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                {/*<TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>*/}
-              </TableRow>
-              <TableRow>
-                <TableRowColumn>4</TableRowColumn>
-                <TableRowColumn>Service4</TableRowColumn>
-                <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                {/*<TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>*/}
-              </TableRow>
-            </TableBody>
-        </Table>
-       </div>
-      <div className="end-xs">
-        <FlatButton label="Next" primary={true} onTouchTap={this.handleDisplayServices.bind(this,false)} />
-      </div>
-      </Paper>
-    </div>
-    );
+const createBaseImageComponent = (
+  <div>
+  <Paper style={styles.paper}>
+  <div style={styles.content}>
+  <h3>While we clone your repository, tell us if you would like to build a base image.</h3>
+  <FlatButton label="Yes" primary={true} onTouchTap={this.handleCreateBaseImage.bind(this,true)} />
+  <FlatButton label="No" primary={true} onTouchTap={this.handleCreateBaseImage.bind(this,false)} />
+  </div>
+  </Paper>
+  </div>
+  );
 
-    const configServiceComponent = (
-      <div >
-        <Paper style={styles.paper}>
-        <div style={styles.content}>
-        <h3>Need some dependencies & configurations for your services</h3>
-          <Table className="table-bordered">
-              <TableHeader style={{paddingTop:"20px"}} adjustForCheckbox={false} displaySelectAll={false}>
-                <TableRow>
-                  <TableHeaderColumn>Available Services</TableHeaderColumn>
-                  <TableHeaderColumn>Configurations</TableHeaderColumn>
-                </TableRow>
-              </TableHeader>
-              <TableBody displayRowCheckbox={false}>
-                <TableRow>
-                  <TableRowColumn>Service1</TableRowColumn>
-                  <TableRowColumn><Dependency /></TableRowColumn>
-                </TableRow>
-                <TableRow>
-                  <TableRowColumn>Service2</TableRowColumn>
-                  <TableRowColumn><Dependency /></TableRowColumn>
-                </TableRow>
-                <TableRow>
-                  <TableRowColumn>Service3</TableRowColumn>
-                  <TableRowColumn><Dependency /></TableRowColumn>
-                </TableRow>
-                <TableRow>
-                  <TableRowColumn>Service4</TableRowColumn>
-                  <TableRowColumn><Dependency /></TableRowColumn>
-                </TableRow>
-              </TableBody>
-          </Table>
-          </div>
-          <div className="end-xs">
-            <FlatButton label="Next" primary={true} onTouchTap={this.handleDisplayConfigureService.bind(this,false)} />
-          </div>
-        </Paper>
+const scannedServices = (
+  <div>
+  <Paper style={styles.paper}>
+  <div style={styles.content}>
+  <h3>Select Custom Base Image</h3>
+  <p>In case you don't know what this is, click next to continue.</p>
+  <div id="checks">
+  <List style={{height: '400px', overflow: 'auto'}}>
+  {listLocation}
+  </List>
+  </div>
+  <div className="end-xs">
+  <FlatButton label="Next" primary={true} onTouchTap={this.handleDisplayImages.bind(this,false)} />
+  </div>
+  </div>
+  </Paper>
+  </div>
+  );
 
-        </div>
-      );
+const seviceComponent = (
+ <div>
+ <Paper style={styles.paper}>
+ <div style={styles.content}>
+ <h3>Checking for availability of Docker File </h3>
+ <Table className="table-bordered">
+ <TableHeader style={{paddingTop:"20px"}} adjustForCheckbox={false} displaySelectAll={false}>
+ <TableRow>
+ <TableHeaderColumn>Service</TableHeaderColumn>
+ <TableHeaderColumn>Select OS</TableHeaderColumn>
+  <TableHeaderColumn>Configurations</TableHeaderColumn>
+ 
+ </TableRow>
+ </TableHeader>
+ <TableBody displayRowCheckbox={false} style={{textAlign:"center"}}>
+ {packageList} 
+ </TableBody>
+ </Table>
+ </div>
 
-      const webhooksComponent=(
-        <div>
-          <Paper style={styles.paper}>
-            <div style={styles.content}>
-              <h3>We will configure here Web-hooks repository for you</h3>
-                <FlatButton label = "OK" primary={true} onTouchTap={this.handleWebhook.bind(this)}/>
-                <FlatButton label = "Cancel" primary={true} onTouchTap={this.handleWebhook.bind(this,false)}/>
-            </div>
-          </Paper>
-        </div>
-      );
 
-      const reviewConfiguration = (
-        <div>
-          <Paper style={styles.paper}>
-            <div style={styles.content}>
-              <ul style={{listStyleType: "none"}}>
-                <h3>Before we start deploying: </h3>
-                <li>
-                  Domain Name: <TextField hintText="Enter the Domain name" style={{marginLeft:"20px"}}/>
-                </li>
-                <li>
-                  App Name: <TextField hintText="Enter the App name" style={{marginLeft:"20px"}} />
-                </li>
-                <li> Branch: </li>
-                <li style={{marginTop:"20px"}} > Repository: </li>
-              </ul>
-            </div>
-            <div className="end-xs">
-              <FlatButton label="next" primary={true} onTouchTap={this.handleReview.bind(this,false)} />
-            </div>
-          </Paper>
-        </div>
-        );
 
-      const progressComponent = (
-      <div>
-        <Paper style={styles.paper}>
-          <div style={styles.content}>
-            <h3>Deployment Progress</h3>
-            <CircularProgress /> Creating Base Image <br />
-            <CircularProgress /> Deploying <br />
-          </div>
-        </Paper>
-      </div>
-    );
 
-    return (
-      <div>
+ <div className="end-xs">
+ <FlatButton label="Next" primary={true} onTouchTap={this.handleDisplayServices.bind(this,false)} />
+ </div>
+ </Paper>
+ </div>
+ );
 
-        { this.state.displayProgress ? progressComponent : null }
-        { this.state.displayReview ? reviewConfiguration : null }
-        { this.state.displayWebhook ? webhooksComponent : null }
-        { this.state.displayConfigServices ? configServiceComponent : null }
-        { this.state.displayBaseImages ? seviceComponent : null }
-        { this.state.displayPlatform ? scannedServices : null }
-        { this.state.repositorySubmitted ? selectPlatform : null }
-        { selectRepositoryComponent }
-      </div>
-    );
-  }
+/*const configServiceComponent = (
+  <div >
+  <Paper style={styles.paper}>
+  <div style={styles.content}>
+  <h3>Need some dependencies & configurations for your services</h3>
+  <Table className="table-bordered">
+  <TableHeader style={{paddingTop:"20px"}} adjustForCheckbox={false} displaySelectAll={false}>
+  <TableRow>
+  <TableHeaderColumn>Available Services</TableHeaderColumn>
+  </TableRow>
+  </TableHeader>
+  <TableBody displayRowCheckbox={false}>
+  </TableBody>
+  </Table>
+  </div>
+  <div className="end-xs">
+  <FlatButton label="Next" primary={true} onTouchTap={this.handleDisplayConfigureService.bind(this,false)} />
+  </div>
+  </Paper>
+
+  </div>
+  );
+*/
+const webhooksComponent=(
+  <div>
+  <Paper style={styles.paper}>
+  <div style={styles.content}>
+  <h3>We will configure here Web-hooks repository for you</h3>
+  <FlatButton label = "OK" primary={true} onTouchTap={this.handleWebhook.bind(this)}/>
+  <FlatButton label = "Cancel" primary={true} onTouchTap={this.handleWebhook.bind(this,false)}/>
+  </div>
+  </Paper>
+  </div>
+  );
+
+const reviewConfiguration = (
+  <div>
+  <Paper style={styles.paper}>
+  <div style={styles.content}>
+  <ul style={{listStyleType: "none"}}>
+  <h3>Before we start deploying: </h3>
+  <li>
+  Domain Name: <TextField hintText="Enter the Domain name" style={{marginLeft:"20px"}}/>
+  </li>
+  <li>
+  App Name: <TextField hintText="Enter the App name" style={{marginLeft:"20px"}} />
+  </li>
+  <li> Branch: </li>
+  <li style={{marginTop:"20px"}} > Repository: </li>
+  </ul>
+  </div>
+  <div className="end-xs">
+  <FlatButton label="next" primary={true} onTouchTap={this.handleReview.bind(this,false)} />
+  </div>
+  </Paper>
+  </div>
+  );
+
+const progressComponent = (
+  <div>
+  <Paper style={styles.paper}>
+  <div style={styles.content}>
+  <h3>Deployment Progress</h3>
+  <CircularProgress /> Creating Base Image <br />
+  <CircularProgress /> Deploying <br />
+  </div>
+  </Paper>
+  </div>
+  );
+
+return (
+  <div>
+
+  { this.state.displayProgress ? progressComponent : null }
+  { this.state.displayReview ? reviewConfiguration : null }
+  { this.state.displayWebhook ? webhooksComponent : null }
+  { this.state.displayConfigServices ? webhooksComponent : null }
+  { this.state.displayBaseImages ? seviceComponent : null }
+  { this.state.displayPlatform ? scannedServices : null }
+  { this.state.startCloning ? scannedServices : null }
+  { this.state.repositorySubmitted ? selectPlatform : null }
+  { selectRepositoryComponent }
+  </div>
+  );
+}
 }
