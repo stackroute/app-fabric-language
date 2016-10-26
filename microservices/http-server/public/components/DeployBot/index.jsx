@@ -132,18 +132,47 @@ export default class DeployBot extends React.Component {
 
   handleRepositoryFormSubmit(e) {
     e.preventDefault();
-    this.setState({repositorySubmitted:true});
+    if(this.state.selectedBranch == null){
+      this.setState({repositorySubmitted:false});
+    }
+    else{
+      this.setState({repositorySubmitted:true});
+    }
     }
 
   handleCreateBaseImage(createBaseImage) {
     this.setState({createBaseImage: createBaseImage, displayServices: true});
   }
 
-  handleDisplayPlatform(){
-    console.log(this.state.selectedBranch);
-    this.context.socket.emit('clone',{repository: this.state.selectedRepository,branch:this.state.selectedBranch});
-    this.setState({displayPlatform:true,open:true,message:'Cloning Started'});
+  componentDidMount() {
+    this.setState({io: io()});
+    this.context.socket.on("servicelist",function(data){
+      console.log('dockerlist List: ',data);
+      this.setState({dockerlist:data.dockerlist,packagelist:data.packagelist});
+    }.bind(this));
+    // if(this.state.dockerlist == null){
+    //   this.setState({displayBaseImages:true});
+    //   this.setState({displayPlatform:false});
+    // }
   }
+
+  handleDisplayPlatform(){
+    if(this.state.selectedPlatform == null){
+      this.setState({displayPlatform:false});
+    }
+    else{
+    console.log(this.state.selectedBranch);
+    console.log(this.state.dockerlist);
+    this.context.socket.emit('clone',{repository: this.state.selectedRepository,branch:this.state.selectedBranch});
+    if(this.state.dockerlist.length < 1){
+      this.setState({displayPlatform:false});
+      this.setState({displayBaseImages:true});
+    }
+    else{
+    this.setState({displayPlatform:true});
+  }
+}
+}
 
   handleCheckbox(event) {
     console.log("clicked");
@@ -195,20 +224,15 @@ export default class DeployBot extends React.Component {
   handleReview() {
     this.setState({displayProgress:true})
   }
+  handleDropdown(e,i,v) {
+    console.log(v);
+  }
 
   static get contextTypes(){
     return{
       router: React.PropTypes.object.isRequired,
       socket: React.PropTypes.object.isRequired
     }
-  }
-
-  componentDidMount() {
-    this.setState({io: io()});
-    this.context.socket.on("servicelist",function(data){
-      console.log('dockerlist List: ',data);
-      this.setState({dockerlist:data.dockerlist,packagelist:data.packagelist});
-    }.bind(this));
   }
 
   render() {
@@ -230,17 +254,10 @@ export default class DeployBot extends React.Component {
         <Paper style={styles.paper}>
           <form noValidate onSubmit={this.handleRepositoryFormSubmit.bind(this)}>
             <div style={styles.content}>
-              <h3>Enter OR Select a github repository to deploy</h3>
-              <TextField
-                style={styles.textField}
-                floatingLabelText="Github Repository URL"
-                value={this.state.repositoryUrl}
-                onChange={this.handleRepositoryChange.bind(this)} />
-              <br />
+              <h3> Select a github repository to deploy</h3>
               <SelectField
                 floatingLabelText="Repositories"
                 onChange={this.handleRepository.bind(this)}
-
                 value={this.state.selectedRepository}>
                 {repositoryItem}
               </SelectField>
@@ -273,14 +290,6 @@ export default class DeployBot extends React.Component {
                   <MenuItem value={2} primaryText="Kubernetes" />
               </SelectField>
           </div>
-          <div>
-          <Snackbar
-          open={this.state.open}
-          message={this.state.message}
-          autoHideDuration={this.state.autoHideDuration}
-          onRequestClose={this.handleRequestClose}
-        />
-      </div>
           <div className="end-xs">
             <FlatButton primary={true} label="Next" onTouchTap={this.handleDisplayPlatform.bind(this,true)} />
           </div>
@@ -327,36 +336,14 @@ export default class DeployBot extends React.Component {
           <Table className="table-bordered">
             <TableHeader style={{paddingTop:"20px"}} adjustForCheckbox={false} displaySelectAll={false}>
               <TableRow>
-                <TableHeaderColumn>id</TableHeaderColumn>
-                <TableHeaderColumn>Name</TableHeaderColumn>
-                <TableHeaderColumn>Status</TableHeaderColumn>
-                <TableHeaderColumn>Info</TableHeaderColumn>
+                <TableHeaderColumn>Service</TableHeaderColumn>
+                <TableHeaderColumn>Selection</TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false} style={{textAlign:"center"}}>
               <TableRow>
-                <TableRowColumn>1</TableRowColumn>
                 <TableRowColumn>Service1</TableRowColumn>
-                <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                {/*<TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>*/}
-              </TableRow>
-              <TableRow>
-                <TableRowColumn>2</TableRowColumn>
-                <TableRowColumn>Service2</TableRowColumn>
-                <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                <TableRowColumn><ActionDone style={{color:"#2FAF06"}}/></TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn>3</TableRowColumn>
-                <TableRowColumn>Service3</TableRowColumn>
-                <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                {/*<TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>*/}
-              </TableRow>
-              <TableRow>
-                <TableRowColumn>4</TableRowColumn>
-                <TableRowColumn>Service4</TableRowColumn>
-                <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                {/*<TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>*/}
+                <TableRowColumn><Dialogone data={this.handleDropdown}/></TableRowColumn>
               </TableRow>
             </TableBody>
         </Table>
@@ -374,30 +361,6 @@ export default class DeployBot extends React.Component {
         <div style={styles.content}>
         <h3>Need some dependencies & configurations for your services</h3>
           <Table className="table-bordered">
-              <TableHeader style={{paddingTop:"20px"}} adjustForCheckbox={false} displaySelectAll={false}>
-                <TableRow>
-                  <TableHeaderColumn>Available Services</TableHeaderColumn>
-                  <TableHeaderColumn>Configurations</TableHeaderColumn>
-                </TableRow>
-              </TableHeader>
-              <TableBody displayRowCheckbox={false}>
-                <TableRow>
-                  <TableRowColumn>Service1</TableRowColumn>
-                  <TableRowColumn><Dependency /></TableRowColumn>
-                </TableRow>
-                <TableRow>
-                  <TableRowColumn>Service2</TableRowColumn>
-                  <TableRowColumn><Dependency /></TableRowColumn>
-                </TableRow>
-                <TableRow>
-                  <TableRowColumn>Service3</TableRowColumn>
-                  <TableRowColumn><Dependency /></TableRowColumn>
-                </TableRow>
-                <TableRow>
-                  <TableRowColumn>Service4</TableRowColumn>
-                  <TableRowColumn><Dependency /></TableRowColumn>
-                </TableRow>
-              </TableBody>
           </Table>
           </div>
           <div className="end-xs">
