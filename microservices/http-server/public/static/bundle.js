@@ -83,7 +83,11 @@
 
 	var _Deploy2 = _interopRequireDefault(_Deploy);
 
+<<<<<<< HEAD
 	var _context = __webpack_require__(706);
+=======
+	var _context = __webpack_require__(707);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var _context2 = _interopRequireDefault(_context);
 
@@ -145,9 +149,15 @@
 	    return;
 	  }
 
+<<<<<<< HEAD
 	  __REACT_HOT_LOADER__.register(skipIfLoggedIn, 'skipIfLoggedIn', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/app.jsx');
 
 	  __REACT_HOT_LOADER__.register(requiresAuthentication, 'requiresAuthentication', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/app.jsx');
+=======
+	  __REACT_HOT_LOADER__.register(skipIfLoggedIn, 'skipIfLoggedIn', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/app.jsx');
+
+	  __REACT_HOT_LOADER__.register(requiresAuthentication, 'requiresAuthentication', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/app.jsx');
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	}();
 
 	;
@@ -36409,11 +36419,19 @@
 	    return;
 	  }
 
+<<<<<<< HEAD
 	  __REACT_HOT_LOADER__.register(styles, 'styles', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/views/Home/index.jsx');
 
 	  __REACT_HOT_LOADER__.register(Home, 'Home', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/views/Home/index.jsx');
 
 	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/views/Home/index.jsx');
+=======
+	  __REACT_HOT_LOADER__.register(styles, 'styles', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/views/Home/index.jsx');
+
+	  __REACT_HOT_LOADER__.register(Home, 'Home', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/views/Home/index.jsx');
+
+	  __REACT_HOT_LOADER__.register(_default, 'default', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/views/Home/index.jsx');
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	}();
 
 	;
@@ -39498,11 +39516,19 @@
 	    return;
 	  }
 
+<<<<<<< HEAD
 	  __REACT_HOT_LOADER__.register(styles, 'styles', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/views/Dashboard/index.jsx');
 
 	  __REACT_HOT_LOADER__.register(Dashboard, 'Dashboard', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/views/Dashboard/index.jsx');
 
 	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/views/Dashboard/index.jsx');
+=======
+	  __REACT_HOT_LOADER__.register(styles, 'styles', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/views/Dashboard/index.jsx');
+
+	  __REACT_HOT_LOADER__.register(Dashboard, 'Dashboard', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/views/Dashboard/index.jsx');
+
+	  __REACT_HOT_LOADER__.register(_default, 'default', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/views/Dashboard/index.jsx');
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	}();
 
 	;
@@ -39603,9 +39629,15 @@
 	    return;
 	  }
 
+<<<<<<< HEAD
 	  __REACT_HOT_LOADER__.register(NavBar, 'NavBar', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/NavBar/index.jsx');
 
 	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/NavBar/index.jsx');
+=======
+	  __REACT_HOT_LOADER__.register(NavBar, 'NavBar', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/NavBar/index.jsx');
+
+	  __REACT_HOT_LOADER__.register(_default, 'default', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/NavBar/index.jsx');
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	}();
 
 	;
@@ -52096,11 +52128,19 @@
 	    return;
 	  }
 
+<<<<<<< HEAD
 	  __REACT_HOT_LOADER__.register(styles, 'styles', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/views/Deploy/index.jsx');
 
 	  __REACT_HOT_LOADER__.register(Deploy, 'Deploy', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/views/Deploy/index.jsx');
 
 	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/views/Deploy/index.jsx');
+=======
+	  __REACT_HOT_LOADER__.register(styles, 'styles', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/views/Deploy/index.jsx');
+
+	  __REACT_HOT_LOADER__.register(Deploy, 'Deploy', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/views/Deploy/index.jsx');
+
+	  __REACT_HOT_LOADER__.register(_default, 'default', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/views/Deploy/index.jsx');
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	}();
 
 	;
@@ -52175,6 +52215,7 @@
 
 	var _Dependencies2 = _interopRequireDefault(_Dependencies);
 
+<<<<<<< HEAD
 	var _done = __webpack_require__(671);
 
 	var _done2 = _interopRequireDefault(_done);
@@ -52188,6 +52229,21 @@
 	var _Table = __webpack_require__(690);
 
 	var _Checkbox = __webpack_require__(696);
+=======
+	var _done = __webpack_require__(672);
+
+	var _done2 = _interopRequireDefault(_done);
+
+	var _Tabs = __webpack_require__(673);
+
+	var _reactScroll = __webpack_require__(678);
+
+	var _reactScroll2 = _interopRequireDefault(_reactScroll);
+
+	var _Table = __webpack_require__(691);
+
+	var _Checkbox = __webpack_require__(697);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
 
@@ -52256,9 +52312,13 @@
 	      repositorySubmitted: false,
 	      open: false,
 	      autoHideDuration: 5000,
+<<<<<<< HEAD
 	      dockerlist: [],
 	      packagelist: [],
 	      selectedOs: ''
+=======
+	      locate: []
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	    };
 	    return _this;
 	  }
@@ -52367,7 +52427,9 @@
 	    key: 'handleRepositoryFormSubmit',
 	    value: function handleRepositoryFormSubmit(e) {
 	      e.preventDefault();
-	      this.setState({ repositorySubmitted: true });
+	      if (this.state.selectedBranch == null) {
+	        this.setState({ repositorySubmitted: false });
+	      } else this.setState({ repositorySubmitted: true });
 	    }
 	  }, {
 	    key: 'handleCreateBaseImage',
@@ -52378,7 +52440,11 @@
 	    key: 'handleDisplayPlatform',
 	    value: function handleDisplayPlatform() {
 	      console.log(this.state.selectedBranch);
+<<<<<<< HEAD
 	      this.context.socket.emit('clone', { repository: this.state.selectedRepository, branch: this.state.selectedBranch });
+=======
+	      this.context.socket.emit('clone', { url: a, branch: this.state.selectedBranch });
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	      this.setState({ displayPlatform: true });
 	    }
 	  }, {
@@ -52456,11 +52522,13 @@
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      var me = this;
 	      this.setState({ io: (0, _socket2.default)() });
-	      this.context.socket.on("servicelist", function (data) {
-	        console.log('dockerlist List: ', data);
-	        this.setState({ dockerlist: data.dockerlist, packagelist: data.packagelist });
-	      }.bind(this));
+	      this.context.socket.on("baseImage", function (data) {
+	        console.log(data);
+	        me.setState({ locate: data });
+	      });
+	      // this.setState({locate:this.state.data});
 	    }
 	  }, {
 	    key: 'render',
@@ -52475,7 +52543,7 @@
 	        return _react2.default.createElement(_MenuItem2.default, { value: repObject, primaryText: repObject, key: repObject });
 	      });
 
-	      var listLocation = this.state.dockerlist.map(function (locObject) {
+	      var listLocation = this.state.locate.map(function (locObject) {
 	        return _react2.default.createElement(_List.ListItem, { primaryText: locObject, leftCheckbox: _react2.default.createElement(_Checkbox2.default, { onClick: _this5.handleCheckbox(locObject) }) });
 	      });
 
@@ -52518,20 +52586,13 @@
 	              _react2.default.createElement(
 	                'h3',
 	                null,
-	                'Enter OR Select a github repository to deploy'
+	                'Select a github repository to deploy'
 	              ),
-	              _react2.default.createElement(_TextField2.default, {
-	                style: styles.textField,
-	                floatingLabelText: 'Github Repository URL',
-	                value: this.state.repositoryUrl,
-	                onChange: this.handleRepositoryChange.bind(this) }),
-	              _react2.default.createElement('br', null),
 	              _react2.default.createElement(
 	                _SelectField2.default,
 	                {
 	                  floatingLabelText: 'Repositories',
 	                  onChange: this.handleRepository.bind(this),
-
 	                  value: this.state.selectedRepository },
 	                repositoryItem
 	              ),
@@ -52580,6 +52641,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
+<<<<<<< HEAD
 	            { className: 'end-xs' },
 	            _react2.default.createElement(_FlatButton2.default, { primary: true, label: 'Next', onTouchTap: this.handleDisplayPlatform.bind(this, true) })
 	          )
@@ -52600,6 +52662,8 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
+=======
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	            { className: 'end-xs' },
 	            _react2.default.createElement(_FlatButton2.default, { primary: true, label: 'Next', onTouchTap: this.handlestartCloning.bind(this, true) })
 	          )
@@ -52638,19 +52702,14 @@
 	            _react2.default.createElement(
 	              'h3',
 	              null,
-	              'Select Custom Base Image'
-	            ),
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              'In case you don\'t know what this is, click next to continue.'
+	              'Select Your Base Image'
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              { id: 'checks' },
 	              _react2.default.createElement(
 	                _List.List,
-	                { style: { height: '400px', overflow: 'auto' } },
+	                null,
 	                listLocation
 	              )
 	            ),
@@ -52870,6 +52929,7 @@
 	    return;
 	  }
 
+<<<<<<< HEAD
 	  __REACT_HOT_LOADER__.register(styles, 'styles', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
 	  __REACT_HOT_LOADER__.register(finalServiceObject, 'finalServiceObject', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
@@ -52889,6 +52949,21 @@
 	  __REACT_HOT_LOADER__.register(DeployBot, 'DeployBot', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
 	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+=======
+	  __REACT_HOT_LOADER__.register(styles, 'styles', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+
+	  __REACT_HOT_LOADER__.register(timeout, 'timeout', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+
+	  __REACT_HOT_LOADER__.register(timein, 'timein', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+
+	  __REACT_HOT_LOADER__.register(scroll, 'scroll', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+
+	  __REACT_HOT_LOADER__.register(docker, 'docker', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+
+	  __REACT_HOT_LOADER__.register(DeployBot, 'DeployBot', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+
+	  __REACT_HOT_LOADER__.register(_default, 'default', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/index.jsx');
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	}();
 
 	;
@@ -53783,10 +53858,17 @@
 	  for (var name in props) {
 	    if (name.substring(0, 2) === 'on' && props[name] instanceof Function) {
 	      var _capture = name.substr(-7).toLowerCase() === 'capture';
+<<<<<<< HEAD
 
 	      var _eventName = name.substring(2).toLowerCase();
 	      _eventName = _capture ? _eventName.substring(0, _eventName.length - 7) : _eventName;
 
+=======
+
+	      var _eventName = name.substring(2).toLowerCase();
+	      _eventName = _capture ? _eventName.substring(0, _eventName.length - 7) : _eventName;
+
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	      iteratee(_eventName, props[name], _capture);
 	    }
 	  }
@@ -56066,6 +56148,8 @@
 
 /***/ },
 /* 585 */
+<<<<<<< HEAD
+=======
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -56102,6 +56186,173 @@
 
 	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
 
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 *  BeforeAfterWrapper
+	 *    An alternative for the ::before and ::after css pseudo-elements for
+	 *    components whose styles are defined in javascript instead of css.
+	 *
+	 *  Usage: For the element that we want to apply before and after elements to,
+	 *    wrap its children with BeforeAfterWrapper. For example:
+	 *
+	 *                                            <Paper>
+	 *  <Paper>                                     <div> // See notice
+	 *    <BeforeAfterWrapper>        renders         <div/> // before element
+	 *      [children of paper]       ------>         [children of paper]
+	 *    </BeforeAfterWrapper>                       <div/> // after element
+	 *  </Paper>                                    </div>
+	 *                                            </Paper>
+	 *
+	 *  Notice: Notice that this div bundles together our elements. If the element
+	 *    that we want to apply before and after elements is a HTML tag (i.e. a
+	 *    div, p, or button tag), we can avoid this extra nesting by passing using
+	 *    the BeforeAfterWrapper in place of said tag like so:
+	 *
+	 *  <p>
+	 *    <BeforeAfterWrapper>   do this instead   <BeforeAfterWrapper elementType='p'>
+	 *      [children of p]          ------>         [children of p]
+	 *    </BeforeAfterWrapper>                    </BeforeAfterWrapper>
+	 *  </p>
+	 *
+	 *  BeforeAfterWrapper features spread functionality. This means that we can
+	 *  pass HTML tag properties directly into the BeforeAfterWrapper tag.
+	 *
+	 *  When using BeforeAfterWrapper, ensure that the parent of the beforeElement
+	 *  and afterElement have a defined style position.
+	 */
+
+	var styles = {
+	  box: {
+	    boxSizing: 'border-box'
+	  }
+	};
+
+	var BeforeAfterWrapper = function (_Component) {
+	  (0, _inherits3.default)(BeforeAfterWrapper, _Component);
+
+	  function BeforeAfterWrapper() {
+	    (0, _classCallCheck3.default)(this, BeforeAfterWrapper);
+	    return (0, _possibleConstructorReturn3.default)(this, (BeforeAfterWrapper.__proto__ || (0, _getPrototypeOf2.default)(BeforeAfterWrapper)).apply(this, arguments));
+	  }
+
+	  (0, _createClass3.default)(BeforeAfterWrapper, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var beforeStyle = _props.beforeStyle;
+	      var afterStyle = _props.afterStyle;
+	      var beforeElementType = _props.beforeElementType;
+	      var afterElementType = _props.afterElementType;
+	      var elementType = _props.elementType;
+	      var other = (0, _objectWithoutProperties3.default)(_props, ['beforeStyle', 'afterStyle', 'beforeElementType', 'afterElementType', 'elementType']);
+	      var prepareStyles = this.context.muiTheme.prepareStyles;
+
+
+	      var beforeElement = void 0;
+	      var afterElement = void 0;
+
+	      if (beforeStyle) {
+	        beforeElement = _react2.default.createElement(this.props.beforeElementType, {
+	          style: prepareStyles((0, _simpleAssign2.default)({}, styles.box, beforeStyle)),
+	          key: '::before'
+	        });
+	      }
+
+	      if (afterStyle) {
+	        afterElement = _react2.default.createElement(this.props.afterElementType, {
+	          style: prepareStyles((0, _simpleAssign2.default)({}, styles.box, afterStyle)),
+	          key: '::after'
+	        });
+	      }
+
+	      var children = [beforeElement, this.props.children, afterElement];
+
+	      var props = other;
+	      props.style = prepareStyles((0, _simpleAssign2.default)({}, this.props.style));
+
+	      return _react2.default.createElement(this.props.elementType, props, children);
+	    }
+	  }]);
+	  return BeforeAfterWrapper;
+	}(_react.Component);
+
+	BeforeAfterWrapper.defaultProps = {
+	  beforeElementType: 'div',
+	  afterElementType: 'div',
+	  elementType: 'div'
+	};
+	BeforeAfterWrapper.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+	process.env.NODE_ENV !== "production" ? BeforeAfterWrapper.propTypes = {
+	  afterElementType: _react.PropTypes.string,
+	  afterStyle: _react.PropTypes.object,
+	  beforeElementType: _react.PropTypes.string,
+	  beforeStyle: _react.PropTypes.object,
+	  children: _react.PropTypes.node,
+	  elementType: _react.PropTypes.string,
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object
+	} : void 0;
+	exports.default = BeforeAfterWrapper;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 586 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+<<<<<<< HEAD
+=======
+	var _extends2 = __webpack_require__(507);
+
+	var _extends3 = _interopRequireDefault(_extends2);
+
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
+	var _objectWithoutProperties2 = __webpack_require__(512);
+
+	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+	var _getPrototypeOf = __webpack_require__(180);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(206);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(207);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(211);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(258);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+<<<<<<< HEAD
+	var _simpleAssign = __webpack_require__(513);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+=======
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -56929,6 +57180,7 @@
 	function throttle(func, wait, options) {
 	  var leading = true,
 	      trailing = true;
+<<<<<<< HEAD
 
 	  if (typeof func != 'function') {
 	    throw new TypeError(FUNC_ERROR_TEXT);
@@ -57137,6 +57389,213 @@
 	  debounced.flush = flush;
 	  return debounced;
 	}
+
+	module.exports = debounce;
+=======
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
+
+
+<<<<<<< HEAD
+/***/ },
+/* 590 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var root = __webpack_require__(300);
+=======
+	module.exports = throttle;
+
+
+/***/ },
+/* 589 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isObject = __webpack_require__(297),
+	    now = __webpack_require__(590),
+	    toNumber = __webpack_require__(591);
+
+	/** Error message constants. */
+	var FUNC_ERROR_TEXT = 'Expected a function';
+
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeMax = Math.max,
+	    nativeMin = Math.min;
+
+	/**
+	 * Creates a debounced function that delays invoking `func` until after `wait`
+	 * milliseconds have elapsed since the last time the debounced function was
+	 * invoked. The debounced function comes with a `cancel` method to cancel
+	 * delayed `func` invocations and a `flush` method to immediately invoke them.
+	 * Provide `options` to indicate whether `func` should be invoked on the
+	 * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
+	 * with the last arguments provided to the debounced function. Subsequent
+	 * calls to the debounced function return the result of the last `func`
+	 * invocation.
+	 *
+	 * **Note:** If `leading` and `trailing` options are `true`, `func` is
+	 * invoked on the trailing edge of the timeout only if the debounced function
+	 * is invoked more than once during the `wait` timeout.
+	 *
+	 * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+	 * until to the next tick, similar to `setTimeout` with a timeout of `0`.
+	 *
+	 * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
+	 * for details over the differences between `_.debounce` and `_.throttle`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Function
+	 * @param {Function} func The function to debounce.
+	 * @param {number} [wait=0] The number of milliseconds to delay.
+	 * @param {Object} [options={}] The options object.
+	 * @param {boolean} [options.leading=false]
+	 *  Specify invoking on the leading edge of the timeout.
+	 * @param {number} [options.maxWait]
+	 *  The maximum time `func` is allowed to be delayed before it's invoked.
+	 * @param {boolean} [options.trailing=true]
+	 *  Specify invoking on the trailing edge of the timeout.
+	 * @returns {Function} Returns the new debounced function.
+	 * @example
+	 *
+	 * // Avoid costly calculations while the window size is in flux.
+	 * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
+	 *
+	 * // Invoke `sendMail` when clicked, debouncing subsequent calls.
+	 * jQuery(element).on('click', _.debounce(sendMail, 300, {
+	 *   'leading': true,
+	 *   'trailing': false
+	 * }));
+	 *
+	 * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
+	 * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
+	 * var source = new EventSource('/stream');
+	 * jQuery(source).on('message', debounced);
+	 *
+	 * // Cancel the trailing debounced invocation.
+	 * jQuery(window).on('popstate', debounced.cancel);
+	 */
+	function debounce(func, wait, options) {
+	  var lastArgs,
+	      lastThis,
+	      maxWait,
+	      result,
+	      timerId,
+	      lastCallTime,
+	      lastInvokeTime = 0,
+	      leading = false,
+	      maxing = false,
+	      trailing = true;
+
+	  if (typeof func != 'function') {
+	    throw new TypeError(FUNC_ERROR_TEXT);
+	  }
+	  wait = toNumber(wait) || 0;
+	  if (isObject(options)) {
+	    leading = !!options.leading;
+	    maxing = 'maxWait' in options;
+	    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
+	    trailing = 'trailing' in options ? !!options.trailing : trailing;
+	  }
+
+	  function invokeFunc(time) {
+	    var args = lastArgs,
+	        thisArg = lastThis;
+
+	    lastArgs = lastThis = undefined;
+	    lastInvokeTime = time;
+	    result = func.apply(thisArg, args);
+	    return result;
+	  }
+
+	  function leadingEdge(time) {
+	    // Reset any `maxWait` timer.
+	    lastInvokeTime = time;
+	    // Start the timer for the trailing edge.
+	    timerId = setTimeout(timerExpired, wait);
+	    // Invoke the leading edge.
+	    return leading ? invokeFunc(time) : result;
+	  }
+
+	  function remainingWait(time) {
+	    var timeSinceLastCall = time - lastCallTime,
+	        timeSinceLastInvoke = time - lastInvokeTime,
+	        result = wait - timeSinceLastCall;
+
+	    return maxing ? nativeMin(result, maxWait - timeSinceLastInvoke) : result;
+	  }
+
+	  function shouldInvoke(time) {
+	    var timeSinceLastCall = time - lastCallTime,
+	        timeSinceLastInvoke = time - lastInvokeTime;
+
+	    // Either this is the first call, activity has stopped and we're at the
+	    // trailing edge, the system time has gone backwards and we're treating
+	    // it as the trailing edge, or we've hit the `maxWait` limit.
+	    return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
+	      (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
+	  }
+
+	  function timerExpired() {
+	    var time = now();
+	    if (shouldInvoke(time)) {
+	      return trailingEdge(time);
+	    }
+	    // Restart the timer.
+	    timerId = setTimeout(timerExpired, remainingWait(time));
+	  }
+
+	  function trailingEdge(time) {
+	    timerId = undefined;
+
+	    // Only invoke if we have `lastArgs` which means `func` has been
+	    // debounced at least once.
+	    if (trailing && lastArgs) {
+	      return invokeFunc(time);
+	    }
+	    lastArgs = lastThis = undefined;
+	    return result;
+	  }
+
+	  function cancel() {
+	    if (timerId !== undefined) {
+	      clearTimeout(timerId);
+	    }
+	    lastInvokeTime = 0;
+	    lastArgs = lastCallTime = lastThis = timerId = undefined;
+	  }
+
+	  function flush() {
+	    return timerId === undefined ? result : trailingEdge(now());
+	  }
+
+	  function debounced() {
+	    var time = now(),
+	        isInvoking = shouldInvoke(time);
+
+	    lastArgs = arguments;
+	    lastThis = this;
+	    lastCallTime = time;
+
+	    if (isInvoking) {
+	      if (timerId === undefined) {
+	        return leadingEdge(lastCallTime);
+	      }
+	      if (maxing) {
+	        // Handle invocations in a tight loop.
+	        timerId = setTimeout(timerExpired, wait);
+	        return invokeFunc(lastCallTime);
+	      }
+	    }
+	    if (timerId === undefined) {
+	      timerId = setTimeout(timerExpired, wait);
+	    }
+	    return result;
+	  }
+	  debounced.cancel = cancel;
+	  debounced.flush = flush;
+	  return debounced;
+	}
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	module.exports = debounce;
 
@@ -69666,11 +70125,21 @@
 	    return;
 	  }
 
+<<<<<<< HEAD
 	  __REACT_HOT_LOADER__.register(styles, 'styles', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/Dialog.jsx');
 
 	  __REACT_HOT_LOADER__.register(DialogOne, 'DialogOne', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/Dialog.jsx');
 
 	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/Dialog.jsx');
+=======
+	  __REACT_HOT_LOADER__.register(styles, 'styles', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/Dialog.jsx');
+
+	  __REACT_HOT_LOADER__.register(check, 'check', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/Dialog.jsx');
+
+	  __REACT_HOT_LOADER__.register(DialogOne, 'DialogOne', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/Dialog.jsx');
+
+	  __REACT_HOT_LOADER__.register(_default, 'default', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/Dialog.jsx');
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	}();
 
 	;
@@ -70745,9 +71214,15 @@
 	    return;
 	  }
 
+<<<<<<< HEAD
 	  __REACT_HOT_LOADER__.register(SelectClass, 'SelectClass', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/selectfield.jsx');
 
 	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/selectfield.jsx');
+=======
+	  __REACT_HOT_LOADER__.register(SelectClass, 'SelectClass', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/selectfield.jsx');
+
+	  __REACT_HOT_LOADER__.register(_default, 'default', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/selectfield.jsx');
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	}();
 
 	;
@@ -70796,7 +71271,11 @@
 
 	var _close2 = _interopRequireDefault(_close);
 
+<<<<<<< HEAD
 	var _List = __webpack_require__(669);
+=======
+	var _Configurations = __webpack_require__(669);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var _List2 = _interopRequireDefault(_List);
 
@@ -70995,11 +71474,17 @@
 			return;
 		}
 
+<<<<<<< HEAD
 		__REACT_HOT_LOADER__.register(configuration, 'configuration', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/Dependencies.jsx');
 
 		__REACT_HOT_LOADER__.register(Dependency, 'Dependency', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/Dependencies.jsx');
 
 		__REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/Dependencies.jsx');
+=======
+		__REACT_HOT_LOADER__.register(Dependency, 'Dependency', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/Dependencies.jsx');
+
+		__REACT_HOT_LOADER__.register(_default, 'default', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/Dependencies.jsx');
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	}();
 
 	;
@@ -71043,6 +71528,8 @@
 
 /***/ },
 /* 669 */
+<<<<<<< HEAD
+=======
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71055,7 +71542,104 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
+	var _FlatButton = __webpack_require__(505);
+
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+
+	var _TextField = __webpack_require__(566);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _List = __webpack_require__(670);
+
+	var _List2 = _interopRequireDefault(_List);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Configurations = _react2.default.createClass({
+	  displayName: 'Configurations',
+
+	  getInitialState: function getInitialState() {
+	    return { items: [], text: '', text2: '', id: 0 };
+	  },
+	  onChange: function onChange(e) {
+	    this.setState({ text: e.target.value });
+	  },
+	  onChange1: function onChange1(e) {
+	    this.setState({ text2: e.target.value });
+	    console.log("change" + this.state.text2);
+	  },
+	  Delete: function Delete(id) {
+	    console.log("delete" + id);
+	    this.state.items.splice(id, 1);
+	    this.setState({ items: this.state.items });
+	    console.log(this.state.items);
+	  },
+	  handleSubmit: function handleSubmit(e) {
+	    e.preventDefault();
+	    console.log("allow");
+	    console.log(this.state.text2);
+	    this.setState({ id: this.state.id + 1 });
+
+	    var nextItems = this.state.items.concat([{ text: this.state.text,
+	      text2: this.state.text2, id: this.state.id }]);
+	    var nextText = '';
+	    this.setState({ items: nextItems, text: nextText, text2: nextText });
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        'Configurations'
+	      ),
+	      _react2.default.createElement(_List2.default, { items: this.state.items,
+	        itemDelete: this.Delete }),
+	      _react2.default.createElement(
+	        'form',
+	        null,
+	        _react2.default.createElement(_TextField2.default, { hintText: 'Key', key: 'one', onChange: this.onChange, value: this.state.text }),
+	        _react2.default.createElement(_TextField2.default, { hintText: 'Value', key: 'two', onChange: this.onChange1, style: { paddingLeft: "10px" }, value: this.state.text2 }),
+	        _react2.default.createElement(_FlatButton2.default, { onClick: this.handleSubmit, label: 'Add', primary: true })
+	      )
+	    );
+	  }
+	});
+	module.exports = Configurations;
+	;
+
+	var _temp = function () {
+	  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+	    return;
+	  }
+
+	  __REACT_HOT_LOADER__.register(Configurations, 'Configurations', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/Configurations.jsx');
+	}();
+
+	;
+
+/***/ },
+/* 670 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(35);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+<<<<<<< HEAD
 	var _Row = __webpack_require__(670);
+=======
+	var _Row = __webpack_require__(671);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var _Row2 = _interopRequireDefault(_Row);
 
@@ -71088,13 +71672,21 @@
 	    return;
 	  }
 
+<<<<<<< HEAD
 	  __REACT_HOT_LOADER__.register(List, 'List', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/List.jsx');
+=======
+	  __REACT_HOT_LOADER__.register(List, 'List', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/List.jsx');
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	}();
 
 	;
 
 /***/ },
+<<<<<<< HEAD
 /* 670 */
+=======
+/* 671 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71145,13 +71737,21 @@
 			return;
 		}
 
+<<<<<<< HEAD
 		__REACT_HOT_LOADER__.register(Row, 'Row', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/Row.jsx');
+=======
+		__REACT_HOT_LOADER__.register(Row, 'Row', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/Row.jsx');
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	}();
 
 	;
 
 /***/ },
+<<<<<<< HEAD
 /* 671 */
+=======
+/* 672 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71188,7 +71788,11 @@
 	exports.default = ActionDone;
 
 /***/ },
+<<<<<<< HEAD
 /* 672 */
+=======
+/* 673 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71198,11 +71802,19 @@
 	});
 	exports.default = exports.Tabs = exports.Tab = undefined;
 
+<<<<<<< HEAD
 	var _Tab2 = __webpack_require__(673);
 
 	var _Tab3 = _interopRequireDefault(_Tab2);
 
 	var _Tabs2 = __webpack_require__(674);
+=======
+	var _Tab2 = __webpack_require__(674);
+
+	var _Tab3 = _interopRequireDefault(_Tab2);
+
+	var _Tabs2 = __webpack_require__(675);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var _Tabs3 = _interopRequireDefault(_Tabs2);
 
@@ -71213,7 +71825,11 @@
 	exports.default = _Tabs3.default;
 
 /***/ },
+<<<<<<< HEAD
 /* 673 */
+=======
+/* 674 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -71425,7 +72041,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
+<<<<<<< HEAD
 /* 674 */
+=======
+/* 675 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -71474,11 +72094,19 @@
 
 	var _warning2 = _interopRequireDefault(_warning);
 
+<<<<<<< HEAD
 	var _TabTemplate = __webpack_require__(675);
 
 	var _TabTemplate2 = _interopRequireDefault(_TabTemplate);
 
 	var _InkBar = __webpack_require__(676);
+=======
+	var _TabTemplate = __webpack_require__(676);
+
+	var _TabTemplate2 = _interopRequireDefault(_TabTemplate);
+
+	var _InkBar = __webpack_require__(677);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var _InkBar2 = _interopRequireDefault(_InkBar);
 
@@ -71741,7 +72369,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
+<<<<<<< HEAD
 /* 675 */
+=======
+/* 676 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -71816,7 +72448,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
+<<<<<<< HEAD
 /* 676 */
+=======
+/* 677 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -71916,6 +72552,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
+<<<<<<< HEAD
 /* 677 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -71931,12 +72568,33 @@
 
 /***/ },
 /* 678 */
+=======
+/* 678 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports.Link = __webpack_require__(679);
+	exports.Button = __webpack_require__(689);
+	exports.Element = __webpack_require__(690);
+	exports.Helpers = __webpack_require__(680);
+	exports.scroller = __webpack_require__(688);
+	exports.Events = __webpack_require__(686);
+	exports.scrollSpy = __webpack_require__(687);
+	exports.animateScroll = __webpack_require__(681);
+
+
+/***/ },
+/* 679 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(2);
+<<<<<<< HEAD
 	var Helpers = __webpack_require__(679);
+=======
+	var Helpers = __webpack_require__(680);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var Link = React.createClass({
 	  render: function () {
@@ -71948,7 +72606,11 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 679 */
+=======
+/* 680 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -71956,10 +72618,17 @@
 	var React = __webpack_require__(2);
 	var ReactDOM = __webpack_require__(35);
 
+<<<<<<< HEAD
 	var animateScroll = __webpack_require__(680);
 	var scrollSpy = __webpack_require__(686);
 	var defaultScroller = __webpack_require__(687);
 	var assign = __webpack_require__(681);
+=======
+	var animateScroll = __webpack_require__(681);
+	var scrollSpy = __webpack_require__(687);
+	var defaultScroller = __webpack_require__(688);
+	var assign = __webpack_require__(682);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 
 	var protoTypes = {
@@ -72168,6 +72837,7 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 680 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -72180,6 +72850,20 @@
 	var cancelEvents = __webpack_require__(683);
 
 	var events = __webpack_require__(685);
+=======
+/* 681 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var assign = __webpack_require__(682);
+
+	var smooth = __webpack_require__(683);
+
+	var easing = smooth.defaultEasing;
+
+	var cancelEvents = __webpack_require__(684);
+
+	var events = __webpack_require__(686);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	/*
 	 * Function helper
@@ -72364,7 +73048,11 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 681 */
+=======
+/* 682 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports) {
 
 	'use strict';
@@ -72453,7 +73141,11 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 682 */
+=======
+/* 683 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -72471,10 +73163,17 @@
 	}
 
 /***/ },
+<<<<<<< HEAD
 /* 683 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var addPassiveEventListener = __webpack_require__(684);
+=======
+/* 684 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var addPassiveEventListener = __webpack_require__(685);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var events = ['mousedown', 'mousewheel', 'touchmove', 'keydown']
 
@@ -72492,7 +73191,11 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 684 */
+=======
+/* 685 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports) {
 
 	/*
@@ -72521,7 +73224,11 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 685 */
+=======
+/* 686 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports) {
 
 	
@@ -72540,10 +73247,17 @@
 	module.exports = Events;
 
 /***/ },
+<<<<<<< HEAD
 /* 686 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var addPassiveEventListener = __webpack_require__(684);
+=======
+/* 687 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var addPassiveEventListener = __webpack_require__(685);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var eventThrottler = function(eventHandler) {
 	  var eventHandlerTimeout;
@@ -72641,6 +73355,7 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 687 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -72648,6 +73363,15 @@
 
 	var animateScroll = __webpack_require__(680);
 	var events = __webpack_require__(685);
+=======
+/* 688 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var assign = __webpack_require__(682);
+
+	var animateScroll = __webpack_require__(681);
+	var events = __webpack_require__(686);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var __mapped = {};
 	var __activeLink;
@@ -72750,13 +73474,21 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 688 */
+=======
+/* 689 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(2);
+<<<<<<< HEAD
 	var Helpers = __webpack_require__(679);
+=======
+	var Helpers = __webpack_require__(680);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var Button = React.createClass({
 	  render: function () {
@@ -72768,13 +73500,21 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 689 */
+=======
+/* 690 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(2);
+<<<<<<< HEAD
 	var Helpers = __webpack_require__(679);
+=======
+	var Helpers = __webpack_require__(680);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var Element = React.createClass({
 	  render: function () {
@@ -72786,7 +73526,11 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 690 */
+=======
+/* 691 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72796,6 +73540,7 @@
 	});
 	exports.default = exports.TableRowColumn = exports.TableRow = exports.TableHeaderColumn = exports.TableHeader = exports.TableFooter = exports.TableBody = exports.Table = undefined;
 
+<<<<<<< HEAD
 	var _Table2 = __webpack_require__(691);
 
 	var _Table3 = _interopRequireDefault(_Table2);
@@ -72821,6 +73566,33 @@
 	var _TableRow3 = _interopRequireDefault(_TableRow2);
 
 	var _TableRowColumn2 = __webpack_require__(701);
+=======
+	var _Table2 = __webpack_require__(692);
+
+	var _Table3 = _interopRequireDefault(_Table2);
+
+	var _TableBody2 = __webpack_require__(693);
+
+	var _TableBody3 = _interopRequireDefault(_TableBody2);
+
+	var _TableFooter2 = __webpack_require__(703);
+
+	var _TableFooter3 = _interopRequireDefault(_TableFooter2);
+
+	var _TableHeader2 = __webpack_require__(704);
+
+	var _TableHeader3 = _interopRequireDefault(_TableHeader2);
+
+	var _TableHeaderColumn2 = __webpack_require__(705);
+
+	var _TableHeaderColumn3 = _interopRequireDefault(_TableHeaderColumn2);
+
+	var _TableRow2 = __webpack_require__(706);
+
+	var _TableRow3 = _interopRequireDefault(_TableRow2);
+
+	var _TableRowColumn2 = __webpack_require__(702);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var _TableRowColumn3 = _interopRequireDefault(_TableRowColumn2);
 
@@ -72836,7 +73608,11 @@
 	exports.default = _Table3.default;
 
 /***/ },
+<<<<<<< HEAD
 /* 691 */
+=======
+/* 692 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -73198,7 +73974,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
+<<<<<<< HEAD
 /* 692 */
+=======
+/* 693 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -73207,7 +73987,11 @@
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _getIterator2 = __webpack_require__(693);
+=======
+	var _getIterator2 = __webpack_require__(694);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var _getIterator3 = _interopRequireDefault(_getIterator2);
 
@@ -73251,11 +74035,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+<<<<<<< HEAD
 	var _Checkbox = __webpack_require__(696);
 
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
 
 	var _TableRowColumn = __webpack_require__(701);
+=======
+	var _Checkbox = __webpack_require__(697);
+
+	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+	var _TableRowColumn = __webpack_require__(702);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var _TableRowColumn2 = _interopRequireDefault(_TableRowColumn);
 
@@ -73729,6 +74521,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
+<<<<<<< HEAD
 /* 693 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -73736,14 +74529,30 @@
 
 /***/ },
 /* 694 */
+=======
+/* 694 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(695), __esModule: true };
+
+/***/ },
+/* 695 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(237);
 	__webpack_require__(215);
+<<<<<<< HEAD
 	module.exports = __webpack_require__(695);
 
 /***/ },
 /* 695 */
+=======
+	module.exports = __webpack_require__(696);
+
+/***/ },
+/* 696 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	var anObject = __webpack_require__(198)
@@ -73755,7 +74564,11 @@
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 696 */
+=======
+/* 697 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73765,7 +74578,11 @@
 	});
 	exports.default = undefined;
 
+<<<<<<< HEAD
 	var _Checkbox = __webpack_require__(697);
+=======
+	var _Checkbox = __webpack_require__(698);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
 
@@ -73774,7 +74591,11 @@
 	exports.default = _Checkbox2.default;
 
 /***/ },
+<<<<<<< HEAD
 /* 697 */
+=======
+/* 698 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -73819,7 +74640,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+<<<<<<< HEAD
 	var _EnhancedSwitch = __webpack_require__(698);
+=======
+	var _EnhancedSwitch = __webpack_require__(699);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var _EnhancedSwitch2 = _interopRequireDefault(_EnhancedSwitch);
 
@@ -73827,11 +74652,19 @@
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
+<<<<<<< HEAD
 	var _checkBoxOutlineBlank = __webpack_require__(699);
 
 	var _checkBoxOutlineBlank2 = _interopRequireDefault(_checkBoxOutlineBlank);
 
 	var _checkBox = __webpack_require__(700);
+=======
+	var _checkBoxOutlineBlank = __webpack_require__(700);
+
+	var _checkBoxOutlineBlank2 = _interopRequireDefault(_checkBoxOutlineBlank);
+
+	var _checkBox = __webpack_require__(701);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var _checkBox2 = _interopRequireDefault(_checkBox);
 
@@ -74072,7 +74905,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
+<<<<<<< HEAD
 /* 698 */
+=======
+/* 699 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -74529,7 +75366,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
+<<<<<<< HEAD
 /* 699 */
+=======
+/* 700 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74566,7 +75407,11 @@
 	exports.default = ToggleCheckBoxOutlineBlank;
 
 /***/ },
+<<<<<<< HEAD
 /* 700 */
+=======
+/* 701 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74603,7 +75448,11 @@
 	exports.default = ToggleCheckBox;
 
 /***/ },
+<<<<<<< HEAD
 /* 701 */
+=======
+/* 702 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -74787,7 +75636,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
+<<<<<<< HEAD
 /* 702 */
+=======
+/* 703 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -74836,7 +75689,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+<<<<<<< HEAD
 	var _TableRowColumn = __webpack_require__(701);
+=======
+	var _TableRowColumn = __webpack_require__(702);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var _TableRowColumn2 = _interopRequireDefault(_TableRowColumn);
 
@@ -74940,7 +75797,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
+<<<<<<< HEAD
 /* 703 */
+=======
+/* 704 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -74977,11 +75838,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+<<<<<<< HEAD
 	var _Checkbox = __webpack_require__(696);
 
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
 
 	var _TableHeaderColumn = __webpack_require__(704);
+=======
+	var _Checkbox = __webpack_require__(697);
+
+	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+	var _TableHeaderColumn = __webpack_require__(705);
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 
 	var _TableHeaderColumn2 = _interopRequireDefault(_TableHeaderColumn);
 
@@ -75192,7 +76061,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
+<<<<<<< HEAD
 /* 704 */
+=======
+/* 705 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -75396,7 +76269,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
+<<<<<<< HEAD
 /* 705 */
+=======
+/* 706 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -75676,7 +76553,11 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
+<<<<<<< HEAD
 /* 706 */
+=======
+/* 707 */
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -75743,9 +76624,15 @@
 	    return;
 	  }
 
+<<<<<<< HEAD
 	  __REACT_HOT_LOADER__.register(ContextComponent, 'ContextComponent', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/context.jsx');
 
 	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/context.jsx');
+=======
+	  __REACT_HOT_LOADER__.register(ContextComponent, 'ContextComponent', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/context.jsx');
+
+	  __REACT_HOT_LOADER__.register(_default, 'default', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/context.jsx');
+>>>>>>> cbe0a34fe7d5e07819109cf01fa9d6d42a9b07a8
 	}();
 
 	;
