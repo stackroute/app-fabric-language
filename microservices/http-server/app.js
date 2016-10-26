@@ -3,8 +3,6 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const sessionSecret = process.env.SESSION_SECRET || 'abaeuthateuhuiharp';
 const app = express();
-const repo = require('./public/getRepos.js');
-const branches = require ('./public/getBranches.js');
 const passport = require('passport');
 const path = require('path');
 
@@ -28,27 +26,36 @@ app.use(session({secret: sessionSecret}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(require('./api/router'));
+app.use(require('body-parser').json());
+// app.use(bodyParser.json({type: 'application/*+json'}));
 app.get('/me',(req, res) => {
   if(req.user) { return res.send(req.user);
  }
   return res.status(401).json({});
 });
-app.get('/repos', function(req, res)  {
-	var token = req.user.accessToken;
-	repo(token, function(err, repos) {
-	res.send(repos);
-	// console.log(repos);
-	console.log(process.env.REPOSITORY_PATH);
-	});	
-});
 
-app.get('/branches', function(req, res)  {
+/*app.get('/branches', function(req, res)  {
 	var fullname = req.query.a;
-	branches( fullname,function(err, branch) {
+	console.log("name: - "+ fullname);
+	var token = req.user.accessToken;
+	branches( fullname,token,function(err, branch) {
 		res.send(branch);
 		// console.log(branch);
 	});
 });
+
+app.post('/api/webhook', function(req, res){
+	console.log('----------------------------api/aps-----------------------');
+    console.log(req.body);
+    var username = req.body.username.toString();
+    var reponame = req.body.reponame.toString();
+    console.log("webhook call :- ",username);
+    var at = req.user ? req.user.accessToken : req.query.accessToken;
+    webhook(username,reponame,at, (err,data)=>{
+    // res.send('daa');
+    console.log("hook :- "+username);
+    });
+});*/
 
 app.get('/logout',(req, res) => {
   if(req.user) { req.logout(); }

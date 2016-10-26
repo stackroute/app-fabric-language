@@ -1,0 +1,14 @@
+{
+  "name": "meshbase",
+  "version": "0.1.0",
+  "description": "Mesh Base Microservice",
+  "main": "meshbase-microservice.js",
+  "scripts": {
+    "start": "node meshbase-microservice.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "manojkumar",
+  "license": "ISC",
+  "dependencies": {
+  }
+}

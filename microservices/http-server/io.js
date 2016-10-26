@@ -1,4 +1,8 @@
-var Clone = require('./public/cloning.js');
+const seneca = require('seneca');
+const microserviceClient = seneca();
+//microserviceClient.use('mesh',{base:false,auto:false});
+microserviceClient.client({type:'tcp',host:'gitadapter',pin:'role:gitadapter,cmd:*'});
+microserviceClient.client({type:'tcp',host:'dockeradapter',pin:'role:dockeradapter,cmd:*'});
 
 module.exports = function(io) {
   io.on('connection', function(socket) {
@@ -7,11 +11,18 @@ module.exports = function(io) {
     socket.on('disconnect', function() {
       console.log('Client Disconnected');
     });
-    socket.on('con', function(url){
-    	console.log("url:"+url.url+" "+"branch:"+url.branch);
-    	var url = 'https://github.com/'+url.url;
-    	Clone(url,socket,url.branch);
-      // scan(process.env.REPOSITORY_PATH,process.env.REPO_NAME);
+    socket.on('clone', function(data){
+    	console.log("url:"+data.repository+" "+"branch:"+data.branch);
+      microserviceClient.act('role:gitadapter,cmd:clone',data, function(err, response) {
+        if(err) { return console.log('ERR: ', err);/*Handle Error*/ }
+        console.log('Clone Path',response.repopath);
+
+        microserviceClient.act('role:dockeradapter,cmd:findservices', {directoryPath: response.repopath}, function(err, response) {
+          console.log('Services List',response);
+          socket.emit('servicelist', response);
+        });
+        console.log("from io.js"+response.repopath);
+      });
     });
   });
 };

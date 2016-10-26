@@ -13,7 +13,6 @@ import io from 'socket.io-client';
 import Dialogone from './Dialog.jsx';
 import SelectClass from './selectfield.jsx';
 import Dependency from './Dependencies.jsx';
-import Docker from '../../cloning.js';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Scroll from 'react-scroll';
@@ -36,10 +35,7 @@ const styles = {
 var timeout;
 var timein;
 var scroll= Scroll.animateScroll;
-var a;
 var docker = [];
-var checkedArray = [];
-
 export default class DeployBot extends React.Component {
   constructor() {
     super();
@@ -53,7 +49,7 @@ export default class DeployBot extends React.Component {
       repositorySubmitted: false,
       open: false,
       autoHideDuration: 5000,
-      locate: []
+      dockerlist: []
     }
   }
   handleTextSave = () => {
@@ -61,10 +57,11 @@ export default class DeployBot extends React.Component {
   };
   componentWillMount() {
     $.ajax({
-      url: "/repos",
+      url: "/api/v1/github/repos",
       dataType: 'json',
       cache: false,
       success: function(data) {
+        console.log('data',data);
         this.setState({repositories: data});
       }.bind(this),
       error: function(data,status) {
@@ -81,7 +78,6 @@ export default class DeployBot extends React.Component {
   }
 
   fetchRepositoryBranches(repositoryUrl) {
-    console.log()
     const repositoryId = repositoryUrl.split('github.com/')[1].replace('.git','');
     $.ajax({
       url: 'https://api.github.com/repos/' + repositoryId + '/branches',
@@ -93,22 +89,12 @@ export default class DeployBot extends React.Component {
       }
     });
   }
-  
+
   handleRepository(e,i,v) {
     this.setState({selectedRepository:v});
-   var ownerName=this.state.repositories.map(function(data) {
-      if(data.name == v){
-        a=data.full_name;
-          console.log(a);
-        }
-      
-    });
     $.ajax({
-          url: '/branches',
-           data: {a},
-           dataType : 'json',
+          url: 'api/v1/github/repo/'+v+'/branches',
           success: (data, status) => {
-            console.log("branchData"+data);
             this.setState({repositoryBranches: data});
           },
           error: (data, status) => {
@@ -116,9 +102,7 @@ export default class DeployBot extends React.Component {
           }
         });
     }
-        
-  
-  
+
   fetchRepository(repositoryUrl) {
     const rep= repositoryUrl.split('github.com/')[1].replace('.git','');
     $.ajax({
@@ -129,9 +113,8 @@ export default class DeployBot extends React.Component {
       error: (data, status) => {
         this.setState({repositories: [], selectedRepository: null});
       }
-    })
+    });
   }
-
 
   handleBranchChange(e,i,v) {
     this.setState({selectedBranch: v});
@@ -141,7 +124,7 @@ export default class DeployBot extends React.Component {
     this.setState({selectedPlatform:v});
   }
 
-  handleRequestClose = () => {
+  handleRequestClose = () =>{
     this.setState({
       open: false,
     });
@@ -150,31 +133,30 @@ export default class DeployBot extends React.Component {
   handleRepositoryFormSubmit(e) {
     e.preventDefault();
     this.setState({repositorySubmitted:true});
-  }
+    }
 
   handleCreateBaseImage(createBaseImage) {
     this.setState({createBaseImage: createBaseImage, displayServices: true});
   }
 
   handleDisplayPlatform(){
-    console.log(a);
     console.log(this.state.selectedBranch);
-    this.context.socket.emit('con',{url:a,branch:this.state.selectedBranch});
-    this.setState({displayPlatform:true,open:true,message:'Cloaning Started'});
-    
+    this.context.socket.emit('clone',{repository: this.state.selectedRepository,branch:this.state.selectedBranch});
+    this.setState({displayPlatform:true,open:true,message:'Cloning Started'});
   }
-  
+
   handleCheckbox(event) {
-   console.log("Value : "+event);  
-    checkedArray.push({val: event});
-    console.log(checkedArray); 
+    console.log("clicked");
+    console.log("Value : "+event);
+    // console.log(checkedArray);
   }
   handleDisplayImages(e) {
-    this.setState({displayBaseImages:true}); 
-    
+    this.setState({displayBaseImages:true});
+
   }
   handleBaseImage(e,i,v) {
     this.setState({selectedBaseImage:v});
+
   }
   handleDisplayServices() {
     this.setState({displayConfigServices:true});
@@ -182,8 +164,32 @@ export default class DeployBot extends React.Component {
   }
   handleDisplayConfigureService() {
     this.setState({displayWebhook:true});
+
   }
   handleWebhook() {
+    console.log("```````````status```````````````");
+    a=a.split("/");
+
+    var pr={username: a[0],
+            reponame: a[1],
+            };
+
+    // pr["Username"]=a[0];
+    // pr["Repo Name"]=a[1];
+    console.log(pr);
+    $.ajax({
+        type: 'POST',
+          url: '/api/webhook',
+           data: JSON.stringify(pr),
+           contentType: 'application/json',
+           // dataType : 'json',
+          success: (data, status) => {
+            console.log('----------------ajax success-----------');
+          },
+          error:function(err){
+            console.log('----------------ajax failed------------');
+          }
+        });
     this.setState({displayReview:true});
   }
   handleReview() {
@@ -198,27 +204,24 @@ export default class DeployBot extends React.Component {
   }
 
   componentDidMount() {
-    var me = this;
     this.setState({io: io()});
-    this.context.socket.on("location",function(data){      
-      console.log(data);
-      me.setState({locate:data});
-    });
-    // this.setState({locate:this.state.data});
+    this.context.socket.on("servicelist",function(data){
+      console.log('dockerlist List: ',data);
+      this.setState({dockerlist:data.dockerlist,packagelist:data.packagelist});
+    }.bind(this));
   }
 
   render() {
     const menuItems = this.state.repositoryBranches.map((branchObject) => {
-      return <MenuItem value={branchObject.name} primaryText={branchObject.name} key={branchObject.name} />
+      return <MenuItem value={branchObject} primaryText={branchObject} key={branchObject} />
     });
 
     const repositoryItem = this.state.repositories.map((repObject) => {
-      return <MenuItem value={repObject.name} primaryText={repObject.name} key={repObject.name} />
+      return <MenuItem value={repObject} primaryText={repObject} key={repObject} />
     });
 
-    const listLocation = this.state.locate.map((locObject) => {
-      console.log(locObject);
-      return <ListItem primaryText={locObject} leftCheckbox={<Checkbox onCheck={this.handleCheckbox(locObject)} />} />
+    const listLocation = this.state.dockerlist.map((locObject) => {
+      return <ListItem primaryText={locObject} leftCheckbox={<Checkbox onClick={this.handleCheckbox(locObject)} />} />
     });
 // primaryText={locObject} key={locObject}
 
@@ -233,10 +236,11 @@ export default class DeployBot extends React.Component {
                 floatingLabelText="Github Repository URL"
                 value={this.state.repositoryUrl}
                 onChange={this.handleRepositoryChange.bind(this)} />
-                <br />
-                <SelectField 
+              <br />
+              <SelectField
                 floatingLabelText="Repositories"
                 onChange={this.handleRepository.bind(this)}
+
                 value={this.state.selectedRepository}>
                 {repositoryItem}
               </SelectField>
@@ -300,11 +304,12 @@ export default class DeployBot extends React.Component {
       <div>
         <Paper style={styles.paper}>
           <div style={styles.content}>
-            <h3>Select Your Base Image</h3>
+            <h3>Select Custom Base Image</h3>
+            <p>In case you don't know what this is, click next to continue.</p>
             <div id="checks">
-                <List>
-                  {listLocation}
-                </List>
+              <List style={{height: '400px', overflow: 'auto'}}>
+                {listLocation}
+              </List>
             </div>
             <div className="end-xs">
               <FlatButton label="Next" primary={true} onTouchTap={this.handleDisplayImages.bind(this,false)} />
@@ -312,7 +317,7 @@ export default class DeployBot extends React.Component {
           </div>
         </Paper>
       </div>
-      )
+    );
 
     const seviceComponent = (
       <div>
@@ -333,7 +338,7 @@ export default class DeployBot extends React.Component {
                 <TableRowColumn>1</TableRowColumn>
                 <TableRowColumn>Service1</TableRowColumn>
                 <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                <TableRowColumn><Dialogone data={this.checkedArray}/></TableRowColumn>
+                {/*<TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>*/}
               </TableRow>
               <TableRow>
                 <TableRowColumn>2</TableRowColumn>
@@ -345,15 +350,14 @@ export default class DeployBot extends React.Component {
                 <TableRowColumn>3</TableRowColumn>
                 <TableRowColumn>Service3</TableRowColumn>
                 <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                <TableRowColumn><Dialogone/></TableRowColumn>
+                {/*<TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>*/}
               </TableRow>
               <TableRow>
                 <TableRowColumn>4</TableRowColumn>
                 <TableRowColumn>Service4</TableRowColumn>
                 <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                <TableRowColumn><Dialogone/></TableRowColumn>
+                {/*<TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>*/}
               </TableRow>
-
             </TableBody>
         </Table>
        </div>
@@ -409,7 +413,7 @@ export default class DeployBot extends React.Component {
           <Paper style={styles.paper}>
             <div style={styles.content}>
               <h3>We will configure here Web-hooks repository for you</h3>
-                <FlatButton label = "OK" primary={true} onTouchTap={this.handleWebhook.bind(this,false)}/>
+                <FlatButton label = "OK" primary={true} onTouchTap={this.handleWebhook.bind(this)}/>
                 <FlatButton label = "Cancel" primary={true} onTouchTap={this.handleWebhook.bind(this,false)}/>
             </div>
           </Paper>

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 version: '2'
 services:
   http-server:
@@ -15,16 +16,38 @@ services:
       
 =======
 version: "2"
+=======
+version: '2'
+>>>>>>> 7d8f806fe5dec6a9d5ff9b36e35b7ac5355606bc
 services:
   http-server:
     image: app-fab/http-server
     build: microservices/http-server
+    environment:
+      REPOSITORY_PATH: /storage
+    links:
+      - dockeradapter
+      - gitadapter
     ports:
       - 3000:3000
+  dockeradapter:
+    image: app-fab/dockeradapter
+    build: microservices/dockeradapter
     volumes:
-      - /app/storage
+      - ~/:/storage
+    restart: always
+  gitadapter:
+    image: app-fab/gitadapter
+    build: microservices/gitadapter
     environment:
+<<<<<<< HEAD
       REPOSITORY_PATH: /app/storage  
 
       
 >>>>>>> e292dc06c838ccc26db3a94c5dc5d8908b89cd27
+=======
+      REPOSITORY_PATH: /storage
+    volumes:
+      - ~/:/storage
+    restart: always
+>>>>>>> 7d8f806fe5dec6a9d5ff9b36e35b7ac5355606bc
