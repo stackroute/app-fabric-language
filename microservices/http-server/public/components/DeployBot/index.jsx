@@ -13,7 +13,6 @@ import io from 'socket.io-client';
 import Dialogone from './Dialog.jsx';
 import SelectClass from './selectfield.jsx';
 import Dependency from './Dependencies.jsx';
-import Docker from '../../cloning.js';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Scroll from 'react-scroll';
@@ -36,10 +35,7 @@ const styles = {
 var timeout;
 var timein;
 var scroll= Scroll.animateScroll;
-var a;
 var docker = [];
-var checkedArray = [];
-
 export default class DeployBot extends React.Component {
   constructor() {
     super();
@@ -61,10 +57,11 @@ export default class DeployBot extends React.Component {
   };
   componentWillMount() {
     $.ajax({
-      url: "/repos",
+      url: "/api/v1/github/repos",
       dataType: 'json',
       cache: false,
       success: function(data) {
+        console.log('data',data);
         this.setState({repositories: data});
       }.bind(this),
       error: function(data,status) {
@@ -92,20 +89,12 @@ export default class DeployBot extends React.Component {
       }
     });
   }
-  
+
   handleRepository(e,i,v) {
     this.setState({selectedRepository:v});
-    var ownerName=this.state.repositories.map(function(data) {
-      if(data.name == v){
-        a=data.full_name;
-        }
-    });
     $.ajax({
-          url: '/branches',
-           data: {a},
-           dataType : 'json',
+          url: 'api/v1/github/repo/'+v+'/branches',
           success: (data, status) => {
-            console.log("branchData"+data);
             this.setState({repositoryBranches: data});
           },
           error: (data, status) => {
@@ -113,7 +102,7 @@ export default class DeployBot extends React.Component {
           }
         });
     }
-        
+
   fetchRepository(repositoryUrl) {
     const rep= repositoryUrl.split('github.com/')[1].replace('.git','');
     $.ajax({
@@ -155,18 +144,17 @@ export default class DeployBot extends React.Component {
     console.log(this.state.selectedBranch);
     this.context.socket.emit('clone',{url:a,branch:this.state.selectedBranch});
     this.setState({displayPlatform:true,open:true,message:'Cloaning Started'});
-    
+
   }
-  
+
   handleCheckbox(event) {
     console.log("clicked");
-    console.log("Value : "+event);  
-    checkedArray.push({val: event});
-    console.log(checkedArray); 
+    console.log("Value : "+event);
+    // console.log(checkedArray);
   }
   handleDisplayImages(e) {
-    this.setState({displayBaseImages:true}); 
-    
+    this.setState({displayBaseImages:true});
+
   }
   handleBaseImage(e,i,v) {
     this.setState({selectedBaseImage:v});
@@ -220,7 +208,7 @@ export default class DeployBot extends React.Component {
   componentDidMount() {
     var me = this;
     this.setState({io: io()});
-    this.context.socket.on("baseImage",function(data){      
+    this.context.socket.on("baseImage",function(data){
       console.log(data);
       me.setState({locate:data});
     });
@@ -229,11 +217,11 @@ export default class DeployBot extends React.Component {
 
   render() {
     const menuItems = this.state.repositoryBranches.map((branchObject) => {
-      return <MenuItem value={branchObject.name} primaryText={branchObject.name} key={branchObject.name} />
+      return <MenuItem value={branchObject} primaryText={branchObject} key={branchObject} />
     });
 
     const repositoryItem = this.state.repositories.map((repObject) => {
-      return <MenuItem value={repObject.name} primaryText={repObject.name} key={repObject.name} />
+      return <MenuItem value={repObject} primaryText={repObject} key={repObject} />
     });
 
     const listLocation = this.state.locate.map((locObject) => {
@@ -252,10 +240,11 @@ export default class DeployBot extends React.Component {
                 floatingLabelText="Github Repository URL"
                 value={this.state.repositoryUrl}
                 onChange={this.handleRepositoryChange.bind(this)} />
-                <br />
-                <SelectField 
+              <br />
+              <SelectField
                 floatingLabelText="Repositories"
                 onChange={this.handleRepository.bind(this)}
+
                 value={this.state.selectedRepository}>
                 {repositoryItem}
               </SelectField>
@@ -352,7 +341,7 @@ export default class DeployBot extends React.Component {
                 <TableRowColumn>1</TableRowColumn>
                 <TableRowColumn>Service1</TableRowColumn>
                 <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                <TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>
+                {/*<TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>*/}
               </TableRow>
               <TableRow>
                 <TableRowColumn>2</TableRowColumn>
@@ -364,13 +353,13 @@ export default class DeployBot extends React.Component {
                 <TableRowColumn>3</TableRowColumn>
                 <TableRowColumn>Service3</TableRowColumn>
                 <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                <TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>
+                {/*<TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>*/}
               </TableRow>
               <TableRow>
                 <TableRowColumn>4</TableRowColumn>
                 <TableRowColumn>Service4</TableRowColumn>
                 <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                <TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>
+                {/*<TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>*/}
               </TableRow>
             </TableBody>
         </Table>

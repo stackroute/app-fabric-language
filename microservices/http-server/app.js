@@ -3,9 +3,6 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const sessionSecret = process.env.SESSION_SECRET || 'abaeuthateuhuiharp';
 const app = express();
-const repo = require('./public/getRepos.js');
-const branches = require ('./public/getBranches.js');
-const webhook = require ('./public/webhook.js');
 const passport = require('passport');
 const path = require('path');
 
@@ -23,8 +20,6 @@ passport.deserializeUser((id, done) => {
   done(null, cache[id]);
 });
 
-
-
 app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname,'public')));
 app.use(session({secret: sessionSecret}));
@@ -38,16 +33,8 @@ app.get('/me',(req, res) => {
  }
   return res.status(401).json({});
 });
-app.get('/repos', function(req, res)  {
-	var token = req.user.accessToken;
-	repo(token, function(err, repos) {
-	res.send(repos);
-	// console.log(repos);
-	console.log(process.env.REPOSITORY_PATH);
-	});	
-});
 
-app.get('/branches', function(req, res)  {
+/*app.get('/branches', function(req, res)  {
 	var fullname = req.query.a;
 	console.log("name: - "+ fullname);
 	var token = req.user.accessToken;
@@ -68,7 +55,7 @@ app.post('/api/webhook', function(req, res){
     // res.send('daa');
     console.log("hook :- "+username);
     });
-});
+});*/
 
 app.get('/logout',(req, res) => {
   if(req.user) { req.logout(); }
