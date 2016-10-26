@@ -5,26 +5,45 @@ module.exports = function(option) {
   var log = require('fs');
   var seneca = require('seneca');
 
-  this.add('role:dockeradapter,cmd:finddocker',function(msg, respond) {
-  const cloneDirectoryPath = msg.directoryPath;
-  console.log("------------------------------");
-  console.log("------------------------------");
-  console.log("from dockeradapter"+cloneDirectoryPath);
-  gitCloneCommand.on("close",function(){
-     const findDocker = spawn('find',['.' , '-name' , 'Dockerfile'],{cwd : cloneDirectoryPath});
-     var count = 0;var location = [];
+  this.add('role:dockeradapter,cmd:findservices',function(msg, respond) {
+    const cloneDirectoryPath = msg.directoryPath;
+    console.log("------------------------------");
+    console.log("------------------------------");
+    console.log("from dockeradapter"+cloneDirectoryPath);
+    const findDocker = spawn('find',['.' , '-name' , 'Dockerfile'],{cwd: cloneDirectoryPath});
+    const findPackage = spawn('find',['.', '-name','package.json'],{cwd: cloneDirectoryPath});
+    var count = 0;
+    var location = [];
+    const response = {
+      dockerlist: [],
+      packagelist: []
+    };
+    var dockerClosed = false;
     findDocker.stdout.on('data', (data) => {
-     console.log(`stdout: ${data}`);
-     var locationdetails = data.toString().split('\n');
-     for (var i = 0 ; i < locationdetails.length ; i++){
-      if(locationdetails[i].length > 0){
-        location[i] = locationdetails[i];
-      }
-     }     
-     console.log('location:', location);
-     respond(null, {baseImagePaths: location});
-     
+      data.toString().split('\n').forEach(function(line) {
+        response.dockerlist.push(line.trim());
+      });
     });
+    findDocker.on('close', function(code) {
+      dockerClosed = true;
+      sendResponse();
+    });
+
+    var packageClosed = false;
+    findPackage.stdout.on('data',(data) => {
+      data.toString().split('\n').forEach(function(line) {
+        response.packagelist.push(line.trim());
+      });
+    });
+    findPackage.on('close', function(data) {
+      packageClosed = true;
+      sendResponse();
+    });
+
+    function sendResponse() {
+      if(dockerClosed && packageClosed) {
+        return respond(null, response);
+      }
+    }
   });
-});
-}
+};

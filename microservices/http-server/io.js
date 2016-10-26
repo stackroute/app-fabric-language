@@ -11,18 +11,18 @@ module.exports = function(io) {
     socket.on('disconnect', function() {
       console.log('Client Disconnected');
     });
-    socket.on('clone', function(url){
-    	console.log("url:"+url.url+" "+"branch:"+url.branch);
-      microserviceClient.act('role:gitadapter,cmd:clone',{repo:url.url,branch:url.branch}, function(err, response) {
+    socket.on('clone', function(data){
+    	console.log("url:"+data.repository+" "+"branch:"+data.branch);
+      microserviceClient.act('role:gitadapter,cmd:clone',data, function(err, response) {
         if(err) { return console.log('ERR: ', err);/*Handle Error*/ }
-          
-        microserviceClient.act('role:dockeradapter,cmd:finddocker', {directoryPath: response.repopath}, function(err, response) {
-          socket.emit('baseImage', response.baseImagePaths);
+        console.log('Clone Path',response.repopath);
+
+        microserviceClient.act('role:dockeradapter,cmd:findservices', {directoryPath: response.repopath}, function(err, response) {
+          console.log('Services List',response);
+          socket.emit('servicelist', response);
         });
         console.log("from io.js"+response.repopath);
       });
-      
-      // scan(process.env.REPOSITORY_PATH,process.env.REPO_NAME);
     });
   });
 };

@@ -7,8 +7,10 @@ module.exports = function(option) {
   var seneca  = require('seneca');
 
 	this.add('role:gitadapter,cmd:clone',function(msg, respond) {
-		const repo = msg.repo;
+    console.log('MSG: ',msg.repository);
+		const repo = msg.repository;
 		const branch = msg.branch;
+    const user = msg.user;
     const url = "https://github.com/"+repo;
     console.log("----from gitadapter"+url);
     var cloneDirectoryPath =process.env.REPOSITORY_PATH;
@@ -16,14 +18,14 @@ module.exports = function(option) {
       if(error) return console.log(error);
     });
     var cloneParams = ['clone',url];
-    if(branch) { 
-     cloneParams.push('-b'); 
-     cloneParams.push(branch); 
+    if(branch) {
+     cloneParams.push('-b');
+     cloneParams.push(branch);
    }
-   const gitCloneCommand = spawn('git',cloneParams, {cwd : cloneDirectoryPath}); 
+   const gitCloneCommand = spawn('git',cloneParams, {cwd : cloneDirectoryPath});
    console.log("Current directory path is ", cloneDirectoryPath);
    var res = url.split("/");
-   var repoName = (res[res.length-1].split("."))[0]; 
+   var repoName = (res[res.length-1].split("."))[0];
    console.log("----from gitadapter"+repoName);
    var link = cloneDirectoryPath+"/"+repoName;
    console.log("-------link------"+link);
