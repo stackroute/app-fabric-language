@@ -9,5 +9,5 @@ services:
       - /app/storage
 
     environment:
-      REPOSITORY_PATH: /app/storage
+      REPOSITORY_PATH: /app/storage  
 

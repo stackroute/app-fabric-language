@@ -4,7 +4,6 @@ const app = require('../app');
 const server = http.Server(app);
 const io = SocketIO(server);
 require('../io.js')(io);
-
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
   console.log('Express listening on port ' + port);

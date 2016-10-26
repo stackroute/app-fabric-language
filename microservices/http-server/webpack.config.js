@@ -18,5 +18,10 @@ module.exports = {
   },
   resolve: {
     extensions: ['','.js','.jsx','/index.js','/index.jsx']
-  }
+  },
+  node:
+{
+    "child_process": "empty",
+    "fs" : "empty"
+}
 }
