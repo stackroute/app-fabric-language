@@ -7,7 +7,6 @@ var logfile = "./deployment_log.log";
 
 var clone = function(gitURL,socket,gitBranch){
   
-  process.env.REPO_NAME=gitURL;
   var cloneDirectoryPath = process.env.REPOSITORY_PATH;
   log.appendFile(logfile, "cloneBase:REPOSITORY_PATH is:: " +cloneDirectoryPath,function(error){
     if(error) return console.log(error);
@@ -23,7 +22,7 @@ var clone = function(gitURL,socket,gitBranch){
 console.log(process.env.REPO_NAME);
  
   gitCloneCommand.on("close",function(){
-     const findDocker = spawn('find',['.' , '-name' , 'Dockerfile'],{cwd : cloneDirectoryPath});
+     const findDocker = spawn('find',['.' , '-name' , 'package.json'],{cwd : cloneDirectoryPath});
      var count = 0;var location = [];
     findDocker.stdout.on('data', (data) => {
      console.log(`stdout: ${data}`);

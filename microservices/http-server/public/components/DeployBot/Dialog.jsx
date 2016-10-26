@@ -16,7 +16,7 @@ const styles = {
     fontWeight: 400,
   },
 };
-
+var check = [];
 class DialogOne extends React.Component{
 
 	constructor(props) {
@@ -27,7 +27,12 @@ class DialogOne extends React.Component{
     this.setState({value : value});
    }; 
    render(){
-    console.log("within Dialog"+this.props.data);
+    console.log('From Dialog Component : ');
+    console.log(this.props.data);
+    const check = this.props.data.map((baseObject) => {
+      return <MenuItem value={baseObject.val} primaryText={baseObject.val} key={baseObject.val} />
+    });
+
     return(  
   			<div>
           <DropDownMenu value={this.state.value} onChange={this.handleChange}>
@@ -38,8 +43,7 @@ class DialogOne extends React.Component{
               <MenuItem value={4} primaryText="alphine linux" />
             <Divider />
             <Subheader>Custom Images</Subheader>
-              <MenuItem>
-              </MenuItem>
+                {check}
           </DropDownMenu>
   			</div>
 	 	);

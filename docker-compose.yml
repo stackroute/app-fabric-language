@@ -3,11 +3,26 @@ services:
   http-server:
     image: app-fab/http-server
     build: microservices/http-server
+    environment:
+      REPOSITORY_PATH: /app/storage
+    links:
+      - dockeradapter
+      - gitadapter
     ports:
       - 3000:3000
+  dockeradapter:
+    image: app-fab/dockeradapter
+    build: microservices/dockeradapter
+    environment:
+      REPOSITORY_PATH: /app/storage
     volumes:
       - /app/storage
-
+    restart: always
+  gitadapter:
+    image: app-fab/gitadapter
+    build: microservices/gitadapter
     environment:
-      REPOSITORY_PATH: /app/storage  
-
+      REPOSITORY_PATH: /app/storage
+    volumes:
+      - /app/storage
+    restart: always

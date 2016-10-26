@@ -52288,7 +52288,6 @@
 	    value: function fetchRepositoryBranches(repositoryUrl) {
 	      var _this2 = this;
 
-	      console.log();
 	      var repositoryId = repositoryUrl.split('github.com/')[1].replace('.git', '');
 	      _jquery2.default.ajax({
 	        url: 'https://api.github.com/repos/' + repositoryId + '/branches',
@@ -52309,7 +52308,6 @@
 	      var ownerName = this.state.repositories.map(function (data) {
 	        if (data.name == v) {
 	          a = data.full_name;
-	          console.log(a);
 	        }
 	      });
 	      _jquery2.default.ajax({
@@ -52374,12 +52372,13 @@
 	    value: function handleDisplayPlatform() {
 	      console.log(a);
 	      console.log(this.state.selectedBranch);
-	      this.context.socket.emit('con', { url: a, branch: this.state.selectedBranch });
+	      this.context.socket.emit('clone', { url: a, branch: this.state.selectedBranch });
 	      this.setState({ displayPlatform: true, open: true, message: 'Cloaning Started' });
 	    }
 	  }, {
 	    key: 'handleCheckbox',
 	    value: function handleCheckbox(event) {
+	      console.log("clicked");
 	      console.log("Value : " + event);
 	      checkedArray.push({ val: event });
 	      console.log(checkedArray);
@@ -52443,7 +52442,7 @@
 	    value: function componentDidMount() {
 	      var me = this;
 	      this.setState({ io: (0, _socket2.default)() });
-	      this.context.socket.on("location", function (data) {
+	      this.context.socket.on("baseImage", function (data) {
 	        console.log(data);
 	        me.setState({ locate: data });
 	      });
@@ -52463,8 +52462,7 @@
 	      });
 
 	      var listLocation = this.state.locate.map(function (locObject) {
-	        console.log(locObject);
-	        return _react2.default.createElement(_List.ListItem, { primaryText: locObject, leftCheckbox: _react2.default.createElement(_Checkbox2.default, { onCheck: _this5.handleCheckbox(locObject) }) });
+	        return _react2.default.createElement(_List.ListItem, { primaryText: locObject, leftCheckbox: _react2.default.createElement(_Checkbox2.default, { onClick: _this5.handleCheckbox(locObject) }) });
 	      });
 	      // primaryText={locObject} key={locObject}
 
@@ -52682,7 +52680,7 @@
 	                  _react2.default.createElement(
 	                    _Table.TableRowColumn,
 	                    null,
-	                    _react2.default.createElement(_Dialog2.default, { data: this.checkedArray })
+	                    _react2.default.createElement(_Dialog2.default, { data: checkedArray })
 	                  )
 	                ),
 	                _react2.default.createElement(
@@ -52732,7 +52730,7 @@
 	                  _react2.default.createElement(
 	                    _Table.TableRowColumn,
 	                    null,
-	                    _react2.default.createElement(_Dialog2.default, null)
+	                    _react2.default.createElement(_Dialog2.default, { data: checkedArray })
 	                  )
 	                ),
 	                _react2.default.createElement(
@@ -52757,7 +52755,7 @@
 	                  _react2.default.createElement(
 	                    _Table.TableRowColumn,
 	                    null,
-	                    _react2.default.createElement(_Dialog2.default, null)
+	                    _react2.default.createElement(_Dialog2.default, { data: checkedArray })
 	                  )
 	                )
 	              )
@@ -69727,6 +69725,7 @@
 	    fontWeight: 400
 	  }
 	};
+	var check = [];
 
 	var DialogOne = function (_React$Component) {
 	  _inherits(DialogOne, _React$Component);
@@ -69752,7 +69751,12 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log("within Dialog" + this.props.data);
+	      console.log('From Dialog Component : ');
+	      console.log(this.props.data);
+	      var check = this.props.data.map(function (baseObject) {
+	        return _react2.default.createElement(_MenuItem2.default, { value: baseObject.val, primaryText: baseObject.val, key: baseObject.val });
+	      });
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -69774,7 +69778,7 @@
 	            null,
 	            'Custom Images'
 	          ),
-	          _react2.default.createElement(_MenuItem2.default, null)
+	          check
 	        )
 	      );
 	    }
@@ -69793,6 +69797,8 @@
 	  }
 
 	  __REACT_HOT_LOADER__.register(styles, 'styles', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/Dialog.jsx');
+
+	  __REACT_HOT_LOADER__.register(check, 'check', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/Dialog.jsx');
 
 	  __REACT_HOT_LOADER__.register(DialogOne, 'DialogOne', 'D:/vagrant-xenial64-node6-mongo3.2/app-fabric/microservices/http-server/public/components/DeployBot/Dialog.jsx');
 
@@ -71303,7 +71309,6 @@
 
 	var clone = function(gitURL,socket,gitBranch){
 	  
-	  process.env.REPO_NAME=gitURL;
 	  var cloneDirectoryPath = process.env.REPOSITORY_PATH;
 	  log.appendFile(logfile, "cloneBase:REPOSITORY_PATH is:: " +cloneDirectoryPath,function(error){
 	    if(error) return console.log(error);
@@ -71319,7 +71324,7 @@
 	console.log(process.env.REPO_NAME);
 	 
 	  gitCloneCommand.on("close",function(){
-	     const findDocker = spawn('find',['.' , '-name' , 'Dockerfile'],{cwd : cloneDirectoryPath});
+	     const findDocker = spawn('find',['.' , '-name' , 'package.json'],{cwd : cloneDirectoryPath});
 	     var count = 0;var location = [];
 	    findDocker.stdout.on('data', (data) => {
 	     console.log(`stdout: ${data}`);

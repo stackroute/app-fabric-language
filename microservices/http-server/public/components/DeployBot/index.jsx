@@ -81,7 +81,6 @@ export default class DeployBot extends React.Component {
   }
 
   fetchRepositoryBranches(repositoryUrl) {
-    console.log()
     const repositoryId = repositoryUrl.split('github.com/')[1].replace('.git','');
     $.ajax({
       url: 'https://api.github.com/repos/' + repositoryId + '/branches',
@@ -96,12 +95,10 @@ export default class DeployBot extends React.Component {
   
   handleRepository(e,i,v) {
     this.setState({selectedRepository:v});
-   var ownerName=this.state.repositories.map(function(data) {
+    var ownerName=this.state.repositories.map(function(data) {
       if(data.name == v){
         a=data.full_name;
-          console.log(a);
         }
-      
     });
     $.ajax({
           url: '/branches',
@@ -117,8 +114,6 @@ export default class DeployBot extends React.Component {
         });
     }
         
-  
-  
   fetchRepository(repositoryUrl) {
     const rep= repositoryUrl.split('github.com/')[1].replace('.git','');
     $.ajax({
@@ -129,9 +124,8 @@ export default class DeployBot extends React.Component {
       error: (data, status) => {
         this.setState({repositories: [], selectedRepository: null});
       }
-    })
+    });
   }
-
 
   handleBranchChange(e,i,v) {
     this.setState({selectedBranch: v});
@@ -141,7 +135,7 @@ export default class DeployBot extends React.Component {
     this.setState({selectedPlatform:v});
   }
 
-  handleRequestClose = () => {
+  handleRequestClose = () =>{
     this.setState({
       open: false,
     });
@@ -159,13 +153,14 @@ export default class DeployBot extends React.Component {
   handleDisplayPlatform(){
     console.log(a);
     console.log(this.state.selectedBranch);
-    this.context.socket.emit('con',{url:a,branch:this.state.selectedBranch});
+    this.context.socket.emit('clone',{url:a,branch:this.state.selectedBranch});
     this.setState({displayPlatform:true,open:true,message:'Cloaning Started'});
     
   }
   
   handleCheckbox(event) {
-   console.log("Value : "+event);  
+    console.log("clicked");
+    console.log("Value : "+event);  
     checkedArray.push({val: event});
     console.log(checkedArray); 
   }
@@ -183,6 +178,7 @@ export default class DeployBot extends React.Component {
   }
   handleDisplayConfigureService() {
     this.setState({displayWebhook:true});
+
   }
   handleWebhook() {
     console.log("```````````status```````````````");
@@ -224,7 +220,7 @@ export default class DeployBot extends React.Component {
   componentDidMount() {
     var me = this;
     this.setState({io: io()});
-    this.context.socket.on("location",function(data){      
+    this.context.socket.on("baseImage",function(data){      
       console.log(data);
       me.setState({locate:data});
     });
@@ -241,8 +237,7 @@ export default class DeployBot extends React.Component {
     });
 
     const listLocation = this.state.locate.map((locObject) => {
-      console.log(locObject);
-      return <ListItem primaryText={locObject} leftCheckbox={<Checkbox onCheck={this.handleCheckbox(locObject)} />} />
+      return <ListItem primaryText={locObject} leftCheckbox={<Checkbox onClick={this.handleCheckbox(locObject)} />} />
     });
 // primaryText={locObject} key={locObject}
 
@@ -357,7 +352,7 @@ export default class DeployBot extends React.Component {
                 <TableRowColumn>1</TableRowColumn>
                 <TableRowColumn>Service1</TableRowColumn>
                 <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                <TableRowColumn><Dialogone data={this.checkedArray}/></TableRowColumn>
+                <TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>
               </TableRow>
               <TableRow>
                 <TableRowColumn>2</TableRowColumn>
@@ -369,15 +364,14 @@ export default class DeployBot extends React.Component {
                 <TableRowColumn>3</TableRowColumn>
                 <TableRowColumn>Service3</TableRowColumn>
                 <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                <TableRowColumn><Dialogone/></TableRowColumn>
+                <TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>
               </TableRow>
               <TableRow>
                 <TableRowColumn>4</TableRowColumn>
                 <TableRowColumn>Service4</TableRowColumn>
                 <TableRowColumn><CircularProgress/>Scanning</TableRowColumn>
-                <TableRowColumn><Dialogone/></TableRowColumn>
+                <TableRowColumn><Dialogone data={checkedArray}/></TableRowColumn>
               </TableRow>
-
             </TableBody>
         </Table>
        </div>

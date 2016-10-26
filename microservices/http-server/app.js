@@ -59,9 +59,6 @@ app.get('/branches', function(req, res)  {
 
 app.post('/api/webhook', function(req, res){
 	console.log('----------------------------api/aps-----------------------');
-     // res.send("Webhook Connected")
-     // console.log("first  "+req.params('a'));
-     // console.log("second "+req.params.a);
     console.log(req.body);
     var username = req.body.username.toString();
     var reponame = req.body.reponame.toString();

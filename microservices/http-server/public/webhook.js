@@ -1,22 +1,3 @@
-// var request=require('request');
-
-
-// module.exports = function webhook(hook,accesstoken, callback) {
-// 	var options = {
-// 		url:"https://api.github.com/api/apps/" + hook +"?access_token=" + accessToken,
-// 		headers:{
-// 			'User-Agent': 'request'
-// 		}
-// 	};
-// 	function callbacks(err,res,body){
-// 		if(err){
-// 			return callback(err);
-// 		}
-// 		callback(null,body);
-// 	}
-// 	request(options, callbacks);
-// }
-
 var request = require("request");
 
 module.exports = function webhook(username,reponame,accesstoken, callback) {
@@ -44,5 +25,3 @@ request(options, callbacks);
 
 
 }
-
-// :username/:repoowner/:reponame'
