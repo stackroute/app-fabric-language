@@ -52243,7 +52243,7 @@
 	      repositorySubmitted: false,
 	      open: false,
 	      autoHideDuration: 5000,
-	      dockerlist: []
+	      locate: []
 	    };
 	    return _this;
 	  }
@@ -52348,7 +52348,6 @@
 	    value: function handleRepositoryFormSubmit(e) {
 	      e.preventDefault();
 	      if (this.state.selectedBranch == null) {
-	        alert("sdsdsa");
 	        this.setState({ repositorySubmitted: false });
 	      } else this.setState({ repositorySubmitted: true });
 	    }
@@ -52361,8 +52360,8 @@
 	    key: 'handleDisplayPlatform',
 	    value: function handleDisplayPlatform() {
 	      console.log(this.state.selectedBranch);
-	      this.context.socket.emit('clone', { repository: this.state.selectedRepository, branch: this.state.selectedBranch });
-	      this.setState({ displayPlatform: true, open: true, message: 'Cloning Started' });
+	      this.context.socket.emit('clone', { url: a, branch: this.state.selectedBranch });
+	      this.setState({ displayPlatform: true });
 	    }
 	  }, {
 	    key: 'handleCheckbox',
@@ -52428,11 +52427,13 @@
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      var me = this;
 	      this.setState({ io: (0, _socket2.default)() });
-	      this.context.socket.on("servicelist", function (data) {
-	        console.log('dockerlist List: ', data);
-	        this.setState({ dockerlist: data.dockerlist, packagelist: data.packagelist });
-	      }.bind(this));
+	      this.context.socket.on("baseImage", function (data) {
+	        console.log(data);
+	        me.setState({ locate: data });
+	      });
+	      // this.setState({locate:this.state.data});
 	    }
 	  }, {
 	    key: 'render',
@@ -52447,7 +52448,7 @@
 	        return _react2.default.createElement(_MenuItem2.default, { value: repObject, primaryText: repObject, key: repObject });
 	      });
 
-	      var listLocation = this.state.dockerlist.map(function (locObject) {
+	      var listLocation = this.state.locate.map(function (locObject) {
 	        return _react2.default.createElement(_List.ListItem, { primaryText: locObject, leftCheckbox: _react2.default.createElement(_Checkbox2.default, { onClick: _this5.handleCheckbox(locObject) }) });
 	      });
 	      // primaryText={locObject} key={locObject}
@@ -52522,16 +52523,6 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            null,
-	            _react2.default.createElement(_Snackbar2.default, {
-	              open: this.state.open,
-	              message: this.state.message,
-	              autoHideDuration: this.state.autoHideDuration,
-	              onRequestClose: this.handleRequestClose
-	            })
-	          ),
-	          _react2.default.createElement(
-	            'div',
 	            { className: 'end-xs' },
 	            _react2.default.createElement(_FlatButton2.default, { primary: true, label: 'Next', onTouchTap: this.handleDisplayPlatform.bind(this, true) })
 	          )
@@ -52570,19 +52561,14 @@
 	            _react2.default.createElement(
 	              'h3',
 	              null,
-	              'Select Custom Base Image'
-	            ),
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              'In case you don\'t know what this is, click next to continue.'
+	              'Select Your Base Image'
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              { id: 'checks' },
 	              _react2.default.createElement(
 	                _List.List,
-	                { style: { height: '400px', overflow: 'auto' } },
+	                null,
 	                listLocation
 	              )
 	            ),

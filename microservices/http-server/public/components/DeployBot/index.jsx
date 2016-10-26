@@ -49,7 +49,7 @@ export default class DeployBot extends React.Component {
       repositorySubmitted: false,
       open: false,
       autoHideDuration: 5000,
-      dockerlist: []
+      locate: []
     }
   }
   handleTextSave = () => {
@@ -145,8 +145,9 @@ export default class DeployBot extends React.Component {
 
   handleDisplayPlatform(){
     console.log(this.state.selectedBranch);
-    this.context.socket.emit('clone',{repository: this.state.selectedRepository,branch:this.state.selectedBranch});
-    this.setState({displayPlatform:true,open:true,message:'Cloning Started'});
+    this.context.socket.emit('clone',{url:a,branch:this.state.selectedBranch});
+    this.setState({displayPlatform:true});
+
   }
 
   handleCheckbox(event) {
@@ -208,11 +209,13 @@ export default class DeployBot extends React.Component {
   }
 
   componentDidMount() {
+    var me = this;
     this.setState({io: io()});
-    this.context.socket.on("servicelist",function(data){
-      console.log('dockerlist List: ',data);
-      this.setState({dockerlist:data.dockerlist,packagelist:data.packagelist});
-    }.bind(this));
+    this.context.socket.on("baseImage",function(data){
+      console.log(data);
+      me.setState({locate:data});
+    });
+    // this.setState({locate:this.state.data});
   }
 
   render() {
@@ -224,7 +227,7 @@ export default class DeployBot extends React.Component {
       return <MenuItem value={repObject} primaryText={repObject} key={repObject} />
     });
 
-    const listLocation = this.state.dockerlist.map((locObject) => {
+    const listLocation = this.state.locate.map((locObject) => {
       return <ListItem primaryText={locObject} leftCheckbox={<Checkbox onClick={this.handleCheckbox(locObject)} />} />
     });
 // primaryText={locObject} key={locObject}
@@ -270,14 +273,6 @@ export default class DeployBot extends React.Component {
                   <MenuItem value={2} primaryText="Kubernetes" />
               </SelectField>
           </div>
-          <div>
-          <Snackbar
-          open={this.state.open}
-          message={this.state.message}
-          autoHideDuration={this.state.autoHideDuration}
-          onRequestClose={this.handleRequestClose}
-        />
-      </div>
           <div className="end-xs">
             <FlatButton primary={true} label="Next" onTouchTap={this.handleDisplayPlatform.bind(this,true)} />
           </div>
@@ -301,12 +296,11 @@ export default class DeployBot extends React.Component {
       <div>
         <Paper style={styles.paper}>
           <div style={styles.content}>
-            <h3>Select Custom Base Image</h3>
-            <p>In case you don't know what this is, click next to continue.</p>
+            <h3>Select Your Base Image</h3>
             <div id="checks">
-              <List style={{height: '400px', overflow: 'auto'}}>
-                {listLocation}
-              </List>
+                <List>
+                  {listLocation}
+                </List>
             </div>
             <div className="end-xs">
               <FlatButton label="Next" primary={true} onTouchTap={this.handleDisplayImages.bind(this,false)} />
@@ -314,7 +308,7 @@ export default class DeployBot extends React.Component {
           </div>
         </Paper>
       </div>
-    );
+      )
 
     const seviceComponent = (
       <div>
