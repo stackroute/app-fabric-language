@@ -1,6 +1,5 @@
 FROM mhart/alpine-node-auto
 RUN apk update
-RUN apk add python build-base 
 RUN apk add git
 RUN mkdir /app
 WORKDIR /app
