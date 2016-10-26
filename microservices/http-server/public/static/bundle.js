@@ -83,7 +83,7 @@
 
 	var _Deploy2 = _interopRequireDefault(_Deploy);
 
-	var _context = __webpack_require__(707);
+	var _context = __webpack_require__(706);
 
 	var _context2 = _interopRequireDefault(_context);
 
@@ -52112,7 +52112,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -52175,19 +52175,19 @@
 
 	var _Dependencies2 = _interopRequireDefault(_Dependencies);
 
-	var _done = __webpack_require__(672);
+	var _done = __webpack_require__(671);
 
 	var _done2 = _interopRequireDefault(_done);
 
-	var _Tabs = __webpack_require__(673);
+	var _Tabs = __webpack_require__(672);
 
-	var _reactScroll = __webpack_require__(678);
+	var _reactScroll = __webpack_require__(677);
 
 	var _reactScroll2 = _interopRequireDefault(_reactScroll);
 
-	var _Table = __webpack_require__(691);
+	var _Table = __webpack_require__(690);
 
-	var _Checkbox = __webpack_require__(697);
+	var _Checkbox = __webpack_require__(696);
 
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
 
@@ -52200,17 +52200,22 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var styles = {
-	  paper: {
-	    width: '100%',
-	    marginBottom: '25px'
-	  },
-	  textField: {
-	    width: '100%'
-	  },
-	  content: {
-	    padding: '50px'
-	  }
+		paper: {
+			width: '100%',
+			marginBottom: '25px'
+		},
+		textField: {
+			width: '100%'
+		},
+		content: {
+			padding: '50px'
+		}
 	};
+
+	var finalServiceObject = {};
+	var finalConfigObj = {};
+	var osNames = {}; //os names
+
 
 	var timeout;
 	var timein;
@@ -52218,597 +52223,668 @@
 	var docker = [];
 
 	var DeployBot = function (_React$Component) {
-	  _inherits(DeployBot, _React$Component);
+		_inherits(DeployBot, _React$Component);
 
-	  function DeployBot() {
-	    _classCallCheck(this, DeployBot);
+		function DeployBot() {
+			_classCallCheck(this, DeployBot);
 
-	    var _this = _possibleConstructorReturn(this, (DeployBot.__proto__ || Object.getPrototypeOf(DeployBot)).call(this));
+			var _this = _possibleConstructorReturn(this, (DeployBot.__proto__ || Object.getPrototypeOf(DeployBot)).call(this));
 
-	    _this.handleTextSave = function () {
-	      return _this.__handleTextSave__REACT_HOT_LOADER__.apply(_this, arguments);
-	    };
+			_this.handleTextSave = function () {
+				return _this.__handleTextSave__REACT_HOT_LOADER__.apply(_this, arguments);
+			};
 
-	    _this.handleRequestClose = function () {
-	      return _this.__handleRequestClose__REACT_HOT_LOADER__.apply(_this, arguments);
-	    };
+			_this.handleRequestClose = function () {
+				return _this.__handleRequestClose__REACT_HOT_LOADER__.apply(_this, arguments);
+			};
 
-	    _this.state = {
-	      repositoryUrl: "",
-	      repositories: [],
-	      repositoryBranches: [],
-	      selectedBranch: null,
-	      selectedRepository: null,
-	      selectedPlatform: null,
-	      repositorySubmitted: false,
-	      open: false,
-	      autoHideDuration: 5000,
-	      dockerlist: []
-	    };
-	    return _this;
-	  }
+			_this.handleDropdown = function () {
+				return _this.__handleDropdown__REACT_HOT_LOADER__.apply(_this, arguments);
+			};
 
-	  _createClass(DeployBot, [{
-	    key: '__handleTextSave__REACT_HOT_LOADER__',
-	    value: function __handleTextSave__REACT_HOT_LOADER__() {}
-	  }, {
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      _jquery2.default.ajax({
-	        url: "/api/v1/github/repos",
-	        dataType: 'json',
-	        cache: false,
-	        success: function (data) {
-	          console.log('data', data);
-	          this.setState({ repositories: data });
-	        }.bind(this),
-	        error: function (data, status) {
-	          this.setState({ repositories: [], selectedRepository: null });
-	        }.bind(this)
-	      });
-	    }
-	  }, {
-	    key: 'handleRepositoryChange',
-	    value: function handleRepositoryChange(e) {
-	      if (timeout) {
-	        clearTimeout(timeout);
-	      }
-	      var newRepositoryValue = e.target.value;
-	      this.setState({ repositoryUrl: newRepositoryValue });
-	      timeout = setTimeout(this.fetchRepository.bind(this, newRepositoryValue), 100);
-	      timeout = setTimeout(this.fetchRepositoryBranches.bind(this, newRepositoryValue), 500);
-	    }
-	  }, {
-	    key: 'fetchRepositoryBranches',
-	    value: function fetchRepositoryBranches(repositoryUrl) {
-	      var _this2 = this;
+			_this.handleConfiguration = function () {
+				return _this.__handleConfiguration__REACT_HOT_LOADER__.apply(_this, arguments);
+			};
 
-	      var repositoryId = repositoryUrl.split('github.com/')[1].replace('.git', '');
-	      _jquery2.default.ajax({
-	        url: 'https://api.github.com/repos/' + repositoryId + '/branches',
-	        success: function success(data, status) {
-	          _this2.setState({ repositoryBranches: data });
-	        },
-	        error: function error(data, status) {
-	          _this2.setState({ repositoryBranches: [], selectedBranch: null });
-	        }
-	      });
-	    }
-	  }, {
-	    key: 'handleRepository',
-	    value: function handleRepository(e, i, v) {
-	      var _this3 = this;
+			_this.state = {
+				repositoryUrl: "",
+				repositories: [],
+				repositoryBranches: [],
+				selectedBranch: null,
+				selectedRepository: null,
+				selectedPlatform: null,
+				repositorySubmitted: false,
+				open: false,
+				autoHideDuration: 5000,
+				dockerlist: [],
+				packagelist: [],
+				selectedOs: ''
+			};
+			return _this;
+		}
 
-	      this.setState({ selectedRepository: v });
-	      _jquery2.default.ajax({
-	        url: 'api/v1/github/repo/' + v + '/branches',
-	        success: function success(data, status) {
-	          _this3.setState({ repositoryBranches: data });
-	        },
-	        error: function error(data, status) {
-	          _this3.setState({ repositoryBranches: [], selectedBranch: null });
-	        }
-	      });
-	    }
-	  }, {
-	    key: 'fetchRepository',
-	    value: function fetchRepository(repositoryUrl) {
-	      var _this4 = this;
+		_createClass(DeployBot, [{
+			key: '__handleTextSave__REACT_HOT_LOADER__',
+			value: function __handleTextSave__REACT_HOT_LOADER__() {}
+		}, {
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				_jquery2.default.ajax({
+					url: "/api/v1/github/repos",
+					dataType: 'json',
+					cache: false,
+					success: function (data) {
+						console.log('data', data);
+						this.setState({ repositories: data });
+					}.bind(this),
+					error: function (data, status) {
+						this.setState({ repositories: [], selectedRepository: null });
+					}.bind(this)
+				});
+			}
+		}, {
+			key: 'handleRepositoryChange',
+			value: function handleRepositoryChange(e) {
+				if (timeout) {
+					clearTimeout(timeout);
+				}
+				var newRepositoryValue = e.target.value;
+				this.setState({ repositoryUrl: newRepositoryValue });
+				timeout = setTimeout(this.fetchRepository.bind(this, newRepositoryValue), 100);
+				timeout = setTimeout(this.fetchRepositoryBranches.bind(this, newRepositoryValue), 500);
+			}
+		}, {
+			key: 'fetchRepositoryBranches',
+			value: function fetchRepositoryBranches(repositoryUrl) {
+				var _this2 = this;
 
-	      var rep = repositoryUrl.split('github.com/')[1].replace('.git', '');
-	      _jquery2.default.ajax({
-	        url: 'https://api.github.com/users/' + rep + '/repos',
-	        success: function success(data, status) {
-	          _this4.setState({ repositories: data });
-	        },
-	        error: function error(data, status) {
-	          _this4.setState({ repositories: [], selectedRepository: null });
-	        }
-	      });
-	    }
-	  }, {
-	    key: 'handleBranchChange',
-	    value: function handleBranchChange(e, i, v) {
-	      this.setState({ selectedBranch: v });
-	    }
-	  }, {
-	    key: 'handleselectPlatform',
-	    value: function handleselectPlatform(e, i, v) {
-	      this.setState({ selectedPlatform: v });
-	    }
-	  }, {
-	    key: '__handleRequestClose__REACT_HOT_LOADER__',
-	    value: function __handleRequestClose__REACT_HOT_LOADER__() {
-	      this.setState({
-	        open: false
-	      });
-	    }
-	  }, {
-	    key: 'handleRepositoryFormSubmit',
-	    value: function handleRepositoryFormSubmit(e) {
-	      e.preventDefault();
-	      if (this.state.selectedBranch == null) {
-	        this.setState({ repositorySubmitted: false });
-	      } else {
-	        this.setState({ repositorySubmitted: true });
-	      }
-	    }
-	  }, {
-	    key: 'handleCreateBaseImage',
-	    value: function handleCreateBaseImage(createBaseImage) {
-	      this.setState({ createBaseImage: createBaseImage, displayServices: true });
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.setState({ io: (0, _socket2.default)() });
-	      this.context.socket.on("servicelist", function (data) {
-	        console.log('dockerlist List: ', data);
-	        this.setState({ dockerlist: data.dockerlist, packagelist: data.packagelist });
-	      }.bind(this));
-	      // if(this.state.dockerlist == null){
-	      //   this.setState({displayBaseImages:true});
-	      //   this.setState({displayPlatform:false});
-	      // }
-	    }
-	  }, {
-	    key: 'handleDisplayPlatform',
-	    value: function handleDisplayPlatform() {
-	      if (this.state.selectedPlatform == null) {
-	        this.setState({ displayPlatform: false });
-	      } else {
-	        console.log(this.state.selectedBranch);
-	        console.log(this.state.dockerlist);
-	        this.context.socket.emit('clone', { repository: this.state.selectedRepository, branch: this.state.selectedBranch });
-	        if (this.state.dockerlist.length < 1) {
-	          this.setState({ displayPlatform: false });
-	          this.setState({ displayBaseImages: true });
-	        } else {
-	          this.setState({ displayPlatform: true });
-	        }
-	      }
-	    }
-	  }, {
-	    key: 'handleCheckbox',
-	    value: function handleCheckbox(event) {
-	      console.log("clicked");
-	      console.log("Value : " + event);
-	      // console.log(checkedArray);
-	    }
-	  }, {
-	    key: 'handleDisplayImages',
-	    value: function handleDisplayImages(e) {
-	      this.setState({ displayBaseImages: true });
-	    }
-	  }, {
-	    key: 'handleBaseImage',
-	    value: function handleBaseImage(e, i, v) {
-	      this.setState({ selectedBaseImage: v });
-	    }
-	  }, {
-	    key: 'handleDisplayServices',
-	    value: function handleDisplayServices() {
-	      this.setState({ displayConfigServices: true });
-	      scroll.scrollToTop();
-	    }
-	  }, {
-	    key: 'handleDisplayConfigureService',
-	    value: function handleDisplayConfigureService() {
-	      this.setState({ displayWebhook: true });
-	    }
-	  }, {
-	    key: 'handleWebhook',
-	    value: function handleWebhook() {
-	      console.log("```````````status```````````````");
-	      a = a.split("/");
+				var repositoryId = repositoryUrl.split('github.com/')[1].replace('.git', '');
+				_jquery2.default.ajax({
+					url: 'https://api.github.com/repos/' + repositoryId + '/branches',
+					success: function success(data, status) {
+						_this2.setState({ repositoryBranches: data });
+					},
+					error: function error(data, status) {
+						_this2.setState({ repositoryBranches: [], selectedBranch: null });
+					}
+				});
+			}
+		}, {
+			key: 'handleRepository',
+			value: function handleRepository(e, i, v) {
+				var _this3 = this;
 
-	      var pr = { username: a[0],
-	        reponame: a[1]
-	      };
+				this.setState({ selectedRepository: v });
+				_jquery2.default.ajax({
+					url: 'api/v1/github/repo/' + v + '/branches',
+					success: function success(data, status) {
+						_this3.setState({ repositoryBranches: data });
+					},
+					error: function error(data, status) {
+						_this3.setState({ repositoryBranches: [], selectedBranch: null });
+					}
+				});
+			}
+		}, {
+			key: 'fetchRepository',
+			value: function fetchRepository(repositoryUrl) {
+				var _this4 = this;
 
-	      // pr["Username"]=a[0];
-	      // pr["Repo Name"]=a[1];
-	      console.log(pr);
-	      _jquery2.default.ajax({
-	        type: 'POST',
-	        url: '/api/webhook',
-	        data: JSON.stringify(pr),
-	        contentType: 'application/json',
-	        // dataType : 'json',
-	        success: function success(data, status) {
-	          console.log('----------------ajax success-----------');
-	        },
-	        error: function error(err) {
-	          console.log('----------------ajax failed------------');
-	        }
-	      });
-	      this.setState({ displayReview: true });
-	    }
-	  }, {
-	    key: 'handleReview',
-	    value: function handleReview() {
-	      this.setState({ displayProgress: true });
-	    }
-	  }, {
-	    key: 'handleDropdown',
-	    value: function handleDropdown(e, i, v) {
-	      console.log(v);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this5 = this;
+				var rep = repositoryUrl.split('github.com/')[1].replace('.git', '');
+				_jquery2.default.ajax({
+					url: 'https://api.github.com/users/' + rep + '/repos',
+					success: function success(data, status) {
+						_this4.setState({ repositories: data });
+					},
+					error: function error(data, status) {
+						_this4.setState({ repositories: [], selectedRepository: null });
+					}
+				});
+			}
+		}, {
+			key: 'handleBranchChange',
+			value: function handleBranchChange(e, i, v) {
+				this.setState({ selectedBranch: v });
+			}
+		}, {
+			key: 'handleselectPlatform',
+			value: function handleselectPlatform(e, i, v) {
+				this.setState({ selectedPlatform: v });
+			}
+		}, {
+			key: 'handlestartCloning',
+			value: function handlestartCloning(e, i, v) {
+				this.setState({ startCloning: v });
+			}
+		}, {
+			key: '__handleRequestClose__REACT_HOT_LOADER__',
+			value: function __handleRequestClose__REACT_HOT_LOADER__() {
+				this.setState({
+					open: false
+				});
+			}
+		}, {
+			key: 'handleRepositoryFormSubmit',
+			value: function handleRepositoryFormSubmit(e) {
+				e.preventDefault();
+				if (this.state.selectedBranch == null) {
+					this.setState({ repositorySubmitted: false });
+				} else {
+					this.setState({ repositorySubmitted: true });
+				}
+			}
+		}, {
+			key: 'handleCreateBaseImage',
+			value: function handleCreateBaseImage(createBaseImage) {
+				this.setState({ createBaseImage: createBaseImage, displayServices: true });
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				this.setState({ io: (0, _socket2.default)() });
+				this.context.socket.on("servicelist", function (data) {
+					console.log('dockerlist List: ', data);
+					this.setState({ dockerlist: data.dockerlist, packagelist: data.packagelist });
+				}.bind(this));
+				// if(this.state.dockerlist == null){
+				//   this.setState({displayBaseImages:true});
+				//   this.setState({displayPlatform:false});
+				// }
+			}
+		}, {
+			key: 'handleDisplayPlatform',
+			value: function handleDisplayPlatform() {
+				if (this.state.selectedPlatform == null) {
+					this.setState({ displayPlatform: false });
+				} else {
+					console.log(this.state.selectedBranch);
+					console.log(this.state.dockerlist);
+					this.context.socket.emit('clone', { repository: this.state.selectedRepository, branch: this.state.selectedBranch });
+					if (this.state.dockerlist.length < 1) {
+						this.setState({ displayPlatform: false });
+						this.setState({ displayBaseImages: true });
+					} else {
+						this.setState({ displayPlatform: true });
+					}
+				}
+			}
+		}, {
+			key: 'handleCheckbox',
+			value: function handleCheckbox(event) {
+				console.log("clicked");
+				console.log("Value : " + event);
+				// console.log(checkedArray);
+			}
+		}, {
+			key: 'handleDisplayImages',
+			value: function handleDisplayImages(e) {
+				this.setState({ displayBaseImages: true });
+			}
+		}, {
+			key: 'handleBaseImage',
+			value: function handleBaseImage(e, i, v) {
+				this.setState({ selectedBaseImage: v });
+			}
+		}, {
+			key: 'handleDisplayServices',
+			value: function handleDisplayServices() {
+				this.setState({ displayConfigServices: true });
+				scroll.scrollToTop();
+			}
+		}, {
+			key: 'handleDisplayConfigureService',
+			value: function handleDisplayConfigureService() {
+				this.setState({ displayWebhook: true });
+			}
+		}, {
+			key: 'handleWebhook',
+			value: function handleWebhook() {
+				console.log("```````````status```````````````");
 
-	      var menuItems = this.state.repositoryBranches.map(function (branchObject) {
-	        return _react2.default.createElement(_MenuItem2.default, { value: branchObject, primaryText: branchObject, key: branchObject });
-	      });
+				// pr["Username"]=a[0];
+				// pr["Repo Name"]=a[1];
+				_jquery2.default.ajax({
+					type: 'POST',
+					url: '/api/webhook',
+					data: JSON.stringify(pr),
+					contentType: 'application/json',
+					// dataType : 'json',
+					success: function success(data, status) {
+						console.log('----------------ajax success-----------');
+					},
+					error: function error(err) {
+						console.log('----------------ajax failed------------');
+					}
+				});
+				this.setState({ displayReview: true });
+			}
+		}, {
+			key: 'handleReview',
+			value: function handleReview() {
+				this.setState({ displayProgress: true });
+			}
+		}, {
+			key: '__handleDropdown__REACT_HOT_LOADER__',
+			value: function __handleDropdown__REACT_HOT_LOADER__(os, serviceName) {
+				osNames[serviceName] = os;
+			}
+		}, {
+			key: '__handleConfiguration__REACT_HOT_LOADER__',
+			value: function __handleConfiguration__REACT_HOT_LOADER__(configuration) {
 
-	      var repositoryItem = this.state.repositories.map(function (repObject) {
-	        return _react2.default.createElement(_MenuItem2.default, { value: repObject, primaryText: repObject, key: repObject });
-	      });
+				for (var key in osNames) {
+					finalServiceObject["name"] = key;
+					finalServiceObject["from"] = osNames[key];
+				}
+				finalServiceObject["config"] = configuration;
 
-	      var listLocation = this.state.dockerlist.map(function (locObject) {
-	        return _react2.default.createElement(_List.ListItem, { primaryText: locObject, leftCheckbox: _react2.default.createElement(_Checkbox2.default, { onClick: _this5.handleCheckbox(locObject) }) });
-	      });
-	      // primaryText={locObject} key={locObject}
+				console.log(finalServiceObject);
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				this.setState({ io: (0, _socket2.default)() });
+				this.context.socket.on("servicelist", function (data) {
+					console.log('dockerlist List: ', data);
+					this.setState({ dockerlist: data.dockerlist, packagelist: data.packagelist });
+				}.bind(this));
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this5 = this;
 
-	      var selectRepositoryComponent = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'form',
-	            { noValidate: true, onSubmit: this.handleRepositoryFormSubmit.bind(this) },
-	            _react2.default.createElement(
-	              'div',
-	              { style: styles.content },
-	              _react2.default.createElement(
-	                'h3',
-	                null,
-	                ' Select a github repository to deploy'
-	              ),
-	              _react2.default.createElement(
-	                _SelectField2.default,
-	                {
-	                  floatingLabelText: 'Repositories',
-	                  onChange: this.handleRepository.bind(this),
-	                  value: this.state.selectedRepository },
-	                repositoryItem
-	              ),
-	              _react2.default.createElement('br', null),
-	              _react2.default.createElement(
-	                _SelectField2.default,
-	                {
-	                  floatingLabelText: 'Branch',
-	                  onChange: this.handleBranchChange.bind(this),
-	                  value: this.state.selectedBranch },
-	                menuItems
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'end-xs' },
-	              _react2.default.createElement(_FlatButton2.default, { type: 'submit', primary: true, label: 'Next' })
-	            )
-	          )
-	        )
-	      );
+				var menuItems = this.state.repositoryBranches.map(function (branchObject) {
+					return _react2.default.createElement(_MenuItem2.default, { value: branchObject, primaryText: branchObject, key: branchObject });
+				});
 
-	      var selectPlatform = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'div',
-	            { style: styles.content },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'Select on which Platform you want to Deploy.'
-	            ),
-	            _react2.default.createElement(
-	              _SelectField2.default,
-	              {
-	                onChange: this.handleselectPlatform.bind(this),
-	                floatingLabelText: 'Select Platform',
-	                value: this.state.selectedPlatform },
-	              _react2.default.createElement(_MenuItem2.default, { value: 1, primaryText: 'Docker' }),
-	              _react2.default.createElement(_MenuItem2.default, { value: 2, primaryText: 'Kubernetes' })
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'end-xs' },
-	            _react2.default.createElement(_FlatButton2.default, { primary: true, label: 'Next', onTouchTap: this.handleDisplayPlatform.bind(this, true) })
-	          )
-	        )
-	      );
+				var repositoryItem = this.state.repositories.map(function (repObject) {
+					return _react2.default.createElement(_MenuItem2.default, { value: repObject, primaryText: repObject, key: repObject });
+				});
 
-	      var createBaseImageComponent = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'div',
-	            { style: styles.content },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'While we clone your repository, tell us if you would like to build a base image.'
-	            ),
-	            _react2.default.createElement(_FlatButton2.default, { label: 'Yes', primary: true, onTouchTap: this.handleCreateBaseImage.bind(this, true) }),
-	            _react2.default.createElement(_FlatButton2.default, { label: 'No', primary: true, onTouchTap: this.handleCreateBaseImage.bind(this, false) })
-	          )
-	        )
-	      );
+				var listLocation = this.state.dockerlist.map(function (locObject) {
+					return _react2.default.createElement(_List.ListItem, { primaryText: locObject, leftCheckbox: _react2.default.createElement(_Checkbox2.default, { onClick: _this5.handleCheckbox(locObject) }) });
+				});
 
-	      var scannedServices = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'div',
-	            { style: styles.content },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'Select Custom Base Image'
-	            ),
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              'In case you don\'t know what this is, click next to continue.'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { id: 'checks' },
-	              _react2.default.createElement(
-	                _List.List,
-	                { style: { height: '400px', overflow: 'auto' } },
-	                listLocation
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'end-xs' },
-	              _react2.default.createElement(_FlatButton2.default, { label: 'Next', primary: true, onTouchTap: this.handleDisplayImages.bind(this, false) })
-	            )
-	          )
-	        )
-	      );
+				var packageList = this.state.packagelist.map(function (locObject) {
+					return _react2.default.createElement(
+						_Table.TableRow,
+						null,
+						_react2.default.createElement(
+							_Table.TableRowColumn,
+							null,
+							locObject
+						),
+						_react2.default.createElement(
+							_Table.TableRowColumn,
+							null,
+							_react2.default.createElement(_Dialog2.default, { service: locObject, data: _this5.handleDropdown })
+						),
+						_react2.default.createElement(
+							_Table.TableRowColumn,
+							null,
+							_react2.default.createElement(_Dependencies2.default, { data: _this5.handleConfiguration })
+						)
+					);
+				});
 
-	      var seviceComponent = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'div',
-	            { style: styles.content },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'Checking for availability of Docker File '
-	            ),
-	            _react2.default.createElement(
-	              _Table.Table,
-	              { className: 'table-bordered' },
-	              _react2.default.createElement(
-	                _Table.TableHeader,
-	                { style: { paddingTop: "20px" }, adjustForCheckbox: false, displaySelectAll: false },
-	                _react2.default.createElement(
-	                  _Table.TableRow,
-	                  null,
-	                  _react2.default.createElement(
-	                    _Table.TableHeaderColumn,
-	                    null,
-	                    'Service'
-	                  ),
-	                  _react2.default.createElement(
-	                    _Table.TableHeaderColumn,
-	                    null,
-	                    'Selection'
-	                  )
-	                )
-	              ),
-	              _react2.default.createElement(
-	                _Table.TableBody,
-	                { displayRowCheckbox: false, style: { textAlign: "center" } },
-	                _react2.default.createElement(
-	                  _Table.TableRow,
-	                  null,
-	                  _react2.default.createElement(
-	                    _Table.TableRowColumn,
-	                    null,
-	                    'Service1'
-	                  ),
-	                  _react2.default.createElement(
-	                    _Table.TableRowColumn,
-	                    null,
-	                    _react2.default.createElement(_Dialog2.default, { data: this.handleDropdown })
-	                  )
-	                )
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'end-xs' },
-	            _react2.default.createElement(_FlatButton2.default, { label: 'Next', primary: true, onTouchTap: this.handleDisplayServices.bind(this, false) })
-	          )
-	        )
-	      );
+				// primaryText={locObject} key={locObject}
+				var selectRepositoryComponent = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'form',
+							{ noValidate: true, onSubmit: this.handleRepositoryFormSubmit.bind(this) },
+							_react2.default.createElement(
+								'div',
+								{ style: styles.content },
+								_react2.default.createElement(
+									'h3',
+									null,
+									'Enter OR Select a github repository to deploy'
+								),
+								_react2.default.createElement(_TextField2.default, {
+									style: styles.textField,
+									floatingLabelText: 'Github Repository URL',
+									value: this.state.repositoryUrl,
+									onChange: this.handleRepositoryChange.bind(this) }),
+								_react2.default.createElement('br', null),
+								_react2.default.createElement(
+									_SelectField2.default,
+									{
+										floatingLabelText: 'Repositories',
+										onChange: this.handleRepository.bind(this),
 
-	      var configServiceComponent = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'div',
-	            { style: styles.content },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'Need some dependencies & configurations for your services'
-	            ),
-	            _react2.default.createElement(_Table.Table, { className: 'table-bordered' })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'end-xs' },
-	            _react2.default.createElement(_FlatButton2.default, { label: 'Next', primary: true, onTouchTap: this.handleDisplayConfigureService.bind(this, false) })
-	          )
-	        )
-	      );
+										value: this.state.selectedRepository },
+									repositoryItem
+								),
+								_react2.default.createElement('br', null),
+								_react2.default.createElement(
+									_SelectField2.default,
+									{
+										floatingLabelText: 'Branch',
+										onChange: this.handleBranchChange.bind(this),
+										value: this.state.selectedBranch },
+									menuItems
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'end-xs' },
+								_react2.default.createElement(_FlatButton2.default, { type: 'submit', primary: true, label: 'Next' })
+							)
+						)
+					)
+				);
 
-	      var webhooksComponent = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'div',
-	            { style: styles.content },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'We will configure here Web-hooks repository for you'
-	            ),
-	            _react2.default.createElement(_FlatButton2.default, { label: 'OK', primary: true, onTouchTap: this.handleWebhook.bind(this) }),
-	            _react2.default.createElement(_FlatButton2.default, { label: 'Cancel', primary: true, onTouchTap: this.handleWebhook.bind(this, false) })
-	          )
-	        )
-	      );
+				var selectPlatform = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'div',
+							{ style: styles.content },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'Select on which Platform you want to Deploy.'
+							),
+							_react2.default.createElement(
+								_SelectField2.default,
+								{
+									onChange: this.handleselectPlatform.bind(this),
+									floatingLabelText: 'Select Platform',
+									value: this.state.selectedPlatform },
+								_react2.default.createElement(_MenuItem2.default, { value: 1, primaryText: 'Docker' }),
+								_react2.default.createElement(_MenuItem2.default, { value: 2, primaryText: 'Kubernetes' })
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'end-xs' },
+							_react2.default.createElement(_FlatButton2.default, { primary: true, label: 'Next', onTouchTap: this.handleDisplayPlatform.bind(this, true) })
+						)
+					)
+				);
 
-	      var reviewConfiguration = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'div',
-	            { style: styles.content },
-	            _react2.default.createElement(
-	              'ul',
-	              { style: { listStyleType: "none" } },
-	              _react2.default.createElement(
-	                'h3',
-	                null,
-	                'Before we start deploying: '
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                'Domain Name: ',
-	                _react2.default.createElement(_TextField2.default, { hintText: 'Enter the Domain name', style: { marginLeft: "20px" } })
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                'App Name: ',
-	                _react2.default.createElement(_TextField2.default, { hintText: 'Enter the App name', style: { marginLeft: "20px" } })
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                ' Branch: '
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                { style: { marginTop: "20px" } },
-	                ' Repository: '
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'end-xs' },
-	            _react2.default.createElement(_FlatButton2.default, { label: 'next', primary: true, onTouchTap: this.handleReview.bind(this, false) })
-	          )
-	        )
-	      );
+				var startCloning = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'div',
+							{ style: styles.content },
+							_react2.default.createElement(_CircularProgress2.default, { size: 70, thickness: 7 }),
+							'Cloning is in progress'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'end-xs' },
+							_react2.default.createElement(_FlatButton2.default, { primary: true, label: 'Next', onTouchTap: this.handlestartCloning.bind(this, true) })
+						)
+					)
+				);
 
-	      var progressComponent = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'div',
-	            { style: styles.content },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'Deployment Progress'
-	            ),
-	            _react2.default.createElement(_CircularProgress2.default, null),
-	            ' Creating Base Image ',
-	            _react2.default.createElement('br', null),
-	            _react2.default.createElement(_CircularProgress2.default, null),
-	            ' Deploying ',
-	            _react2.default.createElement('br', null)
-	          )
-	        )
-	      );
+				var createBaseImageComponent = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'div',
+							{ style: styles.content },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'While we clone your repository, tell us if you would like to build a base image.'
+							),
+							_react2.default.createElement(_FlatButton2.default, { label: 'Yes', primary: true, onTouchTap: this.handleCreateBaseImage.bind(this, true) }),
+							_react2.default.createElement(_FlatButton2.default, { label: 'No', primary: true, onTouchTap: this.handleCreateBaseImage.bind(this, false) })
+						)
+					)
+				);
 
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        this.state.displayProgress ? progressComponent : null,
-	        this.state.displayReview ? reviewConfiguration : null,
-	        this.state.displayWebhook ? webhooksComponent : null,
-	        this.state.displayConfigServices ? configServiceComponent : null,
-	        this.state.displayBaseImages ? seviceComponent : null,
-	        this.state.displayPlatform ? scannedServices : null,
-	        this.state.repositorySubmitted ? selectPlatform : null,
-	        selectRepositoryComponent
-	      );
-	    }
-	  }], [{
-	    key: 'contextTypes',
-	    get: function get() {
-	      return {
-	        router: _react2.default.PropTypes.object.isRequired,
-	        socket: _react2.default.PropTypes.object.isRequired
-	      };
-	    }
-	  }]);
+				var scannedServices = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'div',
+							{ style: styles.content },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'Select Custom Base Image'
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								'In case you don\'t know what this is, click next to continue.'
+							),
+							_react2.default.createElement(
+								'div',
+								{ id: 'checks' },
+								_react2.default.createElement(
+									_List.List,
+									{ style: { height: '400px', overflow: 'auto' } },
+									listLocation
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'end-xs' },
+								_react2.default.createElement(_FlatButton2.default, { label: 'Next', primary: true, onTouchTap: this.handleDisplayImages.bind(this, false) })
+							)
+						)
+					)
+				);
 
-	  return DeployBot;
+				var seviceComponent = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'div',
+							{ style: styles.content },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'Checking for availability of Docker File '
+							),
+							_react2.default.createElement(
+								_Table.Table,
+								{ className: 'table-bordered' },
+								_react2.default.createElement(
+									_Table.TableHeader,
+									{ style: { paddingTop: "20px" }, adjustForCheckbox: false, displaySelectAll: false },
+									_react2.default.createElement(
+										_Table.TableRow,
+										null,
+										_react2.default.createElement(
+											_Table.TableHeaderColumn,
+											null,
+											'Service'
+										),
+										_react2.default.createElement(
+											_Table.TableHeaderColumn,
+											null,
+											'Select OS'
+										),
+										_react2.default.createElement(
+											_Table.TableHeaderColumn,
+											null,
+											'Configurations'
+										)
+									)
+								),
+								_react2.default.createElement(
+									_Table.TableBody,
+									{ displayRowCheckbox: false, style: { textAlign: "center" } },
+									packageList
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'end-xs' },
+							_react2.default.createElement(_FlatButton2.default, { label: 'Next', primary: true, onTouchTap: this.handleDisplayServices.bind(this, false) })
+						)
+					)
+				);
+
+				/*const configServiceComponent = (
+	   	<div >
+	   	<Paper style={styles.paper}>
+	   	<div style={styles.content}>
+	   	<h3>Need some dependencies & configurations for your services</h3>
+	   	<Table className="table-bordered">
+	   	<TableHeader style={{paddingTop:"20px"}} adjustForCheckbox={false} displaySelectAll={false}>
+	   	<TableRow>
+	   	<TableHeaderColumn>Available Services</TableHeaderColumn>
+	   	</TableRow>
+	   	</TableHeader>
+	   	<TableBody displayRowCheckbox={false}>
+	   	</TableBody>
+	   	</Table>
+	   	</div>
+	   	<div className="end-xs">
+	   	<FlatButton label="Next" primary={true} onTouchTap={this.handleDisplayConfigureService.bind(this,false)} />
+	   	</div>
+	   	</Paper>
+	   
+	   	</div>
+	   	);
+	   */
+				var webhooksComponent = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'div',
+							{ style: styles.content },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'We will configure here Web-hooks repository for you'
+							),
+							_react2.default.createElement(_FlatButton2.default, { label: 'OK', primary: true, onTouchTap: this.handleWebhook.bind(this) }),
+							_react2.default.createElement(_FlatButton2.default, { label: 'Cancel', primary: true, onTouchTap: this.handleWebhook.bind(this, false) })
+						)
+					)
+				);
+
+				var reviewConfiguration = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'div',
+							{ style: styles.content },
+							_react2.default.createElement(
+								'ul',
+								{ style: { listStyleType: "none" } },
+								_react2.default.createElement(
+									'h3',
+									null,
+									'Before we start deploying: '
+								),
+								_react2.default.createElement(
+									'li',
+									null,
+									'Domain Name: ',
+									_react2.default.createElement(_TextField2.default, { hintText: 'Enter the Domain name', style: { marginLeft: "20px" } })
+								),
+								_react2.default.createElement(
+									'li',
+									null,
+									'App Name: ',
+									_react2.default.createElement(_TextField2.default, { hintText: 'Enter the App name', style: { marginLeft: "20px" } })
+								),
+								_react2.default.createElement(
+									'li',
+									null,
+									' Branch: '
+								),
+								_react2.default.createElement(
+									'li',
+									{ style: { marginTop: "20px" } },
+									' Repository: '
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'end-xs' },
+							_react2.default.createElement(_FlatButton2.default, { label: 'next', primary: true, onTouchTap: this.handleReview.bind(this, false) })
+						)
+					)
+				);
+
+				var progressComponent = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'div',
+							{ style: styles.content },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'Deployment Progress'
+							),
+							_react2.default.createElement(_CircularProgress2.default, null),
+							' Creating Base Image ',
+							_react2.default.createElement('br', null),
+							_react2.default.createElement(_CircularProgress2.default, null),
+							' Deploying ',
+							_react2.default.createElement('br', null)
+						)
+					)
+				);
+
+				return _react2.default.createElement(
+					'div',
+					null,
+					this.state.displayProgress ? progressComponent : null,
+					this.state.displayReview ? reviewConfiguration : null,
+					this.state.displayWebhook ? webhooksComponent : null,
+					this.state.displayConfigServices ? webhooksComponent : null,
+					this.state.displayBaseImages ? seviceComponent : null,
+					this.state.displayPlatform ? scannedServices : null,
+					this.state.startCloning ? scannedServices : null,
+					this.state.repositorySubmitted ? selectPlatform : null,
+					selectRepositoryComponent
+				);
+			}
+		}], [{
+			key: 'contextTypes',
+			get: function get() {
+				return {
+					router: _react2.default.PropTypes.object.isRequired,
+					socket: _react2.default.PropTypes.object.isRequired
+				};
+			}
+		}]);
+
+		return DeployBot;
 	}(_react2.default.Component);
 
 	var _default = DeployBot;
@@ -52816,23 +52892,29 @@
 	;
 
 	var _temp = function () {
-	  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	    return;
-	  }
+		if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+			return;
+		}
 
-	  __REACT_HOT_LOADER__.register(styles, 'styles', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(styles, 'styles', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(timeout, 'timeout', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(finalServiceObject, 'finalServiceObject', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(timein, 'timein', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(finalConfigObj, 'finalConfigObj', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(scroll, 'scroll', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(osNames, 'osNames', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(docker, 'docker', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(timeout, 'timeout', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(DeployBot, 'DeployBot', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(timein, 'timein', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(scroll, 'scroll', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+
+		__REACT_HOT_LOADER__.register(docker, 'docker', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+
+		__REACT_HOT_LOADER__.register(DeployBot, 'DeployBot', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+
+		__REACT_HOT_LOADER__.register(_default, 'default', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 	}();
 
 	;
@@ -69562,8 +69644,7 @@
 	      this.setState({ selectedOS: value });
 	      // this.setState({text : value});
 	      console.log(value);
-
-	      this.props.data(value);
+	      this.props.data(value, this.props.service);
 	    }
 	  }, {
 	    key: 'render',
@@ -69579,15 +69660,15 @@
 	        null,
 	        _react2.default.createElement(
 	          _DropDownMenu2.default,
-	          { value: this.state.selectedOS, onChange: this.handleChange.bind(this) },
+	          { autoWidth: true, value: this.state.selectedOS, onChange: this.handleChange.bind(this) },
 	          _react2.default.createElement(
 	            _Subheader2.default,
 	            null,
 	            'Public Images'
 	          ),
-	          _react2.default.createElement(_MenuItem2.default, { primaryText: 'Alpine' }),
-	          _react2.default.createElement(_MenuItem2.default, { primaryText: 'Debian Jessie' }),
-	          _react2.default.createElement(_MenuItem2.default, { primaryText: 'ubuntu Xenial' })
+	          _react2.default.createElement(_MenuItem2.default, { value: 'Alpine', primaryText: 'Alpine' }),
+	          _react2.default.createElement(_MenuItem2.default, { value: 'Debian-Jessie', primaryText: 'Debian Jessie' }),
+	          _react2.default.createElement(_MenuItem2.default, { value: 'ubuntu-Xenial', primaryText: 'ubuntu Xenial' })
 	        )
 	      );
 	    }
@@ -70741,9 +70822,9 @@
 
 	var _close2 = _interopRequireDefault(_close);
 
-	var _Configurations = __webpack_require__(669);
+	var _List = __webpack_require__(669);
 
-	var _Configurations2 = _interopRequireDefault(_Configurations);
+	var _List2 = _interopRequireDefault(_List);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -70753,31 +70834,92 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var configuration = {};
+
 	var Dependency = function (_React$Component) {
 		_inherits(Dependency, _React$Component);
 
 		function Dependency() {
+			var _ref;
+
+			var _temp, _this, _ret;
+
 			_classCallCheck(this, Dependency);
 
-			var _this = _possibleConstructorReturn(this, (Dependency.__proto__ || Object.getPrototypeOf(Dependency)).call(this));
+			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+				args[_key] = arguments[_key];
+			}
 
-			_this.handleClick = function () {
-				return _this.__handleClick__REACT_HOT_LOADER__.apply(_this, arguments);
-			};
-
-			_this.handleConfigurations = function () {
-				return _this.__handleConfigurations__REACT_HOT_LOADER__.apply(_this, arguments);
-			};
-
-			_this.state = {
+			return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Dependency.__proto__ || Object.getPrototypeOf(Dependency)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 				open: false,
 				add: 0,
-				a: []
-			};
-			return _this;
+				a: [],
+				items: [],
+				text: '',
+				text2: '',
+				id: 0
+			}, _this.handleSubmit = function () {
+				var _this2;
+
+				return (_this2 = _this).__handleSubmit__REACT_HOT_LOADER__.apply(_this2, arguments);
+			}, _this.onChange = function () {
+				var _this3;
+
+				return (_this3 = _this).__onChange__REACT_HOT_LOADER__.apply(_this3, arguments);
+			}, _this.onChange1 = function () {
+				var _this4;
+
+				return (_this4 = _this).__onChange1__REACT_HOT_LOADER__.apply(_this4, arguments);
+			}, _this.Delete = function () {
+				var _this5;
+
+				return (_this5 = _this).__Delete__REACT_HOT_LOADER__.apply(_this5, arguments);
+			}, _this.handleClick = function () {
+				var _this6;
+
+				return (_this6 = _this).__handleClick__REACT_HOT_LOADER__.apply(_this6, arguments);
+			}, _this.handleConfigurations = function () {
+				var _this7;
+
+				return (_this7 = _this).__handleConfigurations__REACT_HOT_LOADER__.apply(_this7, arguments);
+			}, _temp), _possibleConstructorReturn(_this, _ret);
 		}
 
 		_createClass(Dependency, [{
+			key: '__handleSubmit__REACT_HOT_LOADER__',
+			value: function __handleSubmit__REACT_HOT_LOADER__(e) {
+
+				configuration[this.state.text] = this.state.text2;
+				e.preventDefault();
+				console.log("allow");
+
+				this.setState({ id: this.state.id + 1 });
+
+				var nextItems = this.state.items.concat([{ text: this.state.text,
+					text2: this.state.text2, id: this.state.id }]);
+				var nextText = '';
+				this.setState({ items: nextItems, text: nextText, text2: nextText });
+			}
+		}, {
+			key: '__onChange__REACT_HOT_LOADER__',
+			value: function __onChange__REACT_HOT_LOADER__(e) {
+				this.setState({ text: e.target.value });
+			}
+		}, {
+			key: '__onChange1__REACT_HOT_LOADER__',
+			value: function __onChange1__REACT_HOT_LOADER__(e) {
+				this.setState({ text2: e.target.value });
+				console.log("change" + this.state.text2);
+			}
+		}, {
+			key: '__Delete__REACT_HOT_LOADER__',
+			value: function __Delete__REACT_HOT_LOADER__(id) {
+				console.log("delete" + id);
+				this.state.items.splice(id, 1);
+				this.setState({ items: this.state.items });
+				console.log(this.state.items);
+			}
+		}, {
 			key: '__handleClick__REACT_HOT_LOADER__',
 			value: function __handleClick__REACT_HOT_LOADER__() {
 				this.setState({ open: true });
@@ -70786,6 +70928,7 @@
 			key: '__handleConfigurations__REACT_HOT_LOADER__',
 			value: function __handleConfigurations__REACT_HOT_LOADER__() {
 				this.setState({ open: false });
+				this.props.data(configuration);
 			}
 		}, {
 			key: 'render',
@@ -70811,7 +70954,20 @@
 						_react2.default.createElement(
 							'div',
 							null,
-							_react2.default.createElement(_Configurations2.default, null)
+							_react2.default.createElement(
+								'h3',
+								null,
+								'Configurations'
+							),
+							_react2.default.createElement(_List2.default, { items: this.state.items,
+								itemDelete: this.Delete }),
+							_react2.default.createElement(
+								'form',
+								null,
+								_react2.default.createElement(_TextField2.default, { required: true, hintText: 'Key', key: 'one', onChange: this.onChange, value: this.state.text }),
+								_react2.default.createElement(_TextField2.default, { required: true, hintText: 'Value', key: 'two', onChange: this.onChange1, style: { paddingLeft: "10px" }, value: this.state.text2 }),
+								_react2.default.createElement(_FlatButton2.default, { type: 'submit', onClick: this.handleSubmit, label: 'Add', primary: true })
+							)
 						)
 					)
 				);
@@ -70821,6 +70977,7 @@
 		return Dependency;
 	}(_react2.default.Component);
 
+	;
 	var _default = Dependency;
 	exports.default = _default;
 
@@ -70859,10 +71016,12 @@
 
 	;
 
-	var _temp = function () {
+	var _temp2 = function () {
 		if (typeof __REACT_HOT_LOADER__ === 'undefined') {
 			return;
 		}
+
+		__REACT_HOT_LOADER__.register(configuration, 'configuration', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/Dependencies.jsx');
 
 		__REACT_HOT_LOADER__.register(Dependency, 'Dependency', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/Dependencies.jsx');
 
@@ -70922,99 +71081,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _FlatButton = __webpack_require__(505);
-
-	var _FlatButton2 = _interopRequireDefault(_FlatButton);
-
-	var _TextField = __webpack_require__(566);
-
-	var _TextField2 = _interopRequireDefault(_TextField);
-
-	var _List = __webpack_require__(670);
-
-	var _List2 = _interopRequireDefault(_List);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Configurations = _react2.default.createClass({
-	  displayName: 'Configurations',
-
-	  getInitialState: function getInitialState() {
-	    return { items: [], text: '', text2: '', id: 0 };
-	  },
-	  onChange: function onChange(e) {
-	    this.setState({ text: e.target.value });
-	  },
-	  onChange1: function onChange1(e) {
-	    this.setState({ text2: e.target.value });
-	    console.log("change" + this.state.text2);
-	  },
-	  Delete: function Delete(id) {
-	    console.log("delete" + id);
-	    this.state.items.splice(id, 1);
-	    this.setState({ items: this.state.items });
-	    console.log(this.state.items);
-	  },
-	  handleSubmit: function handleSubmit(e) {
-	    e.preventDefault();
-	    console.log("allow");
-	    console.log(this.state.text2);
-	    this.setState({ id: this.state.id + 1 });
-
-	    var nextItems = this.state.items.concat([{ text: this.state.text,
-	      text2: this.state.text2, id: this.state.id }]);
-	    var nextText = '';
-	    this.setState({ items: nextItems, text: nextText, text2: nextText });
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'h3',
-	        null,
-	        'Configurations'
-	      ),
-	      _react2.default.createElement(_List2.default, { items: this.state.items,
-	        itemDelete: this.Delete }),
-	      _react2.default.createElement(
-	        'form',
-	        null,
-	        _react2.default.createElement(_TextField2.default, { hintText: 'Key', key: 'one', onChange: this.onChange, value: this.state.text }),
-	        _react2.default.createElement(_TextField2.default, { hintText: 'Value', key: 'two', onChange: this.onChange1, style: { paddingLeft: "10px" }, value: this.state.text2 }),
-	        _react2.default.createElement(_FlatButton2.default, { onClick: this.handleSubmit, label: 'Add', primary: true })
-	      )
-	    );
-	  }
-	});
-	module.exports = Configurations;
-	;
-
-	var _temp = function () {
-	  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	    return;
-	  }
-
-	  __REACT_HOT_LOADER__.register(Configurations, 'Configurations', 'D:/master/assignments/app-fabric-language/microservices/http-server/public/components/DeployBot/Configurations.jsx');
-	}();
-
-	;
-
-/***/ },
-/* 670 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(35);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _Row = __webpack_require__(671);
+	var _Row = __webpack_require__(670);
 
 	var _Row2 = _interopRequireDefault(_Row);
 
@@ -71053,7 +71120,7 @@
 	;
 
 /***/ },
-/* 671 */
+/* 670 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71110,7 +71177,7 @@
 	;
 
 /***/ },
-/* 672 */
+/* 671 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71147,7 +71214,7 @@
 	exports.default = ActionDone;
 
 /***/ },
-/* 673 */
+/* 672 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71157,11 +71224,11 @@
 	});
 	exports.default = exports.Tabs = exports.Tab = undefined;
 
-	var _Tab2 = __webpack_require__(674);
+	var _Tab2 = __webpack_require__(673);
 
 	var _Tab3 = _interopRequireDefault(_Tab2);
 
-	var _Tabs2 = __webpack_require__(675);
+	var _Tabs2 = __webpack_require__(674);
 
 	var _Tabs3 = _interopRequireDefault(_Tabs2);
 
@@ -71172,7 +71239,7 @@
 	exports.default = _Tabs3.default;
 
 /***/ },
-/* 674 */
+/* 673 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -71384,7 +71451,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 675 */
+/* 674 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -71433,11 +71500,11 @@
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _TabTemplate = __webpack_require__(676);
+	var _TabTemplate = __webpack_require__(675);
 
 	var _TabTemplate2 = _interopRequireDefault(_TabTemplate);
 
-	var _InkBar = __webpack_require__(677);
+	var _InkBar = __webpack_require__(676);
 
 	var _InkBar2 = _interopRequireDefault(_InkBar);
 
@@ -71700,7 +71767,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 676 */
+/* 675 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -71775,7 +71842,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 677 */
+/* 676 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -71875,27 +71942,27 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 678 */
+/* 677 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports.Link = __webpack_require__(679);
-	exports.Button = __webpack_require__(689);
-	exports.Element = __webpack_require__(690);
-	exports.Helpers = __webpack_require__(680);
-	exports.scroller = __webpack_require__(688);
-	exports.Events = __webpack_require__(686);
-	exports.scrollSpy = __webpack_require__(687);
-	exports.animateScroll = __webpack_require__(681);
+	exports.Link = __webpack_require__(678);
+	exports.Button = __webpack_require__(688);
+	exports.Element = __webpack_require__(689);
+	exports.Helpers = __webpack_require__(679);
+	exports.scroller = __webpack_require__(687);
+	exports.Events = __webpack_require__(685);
+	exports.scrollSpy = __webpack_require__(686);
+	exports.animateScroll = __webpack_require__(680);
 
 
 /***/ },
-/* 679 */
+/* 678 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(2);
-	var Helpers = __webpack_require__(680);
+	var Helpers = __webpack_require__(679);
 
 	var Link = React.createClass({
 	  render: function () {
@@ -71907,7 +71974,7 @@
 
 
 /***/ },
-/* 680 */
+/* 679 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -71915,10 +71982,10 @@
 	var React = __webpack_require__(2);
 	var ReactDOM = __webpack_require__(35);
 
-	var animateScroll = __webpack_require__(681);
-	var scrollSpy = __webpack_require__(687);
-	var defaultScroller = __webpack_require__(688);
-	var assign = __webpack_require__(682);
+	var animateScroll = __webpack_require__(680);
+	var scrollSpy = __webpack_require__(686);
+	var defaultScroller = __webpack_require__(687);
+	var assign = __webpack_require__(681);
 
 
 	var protoTypes = {
@@ -72138,18 +72205,18 @@
 
 
 /***/ },
-/* 681 */
+/* 680 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assign = __webpack_require__(682);
+	var assign = __webpack_require__(681);
 
-	var smooth = __webpack_require__(683);
+	var smooth = __webpack_require__(682);
 
 	var easing = smooth.defaultEasing;
 
-	var cancelEvents = __webpack_require__(684);
+	var cancelEvents = __webpack_require__(683);
 
-	var events = __webpack_require__(686);
+	var events = __webpack_require__(685);
 
 	/*
 	 * Function helper
@@ -72334,7 +72401,7 @@
 
 
 /***/ },
-/* 682 */
+/* 681 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -72423,7 +72490,7 @@
 
 
 /***/ },
-/* 683 */
+/* 682 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -72441,10 +72508,10 @@
 	}
 
 /***/ },
-/* 684 */
+/* 683 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var addPassiveEventListener = __webpack_require__(685);
+	var addPassiveEventListener = __webpack_require__(684);
 
 	var events = ['mousedown', 'mousewheel', 'touchmove', 'keydown']
 
@@ -72462,7 +72529,7 @@
 
 
 /***/ },
-/* 685 */
+/* 684 */
 /***/ function(module, exports) {
 
 	/*
@@ -72491,7 +72558,7 @@
 
 
 /***/ },
-/* 686 */
+/* 685 */
 /***/ function(module, exports) {
 
 	
@@ -72510,10 +72577,10 @@
 	module.exports = Events;
 
 /***/ },
-/* 687 */
+/* 686 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var addPassiveEventListener = __webpack_require__(685);
+	var addPassiveEventListener = __webpack_require__(684);
 
 	var eventThrottler = function(eventHandler) {
 	  var eventHandlerTimeout;
@@ -72617,13 +72684,13 @@
 
 
 /***/ },
-/* 688 */
+/* 687 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assign = __webpack_require__(682);
+	var assign = __webpack_require__(681);
 
-	var animateScroll = __webpack_require__(681);
-	var events = __webpack_require__(686);
+	var animateScroll = __webpack_require__(680);
+	var events = __webpack_require__(685);
 
 	var __mapped = {};
 	var __activeLink;
@@ -72726,13 +72793,13 @@
 
 
 /***/ },
-/* 689 */
+/* 688 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(2);
-	var Helpers = __webpack_require__(680);
+	var Helpers = __webpack_require__(679);
 
 	var Button = React.createClass({
 	  render: function () {
@@ -72744,13 +72811,13 @@
 
 
 /***/ },
-/* 690 */
+/* 689 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(2);
-	var Helpers = __webpack_require__(680);
+	var Helpers = __webpack_require__(679);
 
 	var Element = React.createClass({
 	  render: function () {
@@ -72762,7 +72829,7 @@
 
 
 /***/ },
-/* 691 */
+/* 690 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72772,31 +72839,31 @@
 	});
 	exports.default = exports.TableRowColumn = exports.TableRow = exports.TableHeaderColumn = exports.TableHeader = exports.TableFooter = exports.TableBody = exports.Table = undefined;
 
-	var _Table2 = __webpack_require__(692);
+	var _Table2 = __webpack_require__(691);
 
 	var _Table3 = _interopRequireDefault(_Table2);
 
-	var _TableBody2 = __webpack_require__(693);
+	var _TableBody2 = __webpack_require__(692);
 
 	var _TableBody3 = _interopRequireDefault(_TableBody2);
 
-	var _TableFooter2 = __webpack_require__(703);
+	var _TableFooter2 = __webpack_require__(702);
 
 	var _TableFooter3 = _interopRequireDefault(_TableFooter2);
 
-	var _TableHeader2 = __webpack_require__(704);
+	var _TableHeader2 = __webpack_require__(703);
 
 	var _TableHeader3 = _interopRequireDefault(_TableHeader2);
 
-	var _TableHeaderColumn2 = __webpack_require__(705);
+	var _TableHeaderColumn2 = __webpack_require__(704);
 
 	var _TableHeaderColumn3 = _interopRequireDefault(_TableHeaderColumn2);
 
-	var _TableRow2 = __webpack_require__(706);
+	var _TableRow2 = __webpack_require__(705);
 
 	var _TableRow3 = _interopRequireDefault(_TableRow2);
 
-	var _TableRowColumn2 = __webpack_require__(702);
+	var _TableRowColumn2 = __webpack_require__(701);
 
 	var _TableRowColumn3 = _interopRequireDefault(_TableRowColumn2);
 
@@ -72812,7 +72879,7 @@
 	exports.default = _Table3.default;
 
 /***/ },
-/* 692 */
+/* 691 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -73174,7 +73241,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 693 */
+/* 692 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -73183,7 +73250,7 @@
 	  value: true
 	});
 
-	var _getIterator2 = __webpack_require__(694);
+	var _getIterator2 = __webpack_require__(693);
 
 	var _getIterator3 = _interopRequireDefault(_getIterator2);
 
@@ -73227,11 +73294,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Checkbox = __webpack_require__(697);
+	var _Checkbox = __webpack_require__(696);
 
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
 
-	var _TableRowColumn = __webpack_require__(702);
+	var _TableRowColumn = __webpack_require__(701);
 
 	var _TableRowColumn2 = _interopRequireDefault(_TableRowColumn);
 
@@ -73705,21 +73772,21 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 694 */
+/* 693 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(695), __esModule: true };
+	module.exports = { "default": __webpack_require__(694), __esModule: true };
 
 /***/ },
-/* 695 */
+/* 694 */
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(237);
 	__webpack_require__(215);
-	module.exports = __webpack_require__(696);
+	module.exports = __webpack_require__(695);
 
 /***/ },
-/* 696 */
+/* 695 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var anObject = __webpack_require__(198)
@@ -73731,7 +73798,7 @@
 	};
 
 /***/ },
-/* 697 */
+/* 696 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73741,7 +73808,7 @@
 	});
 	exports.default = undefined;
 
-	var _Checkbox = __webpack_require__(698);
+	var _Checkbox = __webpack_require__(697);
 
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
 
@@ -73750,7 +73817,7 @@
 	exports.default = _Checkbox2.default;
 
 /***/ },
-/* 698 */
+/* 697 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -73795,7 +73862,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _EnhancedSwitch = __webpack_require__(699);
+	var _EnhancedSwitch = __webpack_require__(698);
 
 	var _EnhancedSwitch2 = _interopRequireDefault(_EnhancedSwitch);
 
@@ -73803,11 +73870,11 @@
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
-	var _checkBoxOutlineBlank = __webpack_require__(700);
+	var _checkBoxOutlineBlank = __webpack_require__(699);
 
 	var _checkBoxOutlineBlank2 = _interopRequireDefault(_checkBoxOutlineBlank);
 
-	var _checkBox = __webpack_require__(701);
+	var _checkBox = __webpack_require__(700);
 
 	var _checkBox2 = _interopRequireDefault(_checkBox);
 
@@ -74048,7 +74115,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 699 */
+/* 698 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -74505,7 +74572,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 700 */
+/* 699 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74542,7 +74609,7 @@
 	exports.default = ToggleCheckBoxOutlineBlank;
 
 /***/ },
-/* 701 */
+/* 700 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74579,7 +74646,7 @@
 	exports.default = ToggleCheckBox;
 
 /***/ },
-/* 702 */
+/* 701 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -74763,7 +74830,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 703 */
+/* 702 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -74812,7 +74879,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _TableRowColumn = __webpack_require__(702);
+	var _TableRowColumn = __webpack_require__(701);
 
 	var _TableRowColumn2 = _interopRequireDefault(_TableRowColumn);
 
@@ -74916,7 +74983,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 704 */
+/* 703 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -74953,11 +75020,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Checkbox = __webpack_require__(697);
+	var _Checkbox = __webpack_require__(696);
 
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
 
-	var _TableHeaderColumn = __webpack_require__(705);
+	var _TableHeaderColumn = __webpack_require__(704);
 
 	var _TableHeaderColumn2 = _interopRequireDefault(_TableHeaderColumn);
 
@@ -75168,7 +75235,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 705 */
+/* 704 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -75372,7 +75439,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 706 */
+/* 705 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -75652,7 +75719,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 707 */
+/* 706 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

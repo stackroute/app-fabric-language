@@ -21,7 +21,11 @@ module.exports = function(option) {
     var dockerClosed = false;
     findDocker.stdout.on('data', (data) => {
       data.toString().split('\n').forEach(function(line) {
-        response.dockerlist.push(line.trim());
+        console.log("line:",line);
+        if(!line.trim()=='')
+        {
+          response.dockerlist.push(line.trim());
+        }
       });
     });
     findDocker.on('close', function(code) {
@@ -32,8 +36,14 @@ module.exports = function(option) {
     var packageClosed = false;
     findPackage.stdout.on('data',(data) => {
       data.toString().split('\n').forEach(function(line) {
-        response.packagelist.push(line.trim());
-      });
+
+        if(line.trim()!='')
+          {         
+          var serviceName=log.readFileSync(cloneDirectoryPath+'/'+line,'utf-8');
+          serviceName=JSON.parse(serviceName);
+           response.packagelist.push(serviceName["name"]);
+          }      
+        });
     });
     findPackage.on('close', function(data) {
       packageClosed = true;
