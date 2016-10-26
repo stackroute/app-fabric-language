@@ -132,6 +132,10 @@ export default class DeployBot extends React.Component {
 
   handleRepositoryFormSubmit(e) {
     e.preventDefault();
+    if(this.state.selectedBranch == null){
+      this.setState({repositorySubmitted:false});
+    }
+   else
     this.setState({repositorySubmitted:true});
     }
 
@@ -234,22 +238,15 @@ export default class DeployBot extends React.Component {
         <Paper style={styles.paper}>
           <form noValidate onSubmit={this.handleRepositoryFormSubmit.bind(this)}>
             <div style={styles.content}>
-              <h3>Enter OR Select a github repository to deploy</h3>
-              <TextField
-                style={styles.textField}
-                floatingLabelText="Github Repository URL"
-                value={this.state.repositoryUrl}
-                onChange={this.handleRepositoryChange.bind(this)} />
-              <br />
-              <SelectField
+              <h3>Select a github repository to deploy</h3>
+              <SelectField 
                 floatingLabelText="Repositories"
                 onChange={this.handleRepository.bind(this)}
-
                 value={this.state.selectedRepository}>
                 {repositoryItem}
               </SelectField>
               <br />
-              <SelectField
+              <SelectField 
                 floatingLabelText="Branch"
                 onChange={this.handleBranchChange.bind(this)}
                 value={this.state.selectedBranch}>
