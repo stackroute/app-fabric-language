@@ -60,7 +60,8 @@ export default class DeployBot extends React.Component {
 			autoHideDuration: 5000,
 			dockerlist: [],
 			packagelist: [],
-			selectedOs: ''
+			selectedOs: '',
+			done:false
 		}
 	}
 
@@ -228,7 +229,9 @@ export default class DeployBot extends React.Component {
 		var data=finalServiceObject;
 		console.log("Data JSON" + data);
 		console.log("finalServiceObject" + this.finalServiceObject);
-		this.context.socket.emit('deploy',{repository: data});
+		console.log('SENDING:',data);
+		this.context.socket.emit('deploy',data);
+
 	}
 
 	static get contextTypes(){
@@ -259,6 +262,9 @@ export default class DeployBot extends React.Component {
 		this.context.socket.on("servicelist",function(data){
 			console.log('dockerlist List: ',data);
 			this.setState({dockerlist:data.dockerlist,packagelist:data.packagelist});
+		}.bind(this));
+		this.context.socket.on("done",function(data){
+			this.setState({done:true});
 		}.bind(this));
 	}
 
@@ -325,7 +331,6 @@ const selectPlatform = (
 	floatingLabelText="Select Platform"
 	value={this.state.selectedPlatform}>
 	<MenuItem value={1} primaryText="Docker" />
-	<MenuItem value={2} primaryText="Kubernetes" />
 	</SelectField>
 	</div>
 	<div className="end-xs">
@@ -470,8 +475,8 @@ const progressComponent = (
 	<Paper style={styles.paper}>
 	<div style={styles.content}>
 	<h3>Deployment Progress</h3>
-	<CircularProgress /> Creating Base Image <br />
-	<CircularProgress /> Deploying <br />
+	{!this.state.done ? <CircularProgress /> : <ActionDone style={{color:"#2FAF06"}}/> } Deploying <br />
+	{!this.state.done ? <CircularProgress /> : <ActionDone style={{color:"#2FAF06"}}/> } DNS Configuration <br />
 	</div>
 	</Paper>
 	</div>

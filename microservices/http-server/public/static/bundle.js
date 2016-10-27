@@ -52261,7 +52261,8 @@
 				autoHideDuration: 5000,
 				dockerlist: [],
 				packagelist: [],
-				selectedOs: ''
+				selectedOs: '',
+				done: false
 			};
 			return _this;
 		}
@@ -52458,6 +52459,11 @@
 			key: 'handleReview',
 			value: function handleReview() {
 				this.setState({ displayProgress: true });
+				var data = finalServiceObject;
+				console.log("Data JSON" + data);
+				console.log("finalServiceObject" + this.finalServiceObject);
+				console.log('SENDING:', data);
+				this.context.socket.emit('deploy', data);
 			}
 		}, {
 			key: '__handleDropdown__REACT_HOT_LOADER__',
@@ -52473,7 +52479,6 @@
 					finalServiceObject["from"] = osNames[key];
 				}
 				finalServiceObject["config"] = configuration;
-
 				console.log(JSON.stringify(finalServiceObject));
 			}
 		}, {
@@ -52483,6 +52488,9 @@
 				this.context.socket.on("servicelist", function (data) {
 					console.log('dockerlist List: ', data);
 					this.setState({ dockerlist: data.dockerlist, packagelist: data.packagelist });
+				}.bind(this));
+				this.context.socket.on("done", function (data) {
+					this.setState({ done: true });
 				}.bind(this));
 			}
 		}, {
@@ -52591,8 +52599,7 @@
 									onChange: this.handleselectPlatform.bind(this),
 									floatingLabelText: 'Select Platform',
 									value: this.state.selectedPlatform },
-								_react2.default.createElement(_MenuItem2.default, { value: 1, primaryText: 'Docker' }),
-								_react2.default.createElement(_MenuItem2.default, { value: 2, primaryText: 'Kubernetes' })
+								_react2.default.createElement(_MenuItem2.default, { value: 1, primaryText: 'Docker' })
 							)
 						),
 						_react2.default.createElement(
@@ -52843,11 +52850,11 @@
 								null,
 								'Deployment Progress'
 							),
-							_react2.default.createElement(_CircularProgress2.default, null),
-							' Creating Base Image ',
-							_react2.default.createElement('br', null),
-							_react2.default.createElement(_CircularProgress2.default, null),
+							!this.state.done ? _react2.default.createElement(_CircularProgress2.default, null) : _react2.default.createElement(_done2.default, { style: { color: "#2FAF06" } }),
 							' Deploying ',
+							_react2.default.createElement('br', null),
+							!this.state.done ? _react2.default.createElement(_CircularProgress2.default, null) : _react2.default.createElement(_done2.default, { style: { color: "#2FAF06" } }),
+							' DNS Configuration ',
 							_react2.default.createElement('br', null)
 						)
 					)
@@ -72085,13 +72092,15 @@
 	          var elemTopBound = 0;
 	          var elemBottomBound = 0;
 
-	          scrollSpy.addStateHandler((function() {
+	          this._stateHandler = function() {
 	            if(scroller.getActiveLink() != to) {
 	                this.setState({ active : false });
 	            }
-	          }).bind(this));
+	          }.bind(this)
 
-	          var spyHandler = function(y) {
+	          scrollSpy.addStateHandler(this._stateHandler);
+
+	          this._spyHandler = function(y) {
 
 	            var containerTop = 0;
 	            if(scrollSpyContainer.getBoundingClientRect) {
@@ -72132,11 +72141,11 @@
 	            }
 	          }.bind(this);
 
-	          scrollSpy.addSpyHandler(spyHandler, scrollSpyContainer);
+	          scrollSpy.addSpyHandler(this._spyHandler, scrollSpyContainer);
 	        }
 	      },
 	      componentWillUnmount: function() {
-	        scrollSpy.unmount();
+	        scrollSpy.unmount(this._stateHandler, this._spyHandler);
 	      },
 	      render: function() {
 
@@ -72167,14 +72176,23 @@
 	  Element: function(Component) {
 	    return React.createClass({
 	      propTypes: {
-	        name: React.PropTypes.string.isRequired
+	        name: React.PropTypes.string,
+	        id:   React.PropTypes.string
 	      },
 	      componentDidMount: function() {
-	        var domNode = ReactDOM.findDOMNode(this);
-	        defaultScroller.register(this.props.name, domNode);
+	        this.registerElems(this.props.name);
+	      },
+	      componentWillReceiveProps: function(nextProps) {
+	        if (this.props.name !== nextProps.name) {
+	          this.registerElems(nextProps.name);
+	        }
 	      },
 	      componentWillUnmount: function() {
 	        defaultScroller.unregister(this.props.name);
+	      },
+	      registerElems: function(name) {
+	        var domNode = ReactDOM.findDOMNode(this);
+	        defaultScroller.register(name, domNode);
 	      },
 	      render: function() {
 	        return React.createElement(Component, this.props);
@@ -72321,9 +72339,8 @@
 	    __containerElement = null;
 	    return;
 	  }
-	  if(!__containerElement) {
-		   __containerElement = document.getElementById(options.containerId);
-	  }
+
+	  __containerElement = document.getElementById(options.containerId);
 	};
 
 	var startAnimateTopScroll = function(y, options, to, target) {
@@ -72640,11 +72657,17 @@
 	    }
 	  },
 
-	  unmount: function () {
+	  unmount: function (stateHandler, spyHandler) {
 	    for (var i = 0; i < this.scrollSpyContainers.length; i++) {
-	      this.scrollSpyContainers[i].spyCallbacks = [];
+	      var callbacks = this.scrollSpyContainers[i].spyCallbacks;
+	      if(callbacks && callbacks.length) {
+	        callbacks.splice(callbacks.indexOf(spyHandler), 1);
+	      }
 	    }
-	    this.spySetState = [];
+
+	    if(this.spySetState && this.spySetState.length) {
+	      this.spySetState.splice(this.spySetState.indexOf(stateHandler), 1);
+	    }
 
 	    document.removeEventListener('scroll', this.scrollHandler);
 	  },
@@ -72735,7 +72758,6 @@
 	        scrollOffset = target.offsetTop;
 	      } else {
 	        var coordinates = target.getBoundingClientRect();
-	        var bodyRect = document.body.getBoundingClientRect();
 	        scrollOffset = coordinates.top;
 	      }
 
@@ -72749,7 +72771,9 @@
 	        if(containerId && containerElement) {
 	          containerElement.scrollTop = scrollOffset;
 	        } else {
-	          window.scrollTo(0, scrollOffset);
+	          // window.scrollTo accepts only absolute values so body rectangle needs to be subtracted
+	          var bodyRect = document.body.getBoundingClientRect();
+	          window.scrollTo(0, scrollOffset - bodyRect.top);
 	        }
 
 	        if(events.registered['end']) {

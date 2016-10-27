@@ -28,13 +28,14 @@ module.exports = function(io) {
           socket.emit('servicelist', response);
         });
 
-
         console.log("from io.js"+response.repopath);
       });
     });
 
-    socket.on('deploy', function(reponame,socket) {
-      require('./filecall')(reponame,socket);
+    socket.on('deploy', function(reponame) {
+      console.log('RECEIVED:',reponame);
+      var name= reponame.name;
+      require('./filescall')(name,socket);
     });
   });
 };
