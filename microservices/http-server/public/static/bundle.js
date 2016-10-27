@@ -52112,7 +52112,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -52200,16 +52200,19 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var styles = {
-	  paper: {
-	    width: '100%',
-	    marginBottom: '25px'
-	  },
-	  textField: {
-	    width: '100%'
-	  },
-	  content: {
-	    padding: '50px'
-	  }
+		paper: {
+			width: '100%',
+			marginBottom: '25px'
+		},
+		textField: {
+			width: '100%'
+		},
+		content: {
+			padding: '50px'
+		},
+		customWidth: {
+			width: '550px'
+		}
 	};
 
 	var finalServiceObject = {};
@@ -52223,642 +52226,658 @@
 	var docker = [];
 
 	var DeployBot = function (_React$Component) {
-	  _inherits(DeployBot, _React$Component);
+		_inherits(DeployBot, _React$Component);
 
-	  function DeployBot() {
-	    _classCallCheck(this, DeployBot);
+		function DeployBot() {
+			_classCallCheck(this, DeployBot);
 
-	    var _this = _possibleConstructorReturn(this, (DeployBot.__proto__ || Object.getPrototypeOf(DeployBot)).call(this));
+			var _this = _possibleConstructorReturn(this, (DeployBot.__proto__ || Object.getPrototypeOf(DeployBot)).call(this));
 
-	    _this.handleTextSave = function () {
-	      return _this.__handleTextSave__REACT_HOT_LOADER__.apply(_this, arguments);
-	    };
+			_this.handleTextSave = function () {
+				return _this.__handleTextSave__REACT_HOT_LOADER__.apply(_this, arguments);
+			};
 
-	    _this.handleRequestClose = function () {
-	      return _this.__handleRequestClose__REACT_HOT_LOADER__.apply(_this, arguments);
-	    };
+			_this.handleRequestClose = function () {
+				return _this.__handleRequestClose__REACT_HOT_LOADER__.apply(_this, arguments);
+			};
 
-	    _this.handleDropdown = function () {
-	      return _this.__handleDropdown__REACT_HOT_LOADER__.apply(_this, arguments);
-	    };
+			_this.handleDropdown = function () {
+				return _this.__handleDropdown__REACT_HOT_LOADER__.apply(_this, arguments);
+			};
 
-	    _this.handleConfiguration = function () {
-	      return _this.__handleConfiguration__REACT_HOT_LOADER__.apply(_this, arguments);
-	    };
+			_this.handleConfiguration = function () {
+				return _this.__handleConfiguration__REACT_HOT_LOADER__.apply(_this, arguments);
+			};
 
-	    _this.state = {
-	      repositoryUrl: "",
-	      repositories: [],
-	      repositoryBranches: [],
-	      selectedBranch: null,
-	      selectedRepository: null,
-	      selectedPlatform: null,
-	      repositorySubmitted: false,
-	      open: false,
-	      autoHideDuration: 5000,
-	      dockerlist: [],
-	      packagelist: [],
-	      selectedOs: ''
-	    };
-	    return _this;
-	  }
+			_this.state = {
+				repositoryUrl: "",
+				repositories: [],
+				repositoryBranches: [],
+				selectedBranch: null,
+				selectedRepository: null,
+				selectedPlatform: null,
+				repositorySubmitted: false,
+				open: false,
+				autoHideDuration: 5000,
+				dockerlist: [],
+				packagelist: [],
+				selectedOs: ''
+			};
+			return _this;
+		}
 
-	  _createClass(DeployBot, [{
-	    key: '__handleTextSave__REACT_HOT_LOADER__',
-	    value: function __handleTextSave__REACT_HOT_LOADER__() {}
-	  }, {
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      _jquery2.default.ajax({
-	        url: "/api/v1/github/repos",
-	        dataType: 'json',
-	        cache: false,
-	        success: function (data) {
-	          console.log('data', data);
-	          this.setState({ repositories: data });
-	        }.bind(this),
-	        error: function (data, status) {
-	          this.setState({ repositories: [], selectedRepository: null });
-	        }.bind(this)
-	      });
-	    }
-	  }, {
-	    key: 'handleRepositoryChange',
-	    value: function handleRepositoryChange(e) {
-	      if (timeout) {
-	        clearTimeout(timeout);
-	      }
-	      var newRepositoryValue = e.target.value;
-	      this.setState({ repositoryUrl: newRepositoryValue });
-	      timeout = setTimeout(this.fetchRepository.bind(this, newRepositoryValue), 100);
-	      timeout = setTimeout(this.fetchRepositoryBranches.bind(this, newRepositoryValue), 500);
-	    }
-	  }, {
-	    key: 'fetchRepositoryBranches',
-	    value: function fetchRepositoryBranches(repositoryUrl) {
-	      var _this2 = this;
+		_createClass(DeployBot, [{
+			key: '__handleTextSave__REACT_HOT_LOADER__',
+			value: function __handleTextSave__REACT_HOT_LOADER__() {}
+		}, {
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				_jquery2.default.ajax({
+					url: "/api/v1/github/repos",
+					dataType: 'json',
+					cache: false,
+					success: function (data) {
+						console.log('data', data);
+						this.setState({ repositories: data });
+					}.bind(this),
+					error: function (data, status) {
+						this.setState({ repositories: [], selectedRepository: null });
+					}.bind(this)
+				});
+			}
+		}, {
+			key: 'handleRepositoryChange',
+			value: function handleRepositoryChange(e) {
+				if (timeout) {
+					clearTimeout(timeout);
+				}
+				var newRepositoryValue = e.target.value;
+				this.setState({ repositoryUrl: newRepositoryValue });
+				timeout = setTimeout(this.fetchRepository.bind(this, newRepositoryValue), 100);
+				timeout = setTimeout(this.fetchRepositoryBranches.bind(this, newRepositoryValue), 500);
+			}
+		}, {
+			key: 'fetchRepositoryBranches',
+			value: function fetchRepositoryBranches(repositoryUrl) {
+				var _this2 = this;
 
-	      var repositoryId = repositoryUrl.split('github.com/')[1].replace('.git', '');
-	      _jquery2.default.ajax({
-	        url: 'https://api.github.com/repos/' + repositoryId + '/branches',
-	        success: function success(data, status) {
-	          _this2.setState({ repositoryBranches: data });
-	        },
-	        error: function error(data, status) {
-	          _this2.setState({ repositoryBranches: [], selectedBranch: null });
-	        }
-	      });
-	    }
-	  }, {
-	    key: 'handleRepository',
-	    value: function handleRepository(e, i, v) {
-	      var _this3 = this;
+				var repositoryId = repositoryUrl.split('github.com/')[1].replace('.git', '');
+				_jquery2.default.ajax({
+					url: 'https://api.github.com/repos/' + repositoryId + '/branches',
+					success: function success(data, status) {
+						_this2.setState({ repositoryBranches: data });
+					},
+					error: function error(data, status) {
+						_this2.setState({ repositoryBranches: [], selectedBranch: null });
+					}
+				});
+			}
+		}, {
+			key: 'handleRepository',
+			value: function handleRepository(e, i, v) {
+				var _this3 = this;
 
-	      this.setState({ selectedRepository: v });
-	      _jquery2.default.ajax({
-	        url: 'api/v1/github/repo/' + v + '/branches',
-	        success: function success(data, status) {
-	          _this3.setState({ repositoryBranches: data });
-	        },
-	        error: function error(data, status) {
-	          _this3.setState({ repositoryBranches: [], selectedBranch: null });
-	        }
-	      });
-	    }
-	  }, {
-	    key: 'fetchRepository',
-	    value: function fetchRepository(repositoryUrl) {
-	      var _this4 = this;
+				this.setState({ selectedRepository: v });
+				_jquery2.default.ajax({
+					url: 'api/v1/github/repo/' + v + '/branches',
+					success: function success(data, status) {
+						_this3.setState({ repositoryBranches: data });
+					},
+					error: function error(data, status) {
+						_this3.setState({ repositoryBranches: [], selectedBranch: null });
+					}
+				});
+			}
+		}, {
+			key: 'fetchRepository',
+			value: function fetchRepository(repositoryUrl) {
+				var _this4 = this;
 
-	      var rep = repositoryUrl.split('github.com/')[1].replace('.git', '');
-	      _jquery2.default.ajax({
-	        url: 'https://api.github.com/users/' + rep + '/repos',
-	        success: function success(data, status) {
-	          _this4.setState({ repositories: data });
-	        },
-	        error: function error(data, status) {
-	          _this4.setState({ repositories: [], selectedRepository: null });
-	        }
-	      });
-	    }
-	  }, {
-	    key: 'handleBranchChange',
-	    value: function handleBranchChange(e, i, v) {
-	      this.setState({ selectedBranch: v });
-	    }
-	  }, {
-	    key: 'handleselectPlatform',
-	    value: function handleselectPlatform(e, i, v) {
-	      this.setState({ selectedPlatform: v });
-	    }
-	  }, {
-	    key: 'handlestartCloning',
-	    value: function handlestartCloning(e, i, v) {
-	      this.setState({ startCloning: v });
-	    }
-	  }, {
-	    key: '__handleRequestClose__REACT_HOT_LOADER__',
-	    value: function __handleRequestClose__REACT_HOT_LOADER__() {
-	      this.setState({
-	        open: false
-	      });
-	    }
-	  }, {
-	    key: 'handleRepositoryFormSubmit',
-	    value: function handleRepositoryFormSubmit(e) {
-	      e.preventDefault();
-	      this.setState({ repositorySubmitted: true });
-	    }
-	  }, {
-	    key: 'handleCreateBaseImage',
-	    value: function handleCreateBaseImage(createBaseImage) {
-	      this.setState({ createBaseImage: createBaseImage, displayServices: true });
-	    }
-	  }, {
-	    key: 'handleDisplayPlatform',
-	    value: function handleDisplayPlatform() {
-	      console.log(this.state.selectedBranch);
-	      this.context.socket.emit('clone', { repository: this.state.selectedRepository, branch: this.state.selectedBranch });
-	      this.setState({ displayPlatform: true });
-	    }
-	  }, {
-	    key: 'handleCheckbox',
-	    value: function handleCheckbox(event) {
-	      console.log("clicked");
-	      console.log("Value : " + event);
-	      // console.log(checkedArray);
-	    }
-	  }, {
-	    key: 'handleDisplayImages',
-	    value: function handleDisplayImages(e) {
-	      this.setState({ displayBaseImages: true });
-	    }
-	  }, {
-	    key: 'handleBaseImage',
-	    value: function handleBaseImage(e, i, v) {
-	      this.setState({ selectedBaseImage: v });
-	    }
-	  }, {
-	    key: 'handleDisplayServices',
-	    value: function handleDisplayServices() {
-	      this.setState({ displayConfigServices: true });
-	      scroll.scrollToTop();
-	    }
-	  }, {
-	    key: 'handleDisplayConfigureService',
-	    value: function handleDisplayConfigureService() {
-	      this.setState({ displayWebhook: true });
-	    }
-	  }, {
-	    key: 'handleWebhook',
-	    value: function handleWebhook() {
-	      console.log("```````````status```````````````");
+				var rep = repositoryUrl.split('github.com/')[1].replace('.git', '');
+				_jquery2.default.ajax({
+					url: 'https://api.github.com/users/' + rep + '/repos',
+					success: function success(data, status) {
+						_this4.setState({ repositories: data });
+					},
+					error: function error(data, status) {
+						_this4.setState({ repositories: [], selectedRepository: null });
+					}
+				});
+			}
+		}, {
+			key: 'handleBranchChange',
+			value: function handleBranchChange(e, i, v) {
+				this.setState({ selectedBranch: v });
+			}
+		}, {
+			key: 'handleselectPlatform',
+			value: function handleselectPlatform(e, i, v) {
+				this.setState({ selectedPlatform: v });
+			}
+		}, {
+			key: 'handlestartCloning',
+			value: function handlestartCloning(e, i, v) {
+				this.setState({ startCloning: v });
+			}
+		}, {
+			key: '__handleRequestClose__REACT_HOT_LOADER__',
+			value: function __handleRequestClose__REACT_HOT_LOADER__() {
+				this.setState({
+					open: false
+				});
+			}
+		}, {
+			key: 'handleRepositoryFormSubmit',
+			value: function handleRepositoryFormSubmit(e) {
+				e.preventDefault();
+				if (this.state.selectedBranch == null) {
+					this.setState({ repositorySubmitted: false });
+				} else {
+					this.setState({ repositorySubmitted: true });
+				}
+			}
+		}, {
+			key: 'handleCreateBaseImage',
+			value: function handleCreateBaseImage(createBaseImage) {
+				this.setState({ createBaseImage: createBaseImage, displayServices: true });
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				this.setState({ io: (0, _socket2.default)() });
+				this.context.socket.on("servicelist", function (data) {
+					console.log('dockerlist List: ', data);
+					this.setState({ dockerlist: data.dockerlist, packagelist: data.packagelist });
+				}.bind(this));
+			}
+		}, {
+			key: 'handleDisplayPlatform',
+			value: function handleDisplayPlatform() {
+				if (this.state.selectedPlatform == null) {
+					this.setState({ displayPlatform: false });
+				} else {
+					console.log(this.state.selectedBranch);
+					console.log(this.state.dockerlist);
+					this.context.socket.emit('clone', { repository: this.state.selectedRepository, branch: this.state.selectedBranch });
+					if (this.state.dockerlist.length < 1) {
+						this.setState({ displayPlatform: false });
+						this.setState({ displayBaseImages: true });
+					} else {
+						this.setState({ displayPlatform: true });
+					}
+				}
+			}
+		}, {
+			key: 'handleCheckbox',
+			value: function handleCheckbox(event) {
+				console.log("clicked");
+				console.log("Value : " + event);
+				// console.log(checkedArray);
+			}
+		}, {
+			key: 'handleDisplayImages',
+			value: function handleDisplayImages(e) {
+				this.setState({ displayBaseImages: true });
+			}
+		}, {
+			key: 'handleBaseImage',
+			value: function handleBaseImage(e, i, v) {
+				this.setState({ selectedBaseImage: v });
+			}
+		}, {
+			key: 'handleDisplayServices',
+			value: function handleDisplayServices() {
+				this.setState({ displayConfigServices: true });
+				scroll.scrollToTop();
+			}
+		}, {
+			key: 'handleDisplayConfigureService',
+			value: function handleDisplayConfigureService() {
+				this.setState({ displayWebhook: true });
+			}
+		}, {
+			key: 'handleWebhook',
+			value: function handleWebhook() {
+				console.log("```````````status```````````````");
+				// $.ajax({
+				// 	type: 'POST',
+				// 	url: '/api/webhook',
+				// 	data: JSON.stringify(pr),
+				// 	contentType: 'application/json',
+				// 			 // dataType : 'json',
+				// 			 success: (data, status) => {
+				// 				console.log('----------------ajax success-----------');
+				// 			},
+				// 			error:function(err){
+				// 				console.log('----------------ajax failed------------');
+				// 			}
+				// 		});
+				this.setState({ displayReview: true });
+			}
+		}, {
+			key: 'handleReview',
+			value: function handleReview() {
+				this.setState({ displayProgress: true });
+			}
+		}, {
+			key: '__handleDropdown__REACT_HOT_LOADER__',
+			value: function __handleDropdown__REACT_HOT_LOADER__(os, serviceName) {
+				osNames[serviceName] = os;
+			}
+		}, {
+			key: '__handleConfiguration__REACT_HOT_LOADER__',
+			value: function __handleConfiguration__REACT_HOT_LOADER__(configuration) {
 
-	      // pr["Username"]=a[0];
-	      // pr["Repo Name"]=a[1];
-	      // $.ajax({
-	      //   type: 'POST',
-	      //   url: '/api/webhook',
-	      //   data: JSON.stringify(pr),
-	      //   contentType: 'application/json',
-	      //        // dataType : 'json',
-	      //        success: (data, status) => {
-	      //         console.log('----------------ajax success-----------');
-	      //       },
-	      //       error:function(err){
-	      //         console.log('----------------ajax failed------------');
-	      //       }
-	      //     });
-	      this.setState({ displayReview: true });
-	    }
-	  }, {
-	    key: 'handleReview',
-	    value: function handleReview() {
-	      this.setState({ displayProgress: true });
-	    }
-	  }, {
-	    key: '__handleDropdown__REACT_HOT_LOADER__',
-	    value: function __handleDropdown__REACT_HOT_LOADER__(os, serviceName) {
-	      osNames[serviceName] = os;
-	    }
-	  }, {
-	    key: '__handleConfiguration__REACT_HOT_LOADER__',
-	    value: function __handleConfiguration__REACT_HOT_LOADER__(configuration) {
+				for (var key in osNames) {
+					finalServiceObject["name"] = key;
+					finalServiceObject["from"] = osNames[key];
+				}
+				finalServiceObject["config"] = configuration;
 
-	      for (var key in osNames) {
-	        finalServiceObject["name"] = key;
-	        finalServiceObject["from"] = osNames[key];
-	      }
-	      finalServiceObject["config"] = configuration;
+				console.log(JSON.stringify(finalServiceObject));
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				this.setState({ io: (0, _socket2.default)() });
+				this.context.socket.on("servicelist", function (data) {
+					console.log('dockerlist List: ', data);
+					this.setState({ dockerlist: data.dockerlist, packagelist: data.packagelist });
+				}.bind(this));
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this5 = this;
 
-	      console.log(finalServiceObject);
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.setState({ io: (0, _socket2.default)() });
-	      this.context.socket.on("servicelist", function (data) {
-	        console.log('dockerlist List: ', data);
-	        this.setState({ dockerlist: data.dockerlist, packagelist: data.packagelist });
-	      }.bind(this));
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this5 = this;
+				var menuItems = this.state.repositoryBranches.map(function (branchObject) {
+					return _react2.default.createElement(_MenuItem2.default, { value: branchObject, primaryText: branchObject, key: branchObject });
+				});
 
-	      var menuItems = this.state.repositoryBranches.map(function (branchObject) {
-	        return _react2.default.createElement(_MenuItem2.default, { value: branchObject, primaryText: branchObject, key: branchObject });
-	      });
+				var repositoryItem = this.state.repositories.map(function (repObject) {
+					return _react2.default.createElement(_MenuItem2.default, { value: repObject, primaryText: repObject, key: repObject });
+				});
 
-	      var repositoryItem = this.state.repositories.map(function (repObject) {
-	        return _react2.default.createElement(_MenuItem2.default, { value: repObject, primaryText: repObject, key: repObject });
-	      });
+				var listLocation = this.state.dockerlist.map(function (locObject) {
+					return _react2.default.createElement(_List.ListItem, { primaryText: locObject, leftCheckbox: _react2.default.createElement(_Checkbox2.default, { onClick: _this5.handleCheckbox(locObject) }) });
+				});
 
-	      var listLocation = this.state.dockerlist.map(function (locObject) {
-	        return _react2.default.createElement(_List.ListItem, { primaryText: locObject, leftCheckbox: _react2.default.createElement(_Checkbox2.default, { onClick: _this5.handleCheckbox(locObject) }) });
-	      });
+				var packageList = this.state.packagelist.map(function (locObject) {
+					return _react2.default.createElement(
+						_Table.TableRow,
+						null,
+						_react2.default.createElement(
+							_Table.TableRowColumn,
+							null,
+							locObject
+						),
+						_react2.default.createElement(
+							_Table.TableRowColumn,
+							null,
+							_react2.default.createElement(_Dialog2.default, { service: locObject, data: _this5.handleDropdown })
+						),
+						_react2.default.createElement(
+							_Table.TableRowColumn,
+							null,
+							_react2.default.createElement(_Dependencies2.default, { data: _this5.handleConfiguration })
+						)
+					);
+				});
 
-	      var packageList = this.state.packagelist.map(function (locObject) {
-	        return _react2.default.createElement(
-	          _Table.TableRow,
-	          null,
-	          _react2.default.createElement(
-	            _Table.TableRowColumn,
-	            null,
-	            locObject
-	          ),
-	          _react2.default.createElement(
-	            _Table.TableRowColumn,
-	            null,
-	            _react2.default.createElement(_Dialog2.default, { service: locObject, data: _this5.handleDropdown })
-	          ),
-	          _react2.default.createElement(
-	            _Table.TableRowColumn,
-	            null,
-	            _react2.default.createElement(_Dependencies2.default, { data: _this5.handleConfiguration })
-	          )
-	        );
-	      });
+				// primaryText={locObject} key={locObject}
+				var selectRepositoryComponent = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'form',
+							{ noValidate: true, onSubmit: this.handleRepositoryFormSubmit.bind(this) },
+							_react2.default.createElement(
+								'div',
+								{ style: styles.content },
+								_react2.default.createElement(
+									'h3',
+									null,
+									'Select a github repository to deploy'
+								),
+								_react2.default.createElement(
+									_SelectField2.default,
+									{
+										floatingLabelText: 'Repositories',
+										onChange: this.handleRepository.bind(this),
+										style: styles.customWidth,
+										value: this.state.selectedRepository },
+									repositoryItem
+								),
+								_react2.default.createElement('br', null),
+								_react2.default.createElement(
+									_SelectField2.default,
+									{
+										floatingLabelText: 'Branch',
+										onChange: this.handleBranchChange.bind(this),
+										style: styles.customWidth,
+										value: this.state.selectedBranch },
+									menuItems
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'end-xs' },
+								_react2.default.createElement(_FlatButton2.default, { type: 'submit', primary: true, label: 'Next' })
+							)
+						)
+					)
+				);
 
-	      // primaryText={locObject} key={locObject}
+				var selectPlatform = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'div',
+							{ style: styles.content },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'Select on which Platform you want to Deploy.'
+							),
+							_react2.default.createElement(
+								_SelectField2.default,
+								{
+									onChange: this.handleselectPlatform.bind(this),
+									floatingLabelText: 'Select Platform',
+									value: this.state.selectedPlatform },
+								_react2.default.createElement(_MenuItem2.default, { value: 1, primaryText: 'Docker' }),
+								_react2.default.createElement(_MenuItem2.default, { value: 2, primaryText: 'Kubernetes' })
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'end-xs' },
+							_react2.default.createElement(_FlatButton2.default, { primary: true, label: 'Next', onTouchTap: this.handleDisplayPlatform.bind(this, true) })
+						)
+					)
+				);
 
-	      var selectRepositoryComponent = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'form',
-	            { noValidate: true, onSubmit: this.handleRepositoryFormSubmit.bind(this) },
-	            _react2.default.createElement(
-	              'div',
-	              { style: styles.content },
-	              _react2.default.createElement(
-	                'h3',
-	                null,
-	                'Enter OR Select a github repository to deploy'
-	              ),
-	              _react2.default.createElement(_TextField2.default, {
-	                style: styles.textField,
-	                floatingLabelText: 'Github Repository URL',
-	                value: this.state.repositoryUrl,
-	                onChange: this.handleRepositoryChange.bind(this) }),
-	              _react2.default.createElement('br', null),
-	              _react2.default.createElement(
-	                _SelectField2.default,
-	                {
-	                  floatingLabelText: 'Repositories',
-	                  onChange: this.handleRepository.bind(this),
+				var startCloning = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'div',
+							{ style: styles.content },
+							_react2.default.createElement(_CircularProgress2.default, { size: 70, thickness: 7 }),
+							'Cloning is in progress'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'end-xs' },
+							_react2.default.createElement(_FlatButton2.default, { primary: true, label: 'Next', onTouchTap: this.handlestartCloning.bind(this, true) })
+						)
+					)
+				);
 
-	                  value: this.state.selectedRepository },
-	                repositoryItem
-	              ),
-	              _react2.default.createElement('br', null),
-	              _react2.default.createElement(
-	                _SelectField2.default,
-	                {
-	                  floatingLabelText: 'Branch',
-	                  onChange: this.handleBranchChange.bind(this),
-	                  value: this.state.selectedBranch },
-	                menuItems
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'end-xs' },
-	              _react2.default.createElement(_FlatButton2.default, { type: 'submit', primary: true, label: 'Next' })
-	            )
-	          )
-	        )
-	      );
+				var createBaseImageComponent = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'div',
+							{ style: styles.content },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'While we clone your repository, tell us if you would like to build a base image.'
+							),
+							_react2.default.createElement(_FlatButton2.default, { label: 'Yes', primary: true, onTouchTap: this.handleCreateBaseImage.bind(this, true) }),
+							_react2.default.createElement(_FlatButton2.default, { label: 'No', primary: true, onTouchTap: this.handleCreateBaseImage.bind(this, false) })
+						)
+					)
+				);
 
-	      var selectPlatform = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'div',
-	            { style: styles.content },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'Select on which Platform you want to Deploy.'
-	            ),
-	            _react2.default.createElement(
-	              _SelectField2.default,
-	              {
-	                onChange: this.handleselectPlatform.bind(this),
-	                floatingLabelText: 'Select Platform',
-	                value: this.state.selectedPlatform },
-	              _react2.default.createElement(_MenuItem2.default, { value: 1, primaryText: 'Docker' }),
-	              _react2.default.createElement(_MenuItem2.default, { value: 2, primaryText: 'Kubernetes' })
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'end-xs' },
-	            _react2.default.createElement(_FlatButton2.default, { primary: true, label: 'Next', onTouchTap: this.handleDisplayPlatform.bind(this, true) })
-	          )
-	        )
-	      );
+				var scannedServices = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'div',
+							{ style: styles.content },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'Select Custom Base Image'
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								'In case you don\'t know what this is, click next to continue.'
+							),
+							_react2.default.createElement(
+								'div',
+								{ id: 'checks' },
+								_react2.default.createElement(
+									_List.List,
+									{ style: { height: '400px', overflow: 'auto' } },
+									listLocation
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'end-xs' },
+								_react2.default.createElement(_FlatButton2.default, { label: 'Next', primary: true, onTouchTap: this.handleDisplayImages.bind(this, false) })
+							)
+						)
+					)
+				);
 
-	      var startCloning = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'div',
-	            { style: styles.content },
-	            _react2.default.createElement(_CircularProgress2.default, { size: 70, thickness: 7 }),
-	            'Cloning is in progress'
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'end-xs' },
-	            _react2.default.createElement(_FlatButton2.default, { primary: true, label: 'Next', onTouchTap: this.handlestartCloning.bind(this, true) })
-	          )
-	        )
-	      );
+				var seviceComponent = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'div',
+							{ style: styles.content },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'Checking for availability of Docker File '
+							),
+							_react2.default.createElement(
+								_Table.Table,
+								{ className: 'table-bordered' },
+								_react2.default.createElement(
+									_Table.TableHeader,
+									{ style: { paddingTop: "20px" }, adjustForCheckbox: false, displaySelectAll: false },
+									_react2.default.createElement(
+										_Table.TableRow,
+										null,
+										_react2.default.createElement(
+											_Table.TableHeaderColumn,
+											null,
+											'Service'
+										),
+										_react2.default.createElement(
+											_Table.TableHeaderColumn,
+											null,
+											'Select OS'
+										),
+										_react2.default.createElement(
+											_Table.TableHeaderColumn,
+											null,
+											'Configurations'
+										)
+									)
+								),
+								_react2.default.createElement(
+									_Table.TableBody,
+									{ displayRowCheckbox: false, style: { textAlign: "center" } },
+									packageList
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'end-xs' },
+							_react2.default.createElement(_FlatButton2.default, { label: 'Next', primary: true, onTouchTap: this.handleDisplayServices.bind(this, false) })
+						)
+					)
+				);
 
-	      var createBaseImageComponent = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'div',
-	            { style: styles.content },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'While we clone your repository, tell us if you would like to build a base image.'
-	            ),
-	            _react2.default.createElement(_FlatButton2.default, { label: 'Yes', primary: true, onTouchTap: this.handleCreateBaseImage.bind(this, true) }),
-	            _react2.default.createElement(_FlatButton2.default, { label: 'No', primary: true, onTouchTap: this.handleCreateBaseImage.bind(this, false) })
-	          )
-	        )
-	      );
+				/*const configServiceComponent = (
+	   	<div >
+	   	<Paper style={styles.paper}>
+	   	<div style={styles.content}>
+	   	<h3>Need some dependencies & configurations for your services</h3>
+	   	<Table className="table-bordered">
+	   	<TableHeader style={{paddingTop:"20px"}} adjustForCheckbox={false} displaySelectAll={false}>
+	   	<TableRow>
+	   	<TableHeaderColumn>Available Services</TableHeaderColumn>
+	   	</TableRow>
+	   	</TableHeader>
+	   	<TableBody displayRowCheckbox={false}>
+	   	</TableBody>
+	   	</Table>
+	   	</div>
+	   	<div className="end-xs">
+	   	<FlatButton label="Next" primary={true} onTouchTap={this.handleDisplayConfigureService.bind(this,false)} />
+	   	</div>
+	   	</Paper>
+	   
+	   	</div>
+	   	);
+	   */
+				var webhooksComponent = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'div',
+							{ style: styles.content },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'We will configure here Web-hooks repository for you'
+							),
+							_react2.default.createElement(_FlatButton2.default, { label: 'OK', primary: true, onTouchTap: this.handleWebhook.bind(this) }),
+							_react2.default.createElement(_FlatButton2.default, { label: 'Cancel', primary: true, onTouchTap: this.handleWebhook.bind(this, false) })
+						)
+					)
+				);
 
-	      var scannedServices = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'div',
-	            { style: styles.content },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'Select Custom Base Image'
-	            ),
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              'In case you don\'t know what this is, click next to continue.'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { id: 'checks' },
-	              _react2.default.createElement(
-	                _List.List,
-	                { style: { height: '150px', overflow: 'auto' } },
-	                listLocation
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'end-xs' },
-	              _react2.default.createElement(_FlatButton2.default, { label: 'Next', primary: true, onTouchTap: this.handleDisplayImages.bind(this, false) })
-	            )
-	          )
-	        )
-	      );
+				var reviewConfiguration = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'div',
+							{ style: styles.content },
+							_react2.default.createElement(
+								'ul',
+								{ style: { listStyleType: "none" } },
+								_react2.default.createElement(
+									'h3',
+									null,
+									'Before we start deploying: '
+								),
+								_react2.default.createElement(
+									'li',
+									null,
+									'Domain Name: ',
+									_react2.default.createElement(_TextField2.default, { hintText: 'Enter the Domain name', style: { marginLeft: "20px" } })
+								),
+								_react2.default.createElement(
+									'li',
+									null,
+									'App Name: ',
+									_react2.default.createElement(_TextField2.default, { hintText: 'Enter the App name', style: { marginLeft: "20px" } })
+								),
+								_react2.default.createElement(
+									'li',
+									null,
+									' Branch: ',
+									this.state.selectedBranch
+								),
+								_react2.default.createElement(
+									'li',
+									{ style: { marginTop: "20px" } },
+									' Repository: ',
+									this.state.selectedRepository
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'end-xs' },
+							_react2.default.createElement(_FlatButton2.default, { label: 'next', primary: true, onTouchTap: this.handleReview.bind(this, false) })
+						)
+					)
+				);
 
-	      var seviceComponent = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'div',
-	            { style: styles.content },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'Checking for availability of Docker File '
-	            ),
-	            _react2.default.createElement(
-	              _Table.Table,
-	              { className: 'table-bordered' },
-	              _react2.default.createElement(
-	                _Table.TableHeader,
-	                { style: { paddingTop: "20px" }, adjustForCheckbox: false, displaySelectAll: false },
-	                _react2.default.createElement(
-	                  _Table.TableRow,
-	                  null,
-	                  _react2.default.createElement(
-	                    _Table.TableHeaderColumn,
-	                    null,
-	                    'Service'
-	                  ),
-	                  _react2.default.createElement(
-	                    _Table.TableHeaderColumn,
-	                    null,
-	                    'Select OS'
-	                  ),
-	                  _react2.default.createElement(
-	                    _Table.TableHeaderColumn,
-	                    null,
-	                    'Configurations'
-	                  )
-	                )
-	              ),
-	              _react2.default.createElement(
-	                _Table.TableBody,
-	                { displayRowCheckbox: false, style: { textAlign: "center" } },
-	                packageList
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'end-xs' },
-	            _react2.default.createElement(_FlatButton2.default, { label: 'Next', primary: true, onTouchTap: this.handleDisplayServices.bind(this, false) })
-	          )
-	        )
-	      );
+				var progressComponent = _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: styles.paper },
+						_react2.default.createElement(
+							'div',
+							{ style: styles.content },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'Deployment Progress'
+							),
+							_react2.default.createElement(_CircularProgress2.default, null),
+							' Creating Base Image ',
+							_react2.default.createElement('br', null),
+							_react2.default.createElement(_CircularProgress2.default, null),
+							' Deploying ',
+							_react2.default.createElement('br', null)
+						)
+					)
+				);
 
-	      /*const configServiceComponent = (
-	        <div >
-	        <Paper style={styles.paper}>
-	        <div style={styles.content}>
-	        <h3>Need some dependencies & configurations for your services</h3>
-	        <Table className="table-bordered">
-	        <TableHeader style={{paddingTop:"20px"}} adjustForCheckbox={false} displaySelectAll={false}>
-	        <TableRow>
-	        <TableHeaderColumn>Available Services</TableHeaderColumn>
-	        </TableRow>
-	        </TableHeader>
-	        <TableBody displayRowCheckbox={false}>
-	        </TableBody>
-	        </Table>
-	        </div>
-	        <div className="end-xs">
-	        <FlatButton label="Next" primary={true} onTouchTap={this.handleDisplayConfigureService.bind(this,false)} />
-	        </div>
-	        </Paper>
-	      
-	        </div>
-	        );
-	      */
-	      var webhooksComponent = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'div',
-	            { style: styles.content },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'We will configure here Web-hooks repository for you'
-	            ),
-	            _react2.default.createElement(_FlatButton2.default, { label: 'OK', primary: true, onTouchTap: this.handleWebhook.bind(this) }),
-	            _react2.default.createElement(_FlatButton2.default, { label: 'Cancel', primary: true, onTouchTap: this.handleWebhook.bind(this, false) })
-	          )
-	        )
-	      );
+				return _react2.default.createElement(
+					'div',
+					null,
+					this.state.displayProgress ? progressComponent : null,
+					this.state.displayReview ? reviewConfiguration : null,
+					this.state.displayWebhook ? webhooksComponent : null,
+					this.state.displayConfigServices ? webhooksComponent : null,
+					this.state.displayBaseImages ? seviceComponent : null,
+					this.state.displayPlatform ? scannedServices : null,
+					this.state.startCloning ? scannedServices : null,
+					this.state.repositorySubmitted ? selectPlatform : null,
+					selectRepositoryComponent
+				);
+			}
+		}], [{
+			key: 'contextTypes',
+			get: function get() {
+				return {
+					router: _react2.default.PropTypes.object.isRequired,
+					socket: _react2.default.PropTypes.object.isRequired
+				};
+			}
+		}]);
 
-	      var reviewConfiguration = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'div',
-	            { style: styles.content },
-	            _react2.default.createElement(
-	              'ul',
-	              { style: { listStyleType: "none" } },
-	              _react2.default.createElement(
-	                'h3',
-	                null,
-	                'Before we start deploying: '
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                'Domain Name: ',
-	                _react2.default.createElement(_TextField2.default, { hintText: 'Enter the Domain name', style: { marginLeft: "20px" } })
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                'App Name: ',
-	                _react2.default.createElement(_TextField2.default, { hintText: 'Enter the App name', style: { marginLeft: "20px" } })
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                null,
-	                ' Branch: '
-	              ),
-	              _react2.default.createElement(
-	                'li',
-	                { style: { marginTop: "20px" } },
-	                ' Repository: '
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'end-xs' },
-	            _react2.default.createElement(_FlatButton2.default, { label: 'next', primary: true, onTouchTap: this.handleReview.bind(this, false) })
-	          )
-	        )
-	      );
-
-	      var progressComponent = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _Paper2.default,
-	          { style: styles.paper },
-	          _react2.default.createElement(
-	            'div',
-	            { style: styles.content },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'Deployment Progress'
-	            ),
-	            _react2.default.createElement(_CircularProgress2.default, null),
-	            ' Creating Base Image ',
-	            _react2.default.createElement('br', null),
-	            _react2.default.createElement(_CircularProgress2.default, null),
-	            ' Deploying ',
-	            _react2.default.createElement('br', null)
-	          )
-	        )
-	      );
-
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        this.state.displayProgress ? progressComponent : null,
-	        this.state.displayReview ? reviewConfiguration : null,
-	        this.state.displayWebhook ? webhooksComponent : null,
-	        this.state.displayConfigServices ? webhooksComponent : null,
-	        this.state.displayBaseImages ? seviceComponent : null,
-	        this.state.displayPlatform ? scannedServices : null,
-	        this.state.startCloning ? scannedServices : null,
-	        this.state.repositorySubmitted ? selectPlatform : null,
-	        selectRepositoryComponent
-	      );
-	    }
-	  }], [{
-	    key: 'contextTypes',
-	    get: function get() {
-	      return {
-	        router: _react2.default.PropTypes.object.isRequired,
-	        socket: _react2.default.PropTypes.object.isRequired
-	      };
-	    }
-	  }]);
-
-	  return DeployBot;
+		return DeployBot;
 	}(_react2.default.Component);
 
 	var _default = DeployBot;
@@ -52866,29 +52885,29 @@
 	;
 
 	var _temp = function () {
-	  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-	    return;
-	  }
+		if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+			return;
+		}
 
-	  __REACT_HOT_LOADER__.register(styles, 'styles', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(styles, 'styles', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(finalServiceObject, 'finalServiceObject', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(finalServiceObject, 'finalServiceObject', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(finalConfigObj, 'finalConfigObj', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(finalConfigObj, 'finalConfigObj', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(osNames, 'osNames', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(osNames, 'osNames', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(timeout, 'timeout', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(timeout, 'timeout', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(timein, 'timein', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(timein, 'timein', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(scroll, 'scroll', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(scroll, 'scroll', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(docker, 'docker', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(docker, 'docker', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(DeployBot, 'DeployBot', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(DeployBot, 'DeployBot', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 
-	  __REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
+		__REACT_HOT_LOADER__.register(_default, 'default', '/home/prakhar/Workspace/stackroute-html-vagrant-master/app-fabric-language/microservices/http-server/public/components/DeployBot/index.jsx');
 	}();
 
 	;
@@ -69634,7 +69653,7 @@
 	        null,
 	        _react2.default.createElement(
 	          _DropDownMenu2.default,
-	          { autoWidth: true, value: this.state.selectedOS, onChange: this.handleChange.bind(this) },
+	          { style: { width: "150px" }, value: this.state.selectedOS, onChange: this.handleChange.bind(this) },
 	          _react2.default.createElement(
 	            _Subheader2.default,
 	            null,

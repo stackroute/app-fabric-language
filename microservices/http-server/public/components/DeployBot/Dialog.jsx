@@ -1,4 +1,3 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom'; 
 import FlatButton from 'material-ui/FlatButton';
@@ -38,7 +37,7 @@ class DialogOne extends React.Component{
 
    return(  
      <div>
-     <DropDownMenu autoWidth={true} value={this.state.selectedOS} onChange={this.handleChange.bind(this)}>
+     <DropDownMenu style={{width:"150px"}} value={this.state.selectedOS} onChange={this.handleChange.bind(this)}>
      <Subheader>Public Images</Subheader>
      <MenuItem value='Alpine'  primaryText="Alpine" />
      <MenuItem value='Debian-Jessie' primaryText="Debian Jessie" />
@@ -56,3 +55,4 @@ export default DialogOne;
 //             <Divider />
 //             <Subheader>Custom Images</Subheader>
 //                 {check}
+

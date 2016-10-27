@@ -1,0 +1,4 @@
+export GITHUB_CLIENT_ID=d69f289a387ff5c12566
+export GITHUB_CLIENT_SECRET=82ecfdfde66f09bacefb6165a4c96fc2a6a8618c
+export REPOSITORY_PATH=/tmp
+npm run start

@@ -1,8 +1,14 @@
 const seneca = require('seneca');
 const microserviceClient = seneca();
 //microserviceClient.use('mesh',{base:false,auto:false});
-microserviceClient.client({type:'tcp',host:'gitadapter',pin:'role:gitadapter,cmd:*'});
-microserviceClient.client({type:'tcp',host:'dockeradapter',pin:'role:dockeradapter,cmd:*'});
+// microserviceClient.client({type:'tcp',host:'gitadapter',pin:'role:gitadapter,cmd:*'});
+// microserviceClient.ready(function(){
+//   microserviceClient.client({type:'http',host:'dockeradapter',pin:'role:dockeradapter,cmd:*'});  
+// })
+microserviceClient.use('../gitadapter/gitadapter-plugin');
+microserviceClient.use('../dockeradapter/dockeradapter-plugin');
+
+
 
 module.exports = function(io) {
   io.on('connection', function(socket) {
