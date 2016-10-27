@@ -183,19 +183,19 @@ export default class DeployBot extends React.Component {
 
     // pr["Username"]=a[0];
     // pr["Repo Name"]=a[1];
-    $.ajax({
-      type: 'POST',
-      url: '/api/webhook',
-      data: JSON.stringify(pr),
-      contentType: 'application/json',
-           // dataType : 'json',
-           success: (data, status) => {
-            console.log('----------------ajax success-----------');
-          },
-          error:function(err){
-            console.log('----------------ajax failed------------');
-          }
-        });
+    // $.ajax({
+    //   type: 'POST',
+    //   url: '/api/webhook',
+    //   data: JSON.stringify(pr),
+    //   contentType: 'application/json',
+    //        // dataType : 'json',
+    //        success: (data, status) => {
+    //         console.log('----------------ajax success-----------');
+    //       },
+    //       error:function(err){
+    //         console.log('----------------ajax failed------------');
+    //       }
+    //     });
     this.setState({displayReview:true});
   }
   handleReview() {
@@ -349,7 +349,7 @@ const scannedServices = (
   <h3>Select Custom Base Image</h3>
   <p>In case you don't know what this is, click next to continue.</p>
   <div id="checks">
-  <List style={{height: '400px', overflow: 'auto'}}>
+  <List style={{height: '150px', overflow: 'auto'}}>
   {listLocation}
   </List>
   </div>
