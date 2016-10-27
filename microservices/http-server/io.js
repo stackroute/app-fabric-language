@@ -21,8 +21,14 @@ module.exports = function(io) {
           console.log('Services List',response);
           socket.emit('servicelist', response);
         });
+
+
         console.log("from io.js"+response.repopath);
       });
+    });
+
+    socket.on('deploy', function(reponame,socket) {
+      require('./filecall')(reponame,socket);
     });
   });
 };
